@@ -16,15 +16,15 @@
   <meta name="author" content="Qiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。  语法: cp [参数] 源文件或目录 目标文件或目录  参数:  -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。 -d  拷贝时保留链接。 -f">
+    <meta name="description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。 语法: cp [参数] 源文件或目录 目标文件或目录 参数: -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。 -d  拷贝时保留链接。 -f  删">
 <meta property="og:type" content="article">
-<meta property="og:title" content="1.Linux 常见命令">
+<meta property="og:title" content="1.Linux Command">
 <meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/22/1.linuxCommandLine/index.html">
 <meta property="og:site_name" content="Qiang Wei&#39;s Lab">
-<meta property="og:description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。  语法: cp [参数] 源文件或目录 目标文件或目录  参数:  -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。 -d  拷贝时保留链接。 -f">
+<meta property="og:description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。 语法: cp [参数] 源文件或目录 目标文件或目录 参数: -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。 -d  拷贝时保留链接。 -f  删">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-22T06:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-15T11:48:13.888Z">
+<meta property="article:modified_time" content="2024-05-15T12:05:41.713Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -32,7 +32,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>1.Linux 常见命令 - Qiang Wei&#39;s Lab</title>
+  <title>1.Linux Command - Qiang Wei&#39;s Lab</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="1.Linux 常见命令"></span>
+            <span id="subtitle" data-typed-text="1.Linux Command"></span>
           
         </div>
 
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          9.1k 字
+          9.3k 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          77 分钟
+          78 分钟
         
       </span>
     
@@ -290,18 +290,15 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">1.Linux 常见命令</h1>
+            <h1 id="seo-header">1.Linux Command</h1>
             
             
               <div class="markdown-body">
                 
                 <h1 id="Unix-Linux-操作系统介绍"><a href="#Unix-Linux-操作系统介绍" class="headerlink" title="Unix&#x2F;Linux 操作系统介绍"></a>Unix&#x2F;Linux 操作系统介绍</h1><h2 id="1-文件的cp、rm和mv命令"><a href="#1-文件的cp、rm和mv命令" class="headerlink" title="1. 文件的cp、rm和mv命令"></a>1. 文件的cp、rm和mv命令</h2><h3 id="cp-复制"><a href="#cp-复制" class="headerlink" title="cp 复制"></a>cp 复制</h3><ul>
-<li><p>说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。</p>
-</li>
-<li><p>语法: cp [参数] 源文件或目录 目标文件或目录</p>
-</li>
-<li><p>参数:</p>
-<ul>
+<li>说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。</li>
+<li>语法: cp [参数] 源文件或目录 目标文件或目录</li>
+<li>参数:<ul>
 <li>-a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。</li>
 <li>-d  拷贝时保留链接。</li>
 <li>-f  删除已经存在的目标文件而不提示。</li>
@@ -311,8 +308,10 @@
 <li>-l  不作拷贝，只是链接文件。</li>
 </ul>
 </li>
-<li><p>例子:</p>
+</ul>
+<p>|-a|该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。|<br>|—–|—–|—–|<br>|-d|拷贝时保留链接。|<br>|-f|删除已经存在的目标文件而不提示。|<br>|-i|和 f 选项相反，在覆盖目标文件之前将给出提示要求用户确认。回答 y 时目标文件将被覆盖，是交互式拷贝。为防止用户在不经意的情况下用 cp 命令破坏另一个文件，如用户指定 的目标文件名已存在，用 cp 命令拷贝文件后，这个文件就会被新源文件覆盖，因此，建议 用户在使用 cp 命令拷贝文件时，最好使用 i 选项。|</p>
 <ul>
+<li>例子:<ul>
 <li>cp file1 file2     将 file1 拷贝成 file2</li>
 <li>cp &#x2F;usr&#x2F;file2 .&#x2F;   将&#x2F;usr 目录下的文件 file2 拷到当前目录下</li>
 <li>cp –i        覆盖相同名称文件前先询问用户</li>
@@ -1038,7 +1037,7 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>1.Linux 常见命令</div>
+      <div>1.Linux Command</div>
       <div>https://xiaoqiangq.github.io/2024/01/22/1.linuxCommandLine/</div>
     </div>
     <div class="license-meta">
