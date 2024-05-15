@@ -14,7 +14,7 @@
 <meta property="og:description" content="Sam&#x2F;Bam文件格式详解 bam文件是sam文件的二进制格式。(https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;SAMv1.pdf) 1. Header section 该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等 @HD行：这一行中有各种不同的标识 标识“VN”用以说明格式版本 标识“SO”用以说明比对排序的情况，有unknown (">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2024-01-22T08:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-15T08:47:09.310Z">
+<meta property="article:modified_time" content="2024-05-15T08:52:25.262Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -106,9 +106,9 @@
 <li>标识“SO”用以说明比对排序的情况，有unknown (default)、unsorted、queryname和coordinate,对于coordinate，排序的主键是Alignments section的第三列“RNAME”，其顺序由@SQ行的“SN”标识的顺序定义，次要排序键是Alignments section的第四列“POS”字段。对于RNAME和POS相等的比对，排列顺序则是任意的</li>
 <li>@SQ行的“SN”标签是参考序列说明，它的值主要是用于Alignments section的第三列“RNAME”和第七列“MRNM”比对的记录</li>
 <li>@PG行是使用的程序说明；该行“ID”为程序记录标识符，“PN”为程序名字，“CL”为命令行</li>
-<li>@CO行是任意的说明信息</li>
+<li>@CO行是任意的说明信息<span id="more"></span>
+<strong>注意事项</strong></li>
 </ul>
-<p><strong>注意事项</strong></p>
 <ol>
 <li><strong>mapping(bwa,GATK,bismark,…)</strong></li>
 <li><strong>duplication(picard,samblaster,sambamba,…)</strong></li>
