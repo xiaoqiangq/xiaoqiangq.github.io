@@ -16,15 +16,15 @@
   <meta name="author" content="Qiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制12345678910111213141516171819- 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。- 语法: cp [参数] 源文件或目录 目标文件或目录- 参数:  - -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录">
+    <meta name="description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制12345678910111213141516171819- 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。- 语法: cp [参数] 源文件或目录 目标文件或目录- 参数:  -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1.Linux Command">
 <meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/22/1.linuxCommandLine/index.html">
 <meta property="og:site_name" content="Qiang Wei&#39;s Lab">
-<meta property="og:description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制12345678910111213141516171819- 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。- 语法: cp [参数] 源文件或目录 目标文件或目录- 参数:  - -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录">
+<meta property="og:description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制12345678910111213141516171819- 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。- 语法: cp [参数] 源文件或目录 目标文件或目录- 参数:  -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-22T06:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-15T12:23:57.524Z">
+<meta property="article:modified_time" content="2024-05-15T12:31:48.491Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -295,27 +295,10 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Unix-Linux-操作系统介绍"><a href="#Unix-Linux-操作系统介绍" class="headerlink" title="Unix&#x2F;Linux 操作系统介绍"></a>Unix&#x2F;Linux 操作系统介绍</h1><h2 id="1-文件的cp、rm和mv命令"><a href="#1-文件的cp、rm和mv命令" class="headerlink" title="1. 文件的cp、rm和mv命令"></a>1. 文件的cp、rm和mv命令</h2><h3 id="cp-复制"><a href="#cp-复制" class="headerlink" title="cp 复制"></a>cp 复制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">- 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。<br>- 语法: <span class="hljs-built_in">cp</span> [参数] 源文件或目录 目标文件或目录<br>- 参数:<br>  - -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR选项的组合。<br>  - -d  拷贝时保留链接。<br>  - -f  删除已经存在的目标文件而不提示。<br>  - -i  和f选项相反，在覆盖目标文件之前将给出提示要求用户确认。回答y时目标文件将被覆盖，是交互式拷贝。为防止用户在不经意的情况下用<span class="hljs-built_in">cp</span>命令破坏另一个文件，如用户指定的目标文件名已存在，用<span class="hljs-built_in">cp</span>命令拷贝文件后，这个文件就会被新源文件覆盖，因此，建议用户在使用<span class="hljs-built_in">cp</span>命令拷贝文件时，最好使用i选项。<br>  - -p  此时<span class="hljs-built_in">cp</span>除复制源文件的内容外，还将把其修改时间和访问权限也复制到新文件中。<br>  - -r  若给出的源文件是一目录文件，此时<span class="hljs-built_in">cp</span>将递归复制该目录下所有的子目录和文件。此时目标文件必须为一个目录名。<br>  - -l  不作拷贝，只是链接文件。<br><br>- 例子:<br>  <span class="hljs-built_in">cp</span> file1 file2    将file1拷贝成file2<br>  - <span class="hljs-built_in">cp</span> /usr/file2 ./  将/usr目录下的文件file2拷到当前目录下<br>  - <span class="hljs-built_in">cp</span> –i      覆盖相同名称文件前先询问用户<br>  - <span class="hljs-built_in">cp</span> –R      递归拷贝，即拷贝时将所有目录一并拷贝<br>  - <span class="hljs-built_in">cp</span> -p      可以保持源文件的时间属性。否则新文件为当前时间<br>  - <span class="hljs-built_in">cp</span> -rfp    所有目录，强制，时间<br>  - <span class="hljs-built_in">cp</span> --<span class="hljs-built_in">help</span>  查阅命令详细使用信息<br></code></pre></td></tr></table></figure>
+                <h1 id="Unix-Linux-操作系统介绍"><a href="#Unix-Linux-操作系统介绍" class="headerlink" title="Unix&#x2F;Linux 操作系统介绍"></a>Unix&#x2F;Linux 操作系统介绍</h1><h2 id="1-文件的cp、rm和mv命令"><a href="#1-文件的cp、rm和mv命令" class="headerlink" title="1. 文件的cp、rm和mv命令"></a>1. 文件的cp、rm和mv命令</h2><h3 id="cp-复制"><a href="#cp-复制" class="headerlink" title="cp 复制"></a>cp 复制</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">- 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。<br>- 语法: <span class="hljs-built_in">cp</span> [参数] 源文件或目录 目标文件或目录<br>- 参数:<br>  -a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR选项的组合。<br>  -d  拷贝时保留链接。<br>  -f  删除已经存在的目标文件而不提示。<br>  -i  和f选项相反，在覆盖目标文件之前将给出提示要求用户确认。回答y时目标文件将被覆盖，是交互式拷贝。为防止用户在不经意的情况下用<span class="hljs-built_in">cp</span>命令破坏另一个文件，如用户指定的目标文件名已存在，用<span class="hljs-built_in">cp</span>命令拷贝文件后，这个文件就会被新源文件覆盖，因此，建议用户在使用<span class="hljs-built_in">cp</span>命令拷贝文件时，最好使用i选项。<br>  -p  此时<span class="hljs-built_in">cp</span>除复制源文件的内容外，还将把其修改时间和访问权限也复制到新文件中。<br>  -r  若给出的源文件是一目录文件，此时<span class="hljs-built_in">cp</span>将递归复制该目录下所有的子目录和文件。此时目标文件必须为一个目录名。<br>  -l  不作拷贝，只是链接文件。<br><br>- 例子:<br>  <span class="hljs-built_in">cp</span> file1 file2    将file1拷贝成file2<br>  <span class="hljs-built_in">cp</span> /usr/file2 ./  将/usr目录下的文件file2拷到当前目录下<br>  <span class="hljs-built_in">cp</span> –i      覆盖相同名称文件前先询问用户<br>  <span class="hljs-built_in">cp</span> –R      递归拷贝，即拷贝时将所有目录一并拷贝<br>  <span class="hljs-built_in">cp</span> -p      可以保持源文件的时间属性。否则新文件为当前时间<br>  <span class="hljs-built_in">cp</span> -rfp    所有目录，强制，时间<br>  <span class="hljs-built_in">cp</span> --<span class="hljs-built_in">help</span>  查阅命令详细使用信息<br></code></pre></td></tr></table></figure>
 
-<h3 id="mv-删除"><a href="#mv-删除" class="headerlink" title="mv 删除"></a>mv 删除</h3><ul>
-<li><p>说明:用户可以使用mv命令来为文件或目录改名或将文件由一个目录移入另一个目录中。mv命令中第二个参数类型的不同(是目标文件还是目标目录)，mv命令将文件重命名或将其移至一个新的目录中。当第二个参数类型是文件时，mv命令完成文件重命名，此时，源文件只能有一个(也可以是源目录名)，它将所给的源文件或目录重命名为给定的目标文件名。当第二个参数是已存在的目录名称时，源文件或目录参数可以有多个，mv命令将各参数指定的源文件均移至目标目录中。在跨文件系统移动文件时，mv先拷贝，再将原有文件删除，而链至该文件的链接也将丢失。</p>
-</li>
-<li><p>语法:mv [参数] 源文件或目录 目标文件或目录</p>
-</li>
-<li><p>参数:</p>
-<ul>
-<li>-i  交互方式操作。如果 mv 操作将导致对已存在的目标文件的覆盖，此时系统询问是否重写，要求用户回答 y 或 n，这样可以避免误覆盖文件。</li>
-<li>-f  强制执行，在mv操作要覆盖某已有的目标文件时不给任何指示，指定此选项后，i选项将不再起作用。如果所给目标文件(不是目录)已存在，此时该文件的内容将被新文件覆盖。为防止用户用mv命令破坏另一个文件，使用mv命令移动文件时，最好使用i选项。</li>
-</ul>
-</li>
-<li><p>例子:</p>
-<ul>
-<li>mv file1 file2         将 file1改名为file2</li>
-<li>mv.&#x2F;test &#x2F;sdb&#x2F;cgg&#x2F;     将文件test移至&#x2F;sdb&#x2F;cgg目录下</li>
-<li>mv -help     查阅命令详细使用信息</li>
-</ul>
-</li>
-</ul>
+<h3 id="mv-删除"><a href="#mv-删除" class="headerlink" title="mv 删除"></a>mv 删除</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">- 说明:用户可以使用<span class="hljs-built_in">mv</span>命令来为文件或目录改名或将文件由一个目录移入另一个目录中。<span class="hljs-built_in">mv</span>命令中第二个参数类型的不同(是目标文件还是目标目录)，<span class="hljs-built_in">mv</span>命令将文件重命名或将其移至一个新的目录中。当第二个参数类型是文件时，<span class="hljs-built_in">mv</span>命令完成文件重命名，此时，源文件只能有一个(也可以是源目录名)，它将所给的源文件或目录重命名为给定的目标文件名。当第二个参数是已存在的目录名称时，源文件或目录参数可以有多个，<span class="hljs-built_in">mv</span>命令将各参数指定的源文件均移至目标目录中。在跨文件系统移动文件时，<span class="hljs-built_in">mv</span>先拷贝，再将原有文件删除，而链至该文件的链接也将丢失。<br>- 语法:<span class="hljs-built_in">mv</span> [参数] 源文件或目录 目标文件或目录<br>- 参数:<br>  -i  交互方式操作。如果<span class="hljs-built_in">mv</span>操作将导致对已存在的目标文件的覆盖，此时系统询问是否重写，要求用户回答y或n，这样可以避免误覆盖文件。<br>  -f  强制执行，在<span class="hljs-built_in">mv</span>操作要覆盖某已有的目标文件时不给任何指示，指定此选项后，i选项将不再起作用。如果所给目标文件(不是目录)已存在，此时该文件的内容将被新文件覆盖。为防止用户用<span class="hljs-built_in">mv</span>命令破坏另一个文件，使用<span class="hljs-built_in">mv</span>命令移动文件时，最好使用i选项。<br><br>- 例子:<br>  <span class="hljs-built_in">mv</span> file1 file2       将 file1改名为file2<br>  <span class="hljs-built_in">mv</span>./test /sdb/cgg/   将文件<span class="hljs-built_in">test</span>移至/sdb/cgg目录下<br>  <span class="hljs-built_in">mv</span> -<span class="hljs-built_in">help</span>    查阅命令详细使用信息<br></code></pre></td></tr></table></figure>
+
 <h3 id="rm-移动"><a href="#rm-移动" class="headerlink" title="rm 移动"></a>rm 移动</h3><ul>
 <li><p>说明:用户可以用 rm 命令删除不需要的文件。该命令可删除一个目录中的一个或多个文件或目录，它也可以将某个目录及其下的所有文件及子目录均删除。对于链接文件，只是断开链接，原文件保持不变。如果没有使用-r 选项，则 rm 不会删除目录。</p>
 </li>
@@ -973,6 +956,9 @@
 <li>安装miniconda，并通过conda安装R</li>
 </ol>
 </li>
+</ul>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li>北京华大基因研究中心-生物信息学培训资料</li>
 </ul>
 
                 
