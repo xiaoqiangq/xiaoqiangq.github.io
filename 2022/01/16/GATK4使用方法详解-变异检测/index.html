@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>GATK使用方法详解-变异检测 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="GATK4是最新的GATK版本，它在算法上进行了优化，运行速率得到提高，而且整合了picard。GATK4依然是用java 语言开发的，但使用方式上更加人性化，比如所有命令都是gatk cmd方式，这里的cmd是任何可以用的cmd。GATK4 的最佳实践给出了5套pipeline: Germline SNP&#x2F;Indel, Somatic SNV&#x2F;Indel, RNAseq SN">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GATK使用方法详解-变异检测">
+<meta property="og:url" content="http://example.com/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="GATK4是最新的GATK版本，它在算法上进行了优化，运行速率得到提高，而且整合了picard。GATK4依然是用java 语言开发的，但使用方式上更加人性化，比如所有命令都是gatk cmd方式，这里的cmd是任何可以用的cmd。GATK4 的最佳实践给出了5套pipeline: Germline SNP&#x2F;Indel, Somatic SNV&#x2F;Indel, RNAseq SN">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-16T10:39:21.000Z">
+<meta property="article:modified_time" content="2024-05-15T08:22:46.692Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-GATK4使用方法详解-变异检测" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" class="article-date">
+  <time class="dt-published" datetime="2022-01-16T10:39:21.000Z" itemprop="datePublished">2022-01-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      GATK使用方法详解-变异检测
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>GATK4是最新的GATK版本，它在算法上进行了优化，运行速率得到提高，而且整合了picard。GATK4依然是用java 语言开发的，但使用方式上更加人性化，比如所有命令都是gatk cmd方式，这里的cmd是任何可以用的cmd。GATK4 的最佳实践给出了5套pipeline: <strong>Germline SNP&#x2F;Indel</strong>, Somatic SNV&#x2F;Indel, RNAseq SNP&#x2F;Indel, Germline CNV, Somatic CNV。目前版本号是 4.2.4 <a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us">https://gatk.broadinstitute.org/hc/en-us</a> </p>
+<h1 id="1-建立索引"><a href="#1-建立索引" class="headerlink" title="1. 建立索引"></a>1. 建立索引</h1><ol>
+<li>gatk  CreateSequenceDictionary -R hg19.fa -O hg19.dict</li>
+<li>samtools faidx genome.fasta # .fai</li>
+<li>bwa index ref.fa # .amb, .ann, .bwt, .pac, .sa</li>
+<li>qplot –reference ucsc.hg19.fasta  –create_gc ucsc.hg19.winsize100.gc #.winsize100.gc</li>
+<li>bowtie-build ucsc.hg19.fasta ucsc.hg19 ##</li>
+<li>bowtie2-build human_g1k_v37.fa human_g1k_v37 #bowtie2-2.4.1</li>
+</ol>
+<h1 id="2-比对"><a href="#2-比对" class="headerlink" title="2. 比对"></a>2. 比对</h1><ul>
+<li>BWA for DNA, STAR for RNA-seq</li>
+</ul>
+<h2 id="2-1-bwa-比对"><a href="#2-1-bwa-比对" class="headerlink" title="2.1 bwa 比对"></a>2.1 bwa 比对</h2><p>bwa mem -M -t 4 -R ‘@RG\tID:id1\tPL:illumina\tSM:test’ ref.fa test_1.fq test_2.fq | samtools view -bS - &gt;test.bam</p>
+<p><strong>参数</strong><br>-R 设置reads group，gatk必须要的信息，其中ID，PL和SM信息是必须要的<br>GATK 要求read group的格式</p>
+<h2 id="2-2-排序"><a href="#2-2-排序" class="headerlink" title="2.2 排序"></a>2.2 排序</h2><p>samtools sort -@ 3 -o test.sorted.bam test.bam<br>samtools index test.sorted.bam<br>rm -rf test.bam</p>
+<p>ID &#x3D; Read group identifier<br>　　每一个read group 独有的ID，每一对reads 均有一个独特的ID，可以自定义命名；</p>
+<p>PL &#x3D; Platform<br>　　测序平台；ILLUMINA, SOLID, LS454, HELICOS and PACBIO，不区分大小写；</p>
+<p>SM &#x3D; sample<br>　　reads属于的样品名；SM要设定正确，因为GATK产生的VCF文件也使用这个名字;</p>
+<p>LB &#x3D; DNA preparation library identifier<br>　　对一个read group的reads进行重复序列标记时，需要使用LB来区分reads来自那条lane;有时候，同一个库可能在不同的lane上完成测序;为了加以区分，</p>
+<p>　　同一个或不同库只要是在不同的lane产生的reads都要单独给一个ID. 一般无特殊说明，成对儿read属于同一库，可自定义，比如：library1</p>
+<p>若是忘记添加read group信息还以通过 AddOrReplaceReadGroups 添加</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">gatk AddOrReplaceReadGroups -I .bam -O .add.bam -LB library1 -PL illumina -PU pl1 -SM name</span><br><span class="line"></span><br><span class="line">##参数</span><br><span class="line">-I Input file (BAM or SAM or a GA4GH url)；</span><br><span class="line">-O  Output file (BAM or SAM)；</span><br><span class="line">-LB Read-Group library；</span><br><span class="line">-PL  Read-Group platform (e.g. ILLUMINA, SOLID)；</span><br><span class="line">-PU Read-Group platform unit (eg. run barcode)；</span><br><span class="line">-SM Read-Group sample name</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h2 id="2-3-标记重复序列"><a href="#2-3-标记重复序列" class="headerlink" title="2.3 标记重复序列"></a>2.3 标记重复序列</h2><p>gatk  MarkDuplicates -I test.sorted.bam -O test.sorted.markdup.bam -M test.sorted.markdup_metrics.txt –CREATE_INDEX true -VALIDATION_STRINGENCY LENIENT</p>
+<p>rm -f test.sorted.bam test.sorted.bam.bai</p>
+<p>##参数<br>-I 排序后的一个或者多个bam或者sam文件<br>-M 输出重复矩阵<br>-O 输出文件</p>
+<h2 id="2-4-BQSR-BaseRecalibrator"><a href="#2-4-BQSR-BaseRecalibrator" class="headerlink" title="2.4 BQSR BaseRecalibrator"></a>2.4 BQSR BaseRecalibrator</h2><ul>
+<li>所谓的变异位点，就是与参考基因组不同的部分，假设原始数据中就存在着一些由于测序仪器产生的系统性误差，那么变异位点识别过程中找到的variant，就会存在大量的假阳性。这一步主要目的是调整原始碱基的质量分数。</li>
+</ul>
+<p>gatk –java-options “-Xmx8g -XX:+UseParallelGC -XX:ParallelGCThreads&#x3D;1” BaseRecalibrator -R hg19.fa -I test.sorted.markdup.bam –known-sites $hash_config{“dbsnp”} –known-sites $hash_config{“Mills_and_1000G_gold_standard_indels”}  -O sample.recal.grp –default-base-qualities 1 2&gt;&gt;$log_dir/$sample.log 1&gt;&gt;$log_dir/$sample.log&#x2F;;  ##–known-sites $hash_config{“KG_phase1_indels”}</p>
+<p>gatk –java-options “-Xmx8g -XX:+UseParallelGC -XX:ParallelGCThreads&#x3D;1” ApplyBQSR -R hg19.fa -I test.sorted.markdup.bam -bqsr sample.recal.grp -O sample.recal.bam</p>
+<h2 id="2-5-检测变异"><a href="#2-5-检测变异" class="headerlink" title="2.5 检测变异"></a>2.5 检测变异</h2><p>##两种方法</p>
+<p>##（1）多样本一起call，此次只有一个样本，若有多个样本，则继续用 -I 参数添加即可<br>gatk –java-options -Xmx4G HaplotypeCaller -I test.sorted.markup.bam -O test.gvcf1 -R ref.fa</p>
+<h2 id="（2）单个样本call，然后在合并"><a href="#（2）单个样本call，然后在合并" class="headerlink" title="（2）单个样本call，然后在合并"></a>（2）单个样本call，然后在合并</h2><h2 id="生成中间文件gvcf"><a href="#生成中间文件gvcf" class="headerlink" title="生成中间文件gvcf"></a>生成中间文件gvcf</h2><p>gatk –java-options -Xmx4G HaplotypeCaller -I test.sorted.markup.bam -O test.gvcf -R ref.fa –emit-ref-confidence GVCF</p>
+<p>gatk –java-options “-Xmx8g -XX:+UseParallelGC -XX:ParallelGCThreads&#x3D;1” HaplotypeCaller -R hg19.fa -I test.sorted.markup.recal.bam –dbsnp $hash_config{“dbsnp”} -O sample.1.g.vcf.gz –emit-ref-confidence GVCF</p>
+<p>##通过gvcf检测变异, -V 添加上步得到的gvcf<br>gatk GenotypeGVCFs -R ref.fa -V test.gvcf -O test.vcf</p>
+<p>##参数<br>-I BAM&#x2F;SAM&#x2F;CRAM file<br>-O  输出文件<br>-R 参考基因组<br>–java-options: 若设置java则需要添加<br>-Xmx4G：内存为4G，防止内存太大<br>-V  A VCF file containing variants</p>
+<h1 id="2-6-qplot"><a href="#2-6-qplot" class="headerlink" title="2.6 qplot"></a>2.6 qplot</h1><h1 id="2-7-merge-gvcf"><a href="#2-7-merge-gvcf" class="headerlink" title="2.7 merge gvcf"></a>2.7 merge gvcf</h1><p>-按照每条染色体<br>gatk –java-options “-Xmx16g” CombineGVCFs -R hg19.fa $inputgvcf -O combine.1.g.vcf.gz -L 1 </p>
+<h1 id="2-8-calling-variants"><a href="#2-8-calling-variants" class="headerlink" title="2.8 calling variants"></a>2.8 calling variants</h1><p>gatk –java-options “-Xmx8g -XX:+UseParallelGC -XX:ParallelGCThreads&#x3D;1” GenotypeGVCFs -R hg19.fa -V sample.1.g.vcf.gz -O sample.1.vcf.gz –dbsnp $hash_config{“dbsnp”} -L 1</p>
+<h1 id="3-VQSR-or-hardFilter"><a href="#3-VQSR-or-hardFilter" class="headerlink" title="3. VQSR or hardFilter"></a>3. VQSR or hardFilter</h1><h2 id="3-1-VQSR"><a href="#3-1-VQSR" class="headerlink" title="3.1 VQSR"></a>3.1 VQSR</h2><p>#SNP calling</p>
+<h1 id="rescource-文件需要先index，参考文件尽量全，最后三行的文件都是输出"><a href="#rescource-文件需要先index，参考文件尽量全，最后三行的文件都是输出" class="headerlink" title="rescource 文件需要先index，参考文件尽量全，最后三行的文件都是输出"></a>rescource 文件需要先index，参考文件尽量全，最后三行的文件都是输出</h1><h1 id="步骤1-4"><a href="#步骤1-4" class="headerlink" title="步骤1-4"></a>步骤1-4</h1><p>$ time gatk VariantRecalibrator -R &#x2F;path&#x2F;to&#x2F;hg38.fa -V 19P0126636WES.HC.vcf <br>-resource:hapmap,known&#x3D;false,training&#x3D;true,truth&#x3D;true,prior&#x3D;15.0 &#x2F;gatkdoc&#x2F;hapmap_3.3.hg38.vcf <br>-resource:omini,known&#x3D;false,training&#x3D;true,truth&#x3D;false,prior&#x3D;12.0 &#x2F;gatkdoc&#x2F;resources_broad_hg38_v0_1000G_omni2.5.hg38.vcf <br>-resource:1000G,known&#x3D;false,training&#x3D;true,truth&#x3D;false,prior&#x3D;10.0 &#x2F;gatkdoc&#x2F;resources_broad_hg38_v0_1000G_phase1.snps.high_confidence.hg38.vcf <br>-resource:dbsnp,known&#x3D;true,training&#x3D;false,truth&#x3D;false,prior&#x3D;2.0 &#x2F;gatkdoc&#x2F;resources_broad_hg38_v0_Homo_sapiens_assembly38.dbsnp138.vcf <br>-an DP -an QD -an FS -an SOR -an ReadPosRankSum -an MQRankSum -mode SNP -tranche 100.0 <br>-tranche 99.9 -tranche 99.0 -tranche 95.0 -tranche 90.0 <br>-O 19P0126636WES.snp.recal <br>–tranches-file 19P0126636WES.snp.tranches <br>–rscript-file 19P0126636WES.snp.plots.R</p>
+<h1 id="步骤5"><a href="#步骤5" class="headerlink" title="步骤5"></a>步骤5</h1><p>$time gatk ApplyVQSR -R &#x2F;path&#x2F;to&#x2F;hg38.fa -V 19P0126636WES.HC.vcf <br>–ts-filter-level 99.0 –tranches-file 19P0126636WES.snp.tranches <br>–recal-file 19P0126636WES.snp.recal <br>-mode SNP<br>-O 19P0126636WES.snps.VQSR.vcf.gz</p>
+<h2 id="查看数据文件"><a href="#查看数据文件" class="headerlink" title="查看数据文件"></a>查看数据文件</h2><p>$ cat 19P0126636WES.snp.tranches</p>
+<h1 id="Variant-quality-score-tranches-file"><a href="#Variant-quality-score-tranches-file" class="headerlink" title="Variant quality score tranches file"></a>Variant quality score tranches file</h1><h1 id="Version-number-5"><a href="#Version-number-5" class="headerlink" title="Version number 5"></a>Version number 5</h1><p>targetTruthSensitivity,numKnown,numNovel,knownTiTv,novelTiTv,minVQSLod,filterName,model,accessibleTruthSites,callsAtTruthSites,truthSensitivity<br>90.00,1096434,69773,2.1008,1.6731,5.6910,VQSRTrancheSNP0.00to90.00,SNP,665207,598687,0.9000<br>95.00,1200002,98879,2.0923,1.6863,5.0278,VQSRTrancheSNP90.00to95.00,SNP,665207,631946,0.9500<br>99.00,1285374,122947,2.0888,1.6682,3.0695,VQSRTrancheSNP95.00to99.00,SNP,665207,658554,0.9900<br>99.90,1320241,151100,2.0868,1.6411,-1.4500,VQSRTrancheSNP99.00to99.90,SNP,665207,664541,0.9990<br>100.00,1334104,169658,2.0828,1.5982,-1179.7969,VQSRTrancheSNP99.90to100.00,SNP,665207,665207,1.0000</p>
+<ul>
+<li>-tranche默认是输出[100,99.9,99.0,90.0]4个tranche阈值的统计结果，如果想看其他阈值的结果，需要自行加上；结果就是看19P0126636WES.snp.tranches，而19P0126636WES.snp.recal文件则是用于ApplyVQSR的</li>
+</ul>
+<h3 id="INDEL-calling"><a href="#INDEL-calling" class="headerlink" title="INDEL calling"></a>INDEL calling</h3><p>#加了–max-gaussians 6用于设定Gaussians（clusters of variants that have similar properties）的数目，即减少聚类的组数，从而使得每个组的变异位点数目达到要求<br>$time gatk VariantRecalibrator -R &#x2F;path&#x2F;to&#x2F;hg38.fa -V 19P0126636WES.snps.VQSR.vcf.gz <br>-resource:mills,known&#x3D;true,training&#x3D;true,truth&#x3D;true,prior&#x3D;12.0 &#x2F;gatkdoc&#x2F;resources_broad_hg38_v0_Mills_and_1000G_gold_standard.indels.hg38.vcf <br>-an DP -an QD -an FS -an SOR -an ReadPosRankSum -an MQRankSum <br>-mode INDEL –max-gaussians 6 <br>–rscript-file 19P0126636WES_L1.snp.indel.plots.R <br>–tranches-file 19P0126636WES.snp.indel.tranches <br>-O data&#x2F;19P0126636WES.snp.indel.recal</p>
+<p>$ time gatk ApplyVQSR -R &#x2F;path&#x2F;to&#x2F;hg38.fa -V data&#x2F;19P0126636WES.snps.VQSR.vcf.gz <br>–ts-filter-level 99.0 <br>–tranches-file 19P0126636WES.snp.indel.tranches –recal-file 19P0126636WES.snp.indel.recal <br>-mode INDEL <br>-O 19P0126636WES.VQSR.vcf.gz<br>（上面这个就是我们千辛万苦想得到的文件啦！）</p>
+<p>VQSR大概步骤：</p>
+<ol>
+<li>GATK认为VQSR比根据各种annotations进行hard-filtering过滤要好，减少了人为阈值的局限性，避免了一刀切的弊端，从而在sensitivity和specificity之间达到一定的平衡</li>
+<li>VQSR根据机器学习算法从highly validated变异位点数据集（每个位点的annotation profile，一般使用5-8个annotation）中获取到good variants&#x2F;bad variants</li>
+<li>根据上述的位点从我们自己数据集中挑选出一个变异子集（probably true positives）来建模训练，获得一个可识别good variants的模型；bad variants的模型也是如此获得</li>
+<li>然后根据上述获得的模型，对自己数据集的每个变异位点进行一个总的打分</li>
+<li>最后根据设定的sensitivity阈值对变异位点进行过滤</li>
+</ol>
+<p>按照官方教程，<br>SNP的VQSR过滤，选用的resource datasets为：</p>
+<ul>
+<li>HapMap，hapmap_3.3.hg38.vcf.gz，truth&#x3D;true表示VQSR将这个数据集中的变异位点作为真位点true sites，training&#x3D;true表示VQSR将true sites用于训练recalibration model，并赋予这些变异位点prior likelihood值为Q15 (96.84%)</li>
+<li>Omni，1000G_omni2.5.hg38.vcf.gz，truth&#x3D;true，training&#x3D;false（文档中写着是true，参数建议中写着的是false。。。我就按照参数上的来了），Q12 (93.69%)</li>
+<li>1000G，1000G_phase1.snps.high_confidence.hg38.vcf.gz，truth&#x3D;false表示VQSR考虑到在1000G数据集中的不仅包含了true variants还有false positives，training&#x3D;true，Q10 (90%)</li>
+<li>dbSNP，dbsnp_146.hg38.vcf.gz&#x2F;dbsnp_138.hg38.vcf.gz，truth&#x3D;false表示VQSR未将dbSNP数据集中的位点作为可信数据集，training&#x3D;false表示不用于训练数据集，known&#x3D;true表示stratify output metrics such as Ti&#x2F;Tv ratio by whether variants are present in dbsnp or not，Q2 (36.90%)</li>
+</ul>
+<p>INDEL的VQSR过滤，选用的resource datasets为：</p>
+<ul>
+<li>Mills，Mills_and_1000G_gold_standard.indels.hg38.vcf.gz，truth&#x3D;true，training&#x3D;true，Q12 (93.69%)</li>
+<li>dbSNP，dbsnp_146.hg38.vcf.gz&#x2F;dbsnp_138.hg38.vcf.gz，truth&#x3D;false，training&#x3D;false，known&#x3D;true，Q2 (36.90%)</li>
+</ul>
+<h2 id="3-2-gatk-VariantFiltration-O-test-snp-fil-vcf-temp-V-test-snp-vcf-–filter-expression-‘QUAL-30-0-QD-2-0-FS-60-0-SOR-4-0’-–filter-name-lowQualFilter-–cluster-window-size-10-–cluster-size-3-–missing-values-evaluate-as-failing"><a href="#3-2-gatk-VariantFiltration-O-test-snp-fil-vcf-temp-V-test-snp-vcf-–filter-expression-‘QUAL-30-0-QD-2-0-FS-60-0-SOR-4-0’-–filter-name-lowQualFilter-–cluster-window-size-10-–cluster-size-3-–missing-values-evaluate-as-failing" class="headerlink" title="3.2 gatk VariantFiltration -O test.snp.fil.vcf.temp -V test.snp.vcf –filter-expression ‘QUAL &lt; 30.0 || QD &lt; 2.0 || FS &gt; 60.0 ||  SOR &gt; 4.0’ –filter-name lowQualFilter –cluster-window-size 10  –cluster-size 3 –missing-values-evaluate-as-failing"></a>3.2 gatk VariantFiltration -O test.snp.fil.vcf.temp -V test.snp.vcf –filter-expression ‘QUAL &lt; 30.0 || QD &lt; 2.0 || FS &gt; 60.0 ||  SOR &gt; 4.0’ –filter-name lowQualFilter –cluster-window-size 10  –cluster-size 3 –missing-values-evaluate-as-failing</h2><h2 id="参数"><a href="#参数" class="headerlink" title="参数"></a>参数</h2><p>-O 输出filt.vcf文件<br>-V 输入vcf文件<br>–filter-expression 过滤条件, VCF INFO 信息<br>–cluster-window-size 以10个碱基为一个窗口<br>–cluster-size 10个碱基为窗口，若存在3以上个则过滤<br>–filter-name 被过滤掉的SNP不会删除，而是给一个标签， 比如 Filter<br>–missing-values-evaluate-as-failing 当筛选标准比较多的时候，可能有一些位点没有筛选条件当中的一条或几条，例如下面的这个表达式；QUAL &lt; 30.0 || QD &lt; 2.0 || FS &gt; 60.0 || MQ &lt; 40.0 || HaplotypeScore &gt; 13.0 并不一定所有位点都有这些信息，这种情况下GATK运行的时候会报很多WARNING信息，用这个参数可以把这些缺少某些FLAG的位点也给标记成没有通过筛选的。</p>
+<h1 id="4-annovar"><a href="#4-annovar" class="headerlink" title="4. annovar"></a>4. annovar</h1><p>################<br>##4.2 ANNOVOR<br>################<br>###annovar database download<br>#gene-based<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar refGene humandb ## RefSeq does not have mitochondria gene definition<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar knownGene humandb ## UCSC Known Gene<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar ensGene humandb # Ensembl Gene<br>.&#x2F;annotate_variation.pl -build hg19 -downdb wgEncodeGencodeBasicV19  humandb #pass</p>
+<p>#region-based<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb phastConsElements46way humandb&#x2F; # Conserved by 46-way<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb phastConsElements100way humandb&#x2F; # by 100-way alignment<br>.&#x2F;annotate_variation.pl -build hg19 -downdb tfbsConsSites humandb&#x2F; # Transcription factor binding site annotation<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb cytoBand humandb&#x2F; # represent cytogenetic bands<br>.&#x2F;annotate_variation.pl -build hg19 -downdb wgRna humandb&#x2F; # Identify variants disrupting microRNAs and snoRNAs<br>.&#x2F;annotate_variation.pl -build hg19 -downdb targetScanS humandb&#x2F; # Identify variants disrupting predicted microRNA binding sites<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb genomicSuperDups humandb&#x2F; # Identify variants located in segmental duplications<br>.&#x2F;annotate_variation.pl -build hg19 -downdb dgvMerged humandb&#x2F; # Identify previously reported structural variants in DGV (Database of Genomic Variants). deletions and duplications<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb gwasCatalog humandb&#x2F; # Identify variants reported in previously published GWAS</p>
+<p>#now only for hg18. Identify variants in ENCODE annotated regions (transcribed regions, H3K4Me1 regions, H3K4Me3 regions, H3K27Ac regions, DNaseI hypersensitivity regions, transcription factor ChIP-Seq regions, etc)<br>.&#x2F;annotate_variation.pl -downdb wgEncodeCaltechRnaSeqRawSignalRep1Gm12878CellLongpolyaBb12x75 humandb&#x2F;<br>.&#x2F;annotate_variation.pl -downdb wgEncodeBroadChipSeqPeaksGm12878H3k4me1 humandb&#x2F;<br>.&#x2F;annotate_variation.pl -downdb wgEncodeRegDnaseClustered humandb&#x2F;<br>.&#x2F;annotate_variation.pl -downdb wgEncodeRegTfbsClustered humandb&#x2F;<br>.&#x2F;annotate_variation.pl -downdb wgEncodeBroadHmmGm12878HMM humandb&#x2F; #Identify non-coding variants that disrupt enhancers, repressors, promoters<br>.&#x2F;annotate_variation.pl -downdb wgEncodeUwDnaseSeqHotspotsRep2Gm12878 humandb&#x2F; #Identify variants in other genomic regions annotated with other functions</p>
+<p>#filter-based<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb 1000g2015aug humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar avsnp150  humandb&#x2F;<br>.&#x2F;annotate_variation.pl  -build hg19 -downdb -webfrom annovar popfreq_all humandb&#x2F; #?? PopFreqMax 1000G2012APR_ALL 1000G2012APR_AFR 1000G2012APR_AMR 1000G2012APR_ASN 1000G2012APR_EUR ESP6500si_ALL ESP6500si_AA ESP6500si_EA CG46.<br>.&#x2F;annotate_variation.pl  -build hg19 -downdb -webfrom annovar nci60 humandb&#x2F;<br>.&#x2F;annotate_variation.pl  -build hg19 -downdb -webfrom annovar popfreq_max humandb&#x2F; </p>
+<p>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbnsfp35a humandb<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbnsfp31a_interpro humandb<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar dbscsnv11 humandb<br>.&#x2F;annotate_variation.pl -downdb -buildver hg19 -webfrom annovar gerp++gt2 humandb&#x2F;</p>
+<p>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar esp6500siv2_all humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar esp6500siv2_aa humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar esp6500siv2_ea humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar clinvar_20200316 humandb<br>或者 <a href="ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/">ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/</a> # <a href="ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37//weekly/clinvar_20220115.vcf.gz">ftp://ftp.ncbi.nlm.nih.gov/pub/clinvar/vcf_GRCh37//weekly/clinvar_20220115.vcf.gz</a></p>
+<p>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar cadd13gt10 humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar cosmic70 humandb&#x2F;</p>
+<p>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar exac03 humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar exac03nontcga humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar exac03nonpsych humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar kaviar_20150923 humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar hrcr1 humandb&#x2F;<br>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar intervar_20180118 humandb&#x2F;</p>
+<p>.&#x2F;annotate_variation.pl -buildver hg19 -downdb -webfrom annovar mitimpact24 humandb&#x2F;</p>
+<p>perl ..&#x2F;prepare_annovar_user.pl -dbtype cosmic CosmicMutantExport.tsv  -vcf CosmicCodingMuts.vcf &gt; hg38_cosmic91.txt<br>perl ..&#x2F;prepare_annovar_user.pl -dbtype cosmic CosmicNCV.tsv  -vcf CosmicNonCodingVariants.vcf &gt; hg38_cosmic91.txt.noncoding</p>
+<p>cosmic,clinvar</p>
+<p>&#x2F;scratch&#x2F;cgg&#x2F;software&#x2F;annovar&#x2F;2014Jul14&#x2F;table_annovar.pl vcf.avi &#x2F;scratch&#x2F;cgg&#x2F;software&#x2F;annovar&#x2F;2014Jul14&#x2F;humandb&#x2F; -buildver hg19 -out myanno2 -remove -protocol refGene,cytoBand,genomicSuperDups,dgvMerged,popfreq_all,snp138,ljb23_all,caddgt10,cosmic68,clinvar_20140702,gwasCatalog,phastConsElements100way,tfbsConsSites,wgRna,targetScanS  -operation g,r,r,r,f,f,f,f,f,f,r,r,r,r,r -nastring . -csvout</p>
+<p>#cg69<br>#cg46<br>nci60<br>popfreq_all<br>gerp++elem<br>gerp++gt2<br>####<br>1.gene-based<br>    refGene;knownGene;ensGene;<br>2.region-based<br>    phastConsElements46way;phastConsElements100way;tfbsConsSites;cytoBand;wgRna;genomicSuperDups;	</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" data-id="clw7k0t080001w6gp0f2p124w" data-title="GATK使用方法详解-变异检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          常见生信软件安装
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">VCF文件格式详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/24/1.linuxCommandLine/">Linux 常见命令</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/">常见生信软件安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">GATK使用方法详解-变异检测</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">VCF文件格式详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>VCF文件格式详解 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="VCF文件格式详解 VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。 1. VCF的主体结构VCF文件分为两部分内容:   以“#”开头的注释部分    没有“#”开头的主体部分    去掉了头部的注释行，只留下了代表每一行意义的注释行。主体部分中每一行代表一个Variant的信息。 12345678">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VCF文件格式详解">
+<meta property="og:url" content="http://example.com/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="VCF文件格式详解 VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。 1. VCF的主体结构VCF文件分为两部分内容:   以“#”开头的注释部分    没有“#”开头的主体部分    去掉了头部的注释行，只留下了代表每一行意义的注释行。主体部分中每一行代表一个Variant的信息。 12345678">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-15T09:59:46.000Z">
+<meta property="article:modified_time" content="2024-05-15T08:22:29.936Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-VCF文件格式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2022-01-15T09:59:46.000Z" itemprop="datePublished">2022-01-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      VCF文件格式详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>VCF文件格式详解</strong></p>
+<p>VCF介绍</p>
+<p>VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。</p>
+<h1 id="1-VCF的主体结构"><a href="#1-VCF的主体结构" class="headerlink" title="1. VCF的主体结构"></a>1. VCF的主体结构</h1><p>VCF文件分为两部分内容:</p>
+<ul>
+<li><ol>
+<li>以“#”开头的注释部分</li>
+</ol>
+</li>
+<li><ol start="2">
+<li>没有“#”开头的主体部分</li>
+</ol>
+</li>
+</ul>
+<p>去掉了头部的注释行，只留下了代表每一行意义的注释行。<br>主体部分中每一行代表一个Variant的信息。</p>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">##fileformat=VCFv4.2</span></span><br><span class="line"><span class="comment">##fileDate=20090805</span></span><br><span class="line"><span class="comment">##source=myImputationProgramV3.1</span></span><br><span class="line"><span class="comment">##reference=file:///seq/references/1000GenomesPilot-NCBI36.fasta</span></span><br><span class="line"><span class="comment">##contig=&lt;ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species=&quot;Homo sapiens&quot;,taxonomy=x&gt;</span></span><br><span class="line"><span class="comment">##phasing=partial</span></span><br><span class="line"><span class="comment">##INFO=&lt;ID=NS,Number=1,Type=Integer,Description=&quot;Number of Samples With Data&quot;&gt;</span></span><br><span class="line"><span class="comment">##INFO=&lt;ID=DP,Number=1,Type=Integer,Description=&quot;Total Depth&quot;&gt;</span></span><br><span class="line"><span class="comment">##INFO=&lt;ID=AF,Number=A,Type=Float,Description=&quot;Allele Frequency&quot;&gt;</span></span><br><span class="line"><span class="comment">##INFO=&lt;ID=AA,Number=1,Type=String,Description=&quot;Ancestral Allele&quot;&gt;</span></span><br><span class="line"><span class="comment">##INFO=&lt;ID=DB,Number=0,Type=Flag,Description=&quot;dbSNP membership, build 129&quot;&gt;</span></span><br><span class="line"><span class="comment">##INFO=&lt;ID=H2,Number=0,Type=Flag,Description=&quot;HapMap2 membership&quot;&gt;</span></span><br><span class="line"><span class="comment">##FILTER=&lt;ID=q10,Description=&quot;Quality below 10&quot;&gt;</span></span><br><span class="line"><span class="comment">##FILTER=&lt;ID=s50,Description=&quot;Less than 50% of samples have data&quot;&gt;</span></span><br><span class="line"><span class="comment">##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;</span></span><br><span class="line"><span class="comment">##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=&quot;Genotype Quality&quot;&gt;</span></span><br><span class="line"><span class="comment">##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=&quot;Read Depth&quot;&gt;</span></span><br><span class="line"><span class="comment">##FORMAT=&lt;ID=HQ,Number=2,Type=Integer,Description=&quot;Haplotype Quality&quot;&gt;</span></span><br><span class="line"><span class="comment">#CHROM POS ID REF ALT QUAL FILTER INFO  FORMAT  NA00001 NA00002</span></span><br><span class="line"><span class="number">1</span> <span class="number">899282</span> rs28548431 C T <span class="number">71.77</span> PASS AC=<span class="number">1</span>;AF=<span class="number">0</span>.<span class="number">50</span>;AN=<span class="number">2</span>;DB;DP=<span class="number">4</span>;Dels=<span class="number">0</span>.<span class="number">00</span>;HRun=<span class="number">0</span>;HaplotypeScore=<span class="number">0</span>.<span class="number">00</span>;MQ=<span class="number">99.00</span>;MQ<span class="number">0</span>=<span class="number">0</span>;QD=<span class="number">17.94</span>;SB=-<span class="number">46.55</span>;VQSLOD=-<span class="number">1.9148</span> GT:AD:DP:GQ:PL <span class="number">0</span>/<span class="number">1</span>:<span class="number">1</span>,<span class="number">3</span>:<span class="number">4</span>:<span class="number">25.92</span>:<span class="number">103</span>,<span class="number">0</span>,<span class="number">26</span></span><br><span class="line"><span class="number">20</span> <span class="number">14370</span> rs6054257 G A <span class="number">29</span> PASS NS=<span class="number">3</span>;DP=<span class="number">14</span>;AF=<span class="number">0</span>.<span class="number">5</span>;DB;H2 GT:GQ:DP:HQ <span class="number">0</span>|<span class="number">0</span>:<span class="number">48</span>:<span class="number">1</span>:<span class="number">51</span>,<span class="number">51</span> <span class="number">1</span>|<span class="number">0</span>:<span class="number">48</span>:<span class="number">8</span>:<span class="number">51</span>,<span class="number">51</span></span><br><span class="line"><span class="number">20</span> <span class="number">17330</span>  .        T A  <span class="number">3</span> q1<span class="number">0</span>  NS=<span class="number">3</span>;DP=<span class="number">11</span>;AF=<span class="number">0</span>.<span class="number">017</span> GT:GQ:DP:HQ <span class="number">0</span>|<span class="number">0</span>:<span class="number">49</span>:<span class="number">3</span>:<span class="number">58</span>,<span class="number">50</span> <span class="number">0</span>|<span class="number">1</span>:<span class="number">3</span>:<span class="number">5</span>:<span class="number">65</span>,<span class="number">3</span></span><br><span class="line"><span class="number">20</span> <span class="number">1110696</span> rs6040355 A G,T <span class="number">67</span> PASS NS=<span class="number">2</span>;DP=<span class="number">10</span>;AF=<span class="number">0</span>.<span class="number">333</span>,<span class="number">0</span>.<span class="number">667</span>;AA=T;DB GT:GQ:DP:HQ <span class="number">1</span>|<span class="number">2</span>:<span class="number">21</span>:<span class="number">6</span>:<span class="number">23</span>,<span class="number">27</span> <span class="number">2</span>|<span class="number">1</span>:<span class="number">2</span>:<span class="number">0</span>:<span class="number">18</span>,<span class="number">2</span></span><br><span class="line"><span class="number">20</span> <span class="number">1230237</span> . T  .  <span class="number">47</span> PASS NS=<span class="number">3</span>;DP=<span class="number">13</span>;AA=T GT:GQ:DP:HQ <span class="number">0</span>|<span class="number">0</span>:<span class="number">54</span>:<span class="number">7</span>:<span class="number">56</span>,<span class="number">60</span> <span class="number">0</span>|<span class="number">0</span>:<span class="number">48</span>:<span class="number">4</span>:<span class="number">51</span>,<span class="number">51</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>header: 1.基因组的版本(<strong>hg19,hg38</strong>) 2. info,filter,format注释描述</li>
+<li>CHROM：表示变异位点是在哪个contig 里call出来的，如果是人类全基因组的话那就是chr1…chr22，chrX,Y,M。</li>
+<li>POS：变异位点相对于参考基因组所在的位置，如果是indel，就是第一个碱基所在的位置。</li>
+<li>ID：如果call出来的SNP存在于dbSNP数据库里，就会显示相应的dbSNP里的rs编号。</li>
+<li>REF和REF：在这个变异位点处，参考基因组中所对应的碱基和研究对象基因组中所对应的碱基。</li>
+<li>QUAL：可以理解为所call出来的变异位点的质量值。Q&#x3D;-10lgP，Q表示质量值；P表示这个位点发生错误的概率。因此，如果想把错误率从控制在90%以上，P的阈值就是1&#x2F;10，那lg（1&#x2F;10）&#x3D;-1，Q&#x3D;（-10）*（-1）&#x3D;10。同理，当Q&#x3D;20时，错误率就控制在了0.01。</li>
+<li>FILTER：理想情况下，QUAL这个值应该是用所有的错误模型算出来的，这个值就可以代表正确的变异位点了，但是事实是做不到的。因此，还需要对原始变异位点做进一步的过滤。无论你用什么方法对变异位点进行过滤，过滤完了之后，在FILTER一栏都会留下过滤记录，如果是通过了过滤标准，那么这些通过标准的好的变异位点的FILTER一栏就会注释一个PASS，如果没有通过过滤，就会在FILTER这一栏提示除了PASS的其他信息。如果这一栏是一个“.”的话，就说明没有进行过任何过滤。GATK的<strong>VQSR</strong>可以注释。</li>
+<li><strong>INFO</strong> 这一行是variant的详细信息，内容很多，以下再具体详述。一般可以含有annovar注释，GATK注释等信息。</li>
+<li><strong>FORMAT</strong>: 在<strong>header</strong>里面都有其注解。<ul>
+<li><p><strong>GT</strong>：表示这个样本的基因型，对于一个二倍体生物，GT值表示的是这个样本在这个位点所携带的两个等位基因。0表示跟REF一样；1表示表示跟ALT一样；2表示第二个ALT。当只有一个ALT等位基因的时候，0&#x2F;0表示纯和且跟REF一致；0&#x2F;1表示杂合，两个allele一个是ALT一个是REF；1&#x2F;1表示纯和且都为ALT；</p>
+<ul>
+<li>0 - reference call</li>
+<li>1 - alternative call 1</li>
+<li>2 - alternative call 2</li>
+<li>The allele separator is ‘&#x2F;‘ for unphased genotypes and ‘|’ for phased genotypes.</li>
+</ul>
+</li>
+<li><p><strong>AD</strong>：对应两个以逗号隔开的值，这两个值分别表示覆盖到REF和ALT碱基的reads数，相当于支持REF和支持ALT的测序深度。</p>
+</li>
+<li><p><strong>DP</strong>：覆盖到这个位点的总的reads数量，相当于这个位点的深度。</p>
+</li>
+<li><p><strong>PL</strong>: 对应3个以逗号隔开的值，这三个值分别表示该位点基因型是0&#x2F;0，0&#x2F;1，1&#x2F;1的没经过先验的标准化Phred-scaled似然值（L）。如果转换成支持该基因型概率（P）的话，由于L&#x3D;-10lgP，那么P&#x3D;10^（-L&#x2F;10），因此，当L值为0时，P&#x3D;10^0&#x3D;1。因此，这个值越小，支持概率就越大，也就是说是这个基因型的可能性越大。</p>
+</li>
+<li><p><strong>GQ</strong>：表示最可能的基因型的质量值。表示的意义同QUAL。</p>
+</li>
+<li><p>其他：</p>
+<ul>
+<li>FS: FisherStrand的缩写，表示使用Fisher’s精确检验来检测strand bias而得到的Fhred格式的p值，该值越小越好；如果该值较大，表示strand bias（正负链偏移）越严重，即所检测到的variants位点上，reads比对到正负义链上的比例不均衡。一般进行filter的时候，推荐保留FS&lt;10-20的variants位点。GATK可设定FS参数。</li>
+<li>ReadPosRandSum: Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias.当variants出现在reads尾部的时候，其结果可能不准确。该值用于衡量alternative allele（变异的等位基因）相比于reference allele（参考基因组等位基因），其variant位点是否匹配到reads更靠中部的位置。因此只有基因型是杂合且有一个allele和参考基因组一致的时候，才能计算该值。若该值为正值，表明和alternative allele相当于reference allele，落来reads更靠中部的位置；若该值是负值，则表示alternative allele相比于reference allele落在reads更靠尾部的位置。 进行filter的之后，推荐保留ReadPosRankSum&gt;-1.65 - -3.0的variant位点</li>
+<li>MQRankSum: 该值用于衡量alternative allele上reads的mapping quality与reference allele上reads的mapping quality的差异。若该值是负数值，则表明alternative allele比reference allele的reads mapping quality差。进行filter的时候，推荐保留MQRankSum&gt;-1.65 - -3.0的variant位点。</li>
+<li>HaplotypeScore： Consistency of the site with at most two segregating haplotypes</li>
+<li>InbreedingCoeff： Inbreeding coefficient as estimated from the genotype likelihoods per-sample when compared against the Hard-Weinberg expectation</li>
+<li>MLEAC：Maximum likelihood expectation (MLE) for the allele counts (not necessarily the same as the AC), for each ALT allele, in the same order as listed</li>
+<li>MLEAF：Maximum likelihood expectation (MLE) for the allele frequency (not necessarily the same as the AF), for each ALT alle in the same order as listed</li>
+<li>MQ：RMS Mapping Quality</li>
+<li>MQ0：Total Mapping Quality Zero Reads</li>
+<li>MQRankSum： Z-score From Wilcoxon rank sum test of Alt vs. Ref read mapping qualities</li>
+<li>QD：Variant Confidence&#x2F;Quality by Depth</li>
+<li>RPA：Number of times tandem repeat unit is repeated, for each allele (including reference)</li>
+<li>RU：Tandem repeat unit (bases)</li>
+<li>ReadPosRankSum：Z-score from Wilcoxon rank sum test of Alt vs. Ref read position bias</li>
+<li>STR： Variant is a short tandem repeat</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h1 id="2-重要软件-tabix-bgzip"><a href="#2-重要软件-tabix-bgzip" class="headerlink" title="2. 重要软件 tabix bgzip"></a>2. 重要软件 tabix bgzip</h1><ul>
+<li><strong>tabix</strong> 可以对NGS分析中常见格式的文件建立索引，从而加快访问速度，不仅支持VCF文件，还支持BED, GFF，SAM等格式。</li>
+</ul>
+<p>由于SNP位点数量巨大，对应VCF文件也非常的大，为例节省存储空间，最常见的做法就是压缩。<strong>bgzip</strong>可以压缩VCF文件，用法如下</p>
+<blockquote>
+<p>bgzip  view.vcf</p>
+</blockquote>
+<p>压缩之后，原本的<strong>view.vcf</strong>文件就变成了<strong>view.vcf.gz</strong>文件。压缩后缀为.gz, 如果想要解压缩，有以下两种用法</p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bgzip -d view.vcf.gz</span><br><span class="line">gunzip view.vcf.gz</span><br><span class="line">gunzip -c view.vcf.gz | less</span><br><span class="line">tabix view.vcf.gz 1 |less</span><br></pre></td></tr></table></figure>
+<p><strong>bgzip</strong>的压缩算法和<strong>gzip</strong>压缩算法有着相似之处，所以对于bgzip压缩的文件，解压缩时除了可以使用bgzip软件本身，还可以使用gunzip进行解压缩。</p>
+<p>需要注意的是，两种算法虽然有相似之处，但是还是有本质区别的，在对VCF文件压缩时，不可以使用gzip来代替bgzip。</p>
+<p>对于大型的VCF文件而言，如何快速访问其中的记录也是个难点。<strong>tabix</strong>可以对VCF文件构建索引，索引构建好之后，访问速度会快很多。<strong>tabix</strong>对VCF文件建立索引的用法如下</p>
+<blockquote>
+<p>tabix -p vcf view.vcf.gz</p>
+</blockquote>
+<blockquote>
+<p>tabix -s 1 -b 2 -e 2 vcf view.vcf.gz</p>
+</blockquote>
+<p>注意输入的VCF文件必须是使用bgzip压缩之后的VCF文件，生成的索引文件为view.vcf.gz.tbi, 后缀为.tbi。</p>
+<p>构建好索引之后，可以快速的获取指定区域的记录，示例如下</p>
+<ol>
+<li><p>获取位于11号染色体的SNP位点</p>
+<blockquote>
+<p>tabix view.vcf.gz 11</p>
+</blockquote>
+</li>
+<li><p>获取位于11号染色体上突变位置大于或者等于2343545的SNP位点</p>
+<blockquote>
+<p>tabix view.vcf.gz 11:2343545</p>
+</blockquote>
+</li>
+<li><p>获取位于11号染色体上突变位置介于2343540到2343596的SNP位点</p>
+<blockquote>
+<p>tabix view.vcf.gz 11:2343540-2343596</p>
+</blockquote>
+</li>
+<li><p>获取位多个SNP位点</p>
+<blockquote>
+<p>tabix view.vcf.gz 11:2343540-2343596 12:2343540-2343596</p>
+</blockquote>
+</li>
+</ol>
+<p>很多操作VCF的软件都会识别tabix建立的索引，从而加快处理速度。很多大型项目VCF文件，也都会用bgzip压缩，然后建立tabix的索引。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" data-id="clw7k0t090002w6gp9a1553u6" data-title="VCF文件格式详解" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          GATK使用方法详解-变异检测
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/15/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Sam/Bam文件格式详解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/24/1.linuxCommandLine/">Linux 常见命令</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/">常见生信软件安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">GATK使用方法详解-变异检测</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">VCF文件格式详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

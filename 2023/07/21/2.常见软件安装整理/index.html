@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>常见生信软件安装 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="常见生信软件安装1. 手动安装bwa, samtools, bcftools, bgzip, tabix 1.bwa2.samtools, bcftools 版本要一致 #1.171234567891011#Building each desired package from source is very simple:    cd samtools-1.x    # and similarly">
+<meta property="og:type" content="article">
+<meta property="og:title" content="常见生信软件安装">
+<meta property="og:url" content="http://example.com/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="常见生信软件安装1. 手动安装bwa, samtools, bcftools, bgzip, tabix 1.bwa2.samtools, bcftools 版本要一致 #1.171234567891011#Building each desired package from source is very simple:    cd samtools-1.x    # and similarly">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2023-07-21T07:26:47.000Z">
+<meta property="article:modified_time" content="2024-05-15T08:22:16.933Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-2.常见软件安装整理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" class="article-date">
+  <time class="dt-published" datetime="2023-07-21T07:26:47.000Z" itemprop="datePublished">2023-07-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      常见生信软件安装
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="常见生信软件安装"><a href="#常见生信软件安装" class="headerlink" title="常见生信软件安装"></a>常见生信软件安装</h1><h2 id="1-手动安装"><a href="#1-手动安装" class="headerlink" title="1. 手动安装"></a>1. 手动安装</h2><p>bwa, samtools, bcftools, bgzip, tabix</p>
+<h3 id="1-bwa"><a href="#1-bwa" class="headerlink" title="1.bwa"></a>1.bwa</h3><h3 id="2-samtools-bcftools-版本要一致-1-17"><a href="#2-samtools-bcftools-版本要一致-1-17" class="headerlink" title="2.samtools, bcftools 版本要一致 #1.17"></a>2.samtools, bcftools 版本要一致 #1.17</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#Building each desired package from source is very simple:</span><br><span class="line">    cd samtools-1.x    # and similarly for bcftools and htslib</span><br><span class="line">    ./configure --prefix=/where/to/install</span><br><span class="line">    make</span><br><span class="line">    make install</span><br><span class="line"></span><br><span class="line">    ### install bgzip, tabix</span><br><span class="line">    cd .../samtools-1.17 # Within the unpacked release directory</span><br><span class="line">    ./configure --prefix=/path/to/location</span><br><span class="line">    make all all-htslib</span><br><span class="line">    make install install-htslib</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-conda安装包安装"><a href="#2-conda安装包安装" class="headerlink" title="2. conda安装包安装"></a>2. conda安装包安装</h2><h3 id="1-conda-install-c-bioconda-pysam-会安装一下3个包"><a href="#1-conda-install-c-bioconda-pysam-会安装一下3个包" class="headerlink" title="1.conda install -c bioconda pysam #会安装一下3个包"></a>1.conda install -c bioconda pysam #会安装一下3个包</h3><pre><code>samtools=1.3.1
+bcftools=1.3.1
+htslib=1.3.1
+</code></pre>
+<h3 id="2-snakemake"><a href="#2-snakemake" class="headerlink" title="2.snakemake"></a>2.snakemake</h3><pre><code>安装 mamba
+conda install -n base -c conda-forge mamba
+将 snakemake 安装到虚拟环境
+mamba create -c conda-forge -c bioconda -n snakemake snakemake
+
+conda activate snakemake
+snakemake --help
+
+git clone https://bitbucket.org/snakemake/snakemake-tutorial.git
+cd snakemake-tutorial
+tree
+
+安装pipeline所需要的包，比如bwa，samtools等
+conda install -c conda-forge graphviz #dot画图 2.42.3 装在 snakemake 的环境下面。
+
+snakemake --dag  | dot -Tsvg &gt; dag.svg #生成有向无环图 (DAG)
+snakemake --cores 1 
+snakemake --cores 1
+snakemake -s Snakefile
+</code></pre>
+<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><h2 id="3-R-安装包"><a href="#3-R-安装包" class="headerlink" title="3.R 安装包"></a>3.R 安装包</h2><p>conda active r-base<br>conda install R </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" data-id="clw7k0t050000w6gpccekcjrp" data-title="常见生信软件安装" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2023/07/24/1.linuxCommandLine/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux 常见命令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">GATK使用方法详解-变异检测</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/24/1.linuxCommandLine/">Linux 常见命令</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/">常见生信软件安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">GATK使用方法详解-变异检测</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">VCF文件格式详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

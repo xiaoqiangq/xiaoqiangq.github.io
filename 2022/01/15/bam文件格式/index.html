@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>Sam/Bam文件格式详解 | Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Sam&#x2F;Bam文件格式详解 bam文件是sam文件的二进制格式。(https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;SAMv1.pdf) 1. Header section 该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等 @HD行：这一行中有各种不同的标识 标识“VN”用以说明格式版本 标识“SO”用以说明比对排序的情况，有unknown (">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Sam&#x2F;Bam文件格式详解">
+<meta property="og:url" content="http://example.com/2022/01/15/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Sam&#x2F;Bam文件格式详解 bam文件是sam文件的二进制格式。(https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;SAMv1.pdf) 1. Header section 该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等 @HD行：这一行中有各种不同的标识 标识“VN”用以说明格式版本 标识“SO”用以说明比对排序的情况，有unknown (">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-15T02:33:12.000Z">
+<meta property="article:modified_time" content="2024-05-15T08:22:22.260Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-bam文件格式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2022/01/15/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" class="article-date">
+  <time class="dt-published" datetime="2022-01-15T02:33:12.000Z" itemprop="datePublished">2022-01-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      Sam/Bam文件格式详解
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p><strong>Sam&#x2F;Bam文件格式详解</strong></p>
+<p>bam文件是sam文件的二进制格式。(<a target="_blank" rel="noopener" href="https://samtools.github.io/hts-specs/SAMv1.pdf">https://samtools.github.io/hts-specs/SAMv1.pdf</a>)</p>
+<h1 id="1-Header-section"><a href="#1-Header-section" class="headerlink" title="1. Header section"></a>1. Header section</h1><ul>
+<li>该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等</li>
+<li>@HD行：这一行中有各种不同的标识</li>
+<li>标识“VN”用以说明格式版本</li>
+<li>标识“SO”用以说明比对排序的情况，有unknown (default)、unsorted、queryname和coordinate,对于coordinate，排序的主键是Alignments section的第三列“RNAME”，其顺序由@SQ行的“SN”标识的顺序定义，次要排序键是Alignments section的第四列“POS”字段。对于RNAME和POS相等的比对，排列顺序则是任意的</li>
+<li>@SQ行的“SN”标签是参考序列说明，它的值主要是用于Alignments section的第三列“RNAME”和第七列“MRNM”比对的记录</li>
+<li>@PG行是使用的程序说明；该行“ID”为程序记录标识符，“PN”为程序名字，“CL”为命令行</li>
+<li>@CO行是任意的说明信息</li>
+</ul>
+<p><strong>注意事项</strong></p>
+<ol>
+<li><strong>mapping(bwa,GATK,bismark,…)</strong></li>
+<li><strong>duplication(picard,samblaster,sambamba,…)</strong></li>
+<li><strong>reference genome(hg19,hg38)</strong></li>
+</ol>
+<h1 id="2-Alignments-section"><a href="#2-Alignments-section" class="headerlink" title="2. Alignments section"></a>2. Alignments section</h1><p>该部分包含了11列必需字段，无效或者没有的字段一般用“0”或者“*”表示</p>
+<table>
+<thead>
+<tr>
+<th align="left">Col</th>
+<th align="left">Field</th>
+<th align="center">Type</th>
+<th align="center">Regexp&#x2F;Range</th>
+<th align="left">Brief description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">QNAME</td>
+<td align="center">String</td>
+<td align="center">[!-?A-~]{1,254}</td>
+<td align="left">Query template NAME</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">FLAG</td>
+<td align="center">Int</td>
+<td align="center">[0,$2^{16}$−1]</td>
+<td align="left">bitwise FLAG</td>
+</tr>
+<tr>
+<td align="left">3</td>
+<td align="left">RNAME</td>
+<td align="center">String</td>
+<td align="center">&#96;&#96;&#96;*</td>
+<td align="left">[:rname: <em>&#x3D;][:rname:]</em>&#96;&#96;&#96;</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">POS</td>
+<td align="center">Int</td>
+<td align="center">[0,$2^{31}$−1]</td>
+<td align="left">POSition</td>
+</tr>
+<tr>
+<td align="left">5</td>
+<td align="left">MAPQ</td>
+<td align="center">Int</td>
+<td align="center">[0,$2^8$−1]</td>
+<td align="left">MAPping Quality</td>
+</tr>
+<tr>
+<td align="left">6</td>
+<td align="left">CIGAR</td>
+<td align="center">String</td>
+<td align="center">\*|([0-9]+[MIDNSHPX&#x3D;])+</td>
+<td align="left">CIGAR string</td>
+</tr>
+<tr>
+<td align="left">7</td>
+<td align="left">RNEXT</td>
+<td align="center">String</td>
+<td align="center">\*|&#x3D;|[:rname:*&#x3D;][:rname:]*</td>
+<td align="left">Reference name of the mate&#x2F;next read</td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">PNEXT</td>
+<td align="center">Int</td>
+<td align="center">[0,$2^{31}$−1]</td>
+<td align="left">Position of the mate&#x2F;next read</td>
+</tr>
+<tr>
+<td align="left">9</td>
+<td align="left">TLEN</td>
+<td align="center">Int</td>
+<td align="center">[−$2^{31}$+1,$2^{31}$−1]</td>
+<td align="left">observed Template LENgth</td>
+</tr>
+<tr>
+<td align="left">10</td>
+<td align="left">SEQ</td>
+<td align="center">String</td>
+<td align="center">\*|[A-Za-z&#x3D;.]+</td>
+<td align="left">segment SEQuence</td>
+</tr>
+<tr>
+<td align="left">11</td>
+<td align="left">QUAL</td>
+<td align="center">String</td>
+<td align="center">[!-~]+ (U+2227)</td>
+<td align="left">ASCII of Phred-scaled base QUALity+33</td>
+</tr>
+</tbody></table>
+<ul>
+<li>1.QNAME 序列的名字，也就是reads的名称 </li>
+<li>2.<strong>FLAG</strong> 是一个标记的数字，是有需要转换成二进制才能知道代表的意思，各个数字分别代表</li>
+<li>3.RNAME 参考序列的名字 </li>
+<li>4.POS 在参考序列上的位置 </li>
+<li>5.MAPQ mapping qulity 越高则位点越独特，比对的质量值</li>
+<li>6.<strong>CIGAR</strong> 代表比对结果的CIGAR字符串，如37M1D2M1I，这段字符的意思是37个匹配，1个参考序列上的删除，2个匹配，1个参考序列上的插入。M代表的是alignment match(可以是错配)，可以理解为表示比对的具体情况 </li>
+<li>7.RNEXT mate 序列所在参考序列的名称，mate一般指大的片段序列 </li>
+<li>8.PNEXT mate 序列在参考序列上的位置 </li>
+<li>9.<strong>TLEN</strong> 估计出的片段的长度，当mate 序列位于本序列上游时该值为负值。 </li>
+<li>10.SEQ read的序列 </li>
+<li>11.<strong>QUAL</strong> read序列对应的ASCII码格式的碱基质量值 </li>
+<li>12.可选的区域 header section</li>
+</ul>
+<h2 id="2-1-第1列：Qname"><a href="#2-1-第1列：Qname" class="headerlink" title="2.1 第1列：Qname"></a>2.1 第1列：Qname</h2><ul>
+<li>Read的名字</li>
+</ul>
+<h2 id="2-2-第2列：FLAG"><a href="#2-2-第2列：FLAG" class="headerlink" title="2.2 第2列：FLAG"></a>2.2 第2列：FLAG</h2><ul>
+<li><p>每一个read的比对情况可以用十进制数字（或者十六进制数字）表示，如果比对情况 有多个，将多个比对情况所代表的十进制数字加和就是这一行的FLAG。</p>
+<ul>
+<li>比如，图1中r001的FLAG是99（1+2+32+64），则表示了“该read是pair read中的一个”，“pair read中每个都能够正确比对上”，“该read的mate read的反向互补可以比对上”，“该read是pari read中的read1”；</li>
+<li>r001的另一个FLAG是147（1+2+16+128），则表示“该read是pair read中的一个”，“pair read中每个都能够正确比对上”，“该read是原read的反向互补”，“该read是pari read中的read2”（也就是说，该read是read2的反向互补序列）。</li>
+</ul>
+</li>
+<li><p>值得注意的是，r001是pair read，而且都能比对上，所以r001出现了两次，如果r001的read1比对到参考序列的2个地方，r001的名字则会出现三次；如果read1比对上一次，read2没有比对上，r001仍会出现2次，不过，其中一个r001的第三列为“*”；所以pair-end测序，read1文件和read2文件同时mapping，相同reads的id最少出现2次。</p>
+</li>
+<li><p>以下网站可以通过输入FLAG值，直接找出该FLAG是那些FLAG的加和：Decoding SAM flags（<a target="_blank" rel="noopener" href="https://broadinstitute.github.io/picard/explain-flags.html%EF%BC%89">https://broadinstitute.github.io/picard/explain-flags.html）</a></p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">Value 10</th>
+<th align="left">Value 16</th>
+<th align="left">Description</th>
+<th align="center">99</th>
+<th align="center">83</th>
+<th align="center">147</th>
+<th align="center">163</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">1</td>
+<td align="left">0x1</td>
+<td align="left">read paired</td>
+<td align="center">+</td>
+<td align="center">+</td>
+<td align="center">+</td>
+<td align="center">+</td>
+</tr>
+<tr>
+<td align="left">2</td>
+<td align="left">0x2</td>
+<td align="left">read mapped in proper pair</td>
+<td align="center">+</td>
+<td align="center">+</td>
+<td align="center">+</td>
+<td align="center">+</td>
+</tr>
+<tr>
+<td align="left">4</td>
+<td align="left">0x4</td>
+<td align="left">read unmapped</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">8</td>
+<td align="left">0x8</td>
+<td align="left">mate unmapped</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">16</td>
+<td align="left">0x10</td>
+<td align="left">read reverse strand</td>
+<td align="center"></td>
+<td align="center">+</td>
+<td align="center">+</td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">32</td>
+<td align="left">0x20</td>
+<td align="left">mate reverse strand</td>
+<td align="center">+</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">+</td>
+</tr>
+<tr>
+<td align="left">64</td>
+<td align="left">0x40</td>
+<td align="left">first in pair</td>
+<td align="center">+</td>
+<td align="center">+</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">128</td>
+<td align="left">0x80</td>
+<td align="left">second in pair</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">+</td>
+<td align="center">+</td>
+</tr>
+<tr>
+<td align="left">256</td>
+<td align="left">0x100</td>
+<td align="left">not primary alignment</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">512</td>
+<td align="left">0x200</td>
+<td align="left">read fails platform&#x2F;vendor quality checks</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">1024</td>
+<td align="left">0x400</td>
+<td align="left">read is PCR or optical duplicate</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+<tr>
+<td align="left">2048</td>
+<td align="left">0x800</td>
+<td align="left">supplementary alignment</td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">-------------------------------------------------------------</span><br><span class="line">---R1---&gt; 99                  --------R2------&gt;  163</span><br><span class="line"></span><br><span class="line">          &lt;----R2----  147            &lt;--------R1------  83</span><br><span class="line">------------------------------------------------------------- reverse strand</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-3-第3列：RNAME"><a href="#2-3-第3列：RNAME" class="headerlink" title="2.3 第3列：RNAME"></a>2.3 第3列：RNAME</h2><ul>
+<li>比对上的参考序列的名字，该名字出现在Header section的@SQ行的SN标识中，如果该read没有比对上，也就是说该read在参考序列上没有坐标，那么这一列则用“”表示，那么这一行的POS和CIGAR列也会是“”。</li>
+</ul>
+<h2 id="2-4-第4列：POS"><a href="#2-4-第4列：POS" class="headerlink" title="2.4 第4列：POS"></a>2.4 第4列：POS</h2><ul>
+<li>read比对到的参考序列“RNAME”最左侧的位置坐标，也是CIGAR中第一个比对标识“M”对应的最左侧碱基在参考序列的位置，未比对上的read在参考序列中没有坐标，此列标识为“0”。</li>
+</ul>
+<h2 id="2-5-第5列：MAPQ"><a href="#2-5-第5列：MAPQ" class="headerlink" title="2.5 第5列：MAPQ"></a>2.5 第5列：MAPQ</h2><ul>
+<li>比对的质量值，计算方法为比对错误率的-10*log10的值，一般是四舍五入的整数值，如果是255，说明该比对值无效。</li>
+</ul>
+<h2 id="2-6-第6列：CIGAR"><a href="#2-6-第6列：CIGAR" class="headerlink" title="2.6 第6列：CIGAR"></a>2.6 第6列：CIGAR</h2><p>CIGAR标识符表示read中每个碱基的比对情况，主要有以下标识符：</p>
+<ul>
+<li><p>M: alignment match (can be a sequence match or mismatch)<br>read上的碱基与参考序列“RNAME”完全匹配，碱基一一对应，包括了正确匹配与错误匹配</p>
+</li>
+<li><p>I: insertion to the reference<br>read上的碱基相对于参考序列“RNAME”有插入现象（如下）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REF:  CACGATCA**GACCGATACGTCCGA </span><br><span class="line">READ1:  CGATCAGAGACCGATA </span><br><span class="line">CIGAR：6M2I8M</span><br></pre></td></tr></table></figure></li>
+<li><p>D: deletion from the reference<br>read上的碱基相对于参考序列“RNAME”有删除现象（如下）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REF: AGCTAGCATCGTGTCGCCCGTCTAGCATACGC</span><br><span class="line">READ:             TCGCCCGT-TAGCAT</span><br><span class="line">CIGAR：8M1D6M</span><br></pre></td></tr></table></figure></li>
+<li><p>N: skipped region from the reference<br>read上的碱基相对于参考序列“RNAME”存在连续没有比对上的空缺，这些空缺用N来表示，跟“D”相似但远比“D”缺失的更多，这种比对类型也叫“Spliced alignment”，常见cDNA与参考序列比对（如下）:”…”表示intron</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">REF:AGCATCGTGTCGCCCGTCTAGCATACGCATGATCGACTGTCAGCTAGTCAGACTA</span><br><span class="line">READ:     GTGTAACCC................................TCAGAATA</span><br><span class="line">CIGAR：9M32N8M</span><br></pre></td></tr></table></figure></li>
+<li><p>S: soft clipping (clipped sequences present in SEQ)</p>
+</li>
+<li><p>H: hard clipping (clipped sequences NOT present in SEQ)<br>read的开头或者结尾部分没有比对到参考序列”RNAME”上，但这部分未比对上的连续序列仍保留在sam文件的该read序列中，用“S”来表示；如果未保留，则用“H”表示，也即“hard cliping”（如下所示，也可同图2中r003的比对CIGAR中看出）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">REF: AGCTAGCATCGTGTCGCCCGTCTAGCATACGCAT</span><br><span class="line">READ:          gggTCGCCCGT-TAGCATgggg</span><br><span class="line">CIGAR：3S8M1D6M4S （在sam中存储为GGGGTGTAACCGACTAGGGGG）</span><br><span class="line">CIGAR：3H8M1D6M4H （在sam中存储为GTGTAACCGACTAG）</span><br></pre></td></tr></table></figure></li>
+<li><p>P: padding (silent deletion from padded reference)<br>多条read比对到参考序列的同一位置时，如果不同read单独同该参考序列比对时，参考序列的情况也不同，比如下方READ1同参考序列比对时，“GA”属于插入（6M2I8M），READ2同参考序列比对时，“A”属于插入（4M1I9M ），READ3同参考序列完全匹配（10M），没有插入，但是三条read之前却没有可比性。因此，当参考序列“比对情况包含完整”且序列唯一时，所有read同时进行比对，read3这种原本没有插入却默认插入的比对称之为Padded alignment，这种情况用“P”表示。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">REF:  CACGATCA**GACCGATACGTCCGA</span><br><span class="line">READ1:  CGATCAGAGACCGATA </span><br><span class="line">READ2:    ATCA*AGACCGATAC </span><br><span class="line">READ3:   GATCA**GACCG  </span><br><span class="line">The padded CIGAR are different: </span><br><span class="line">READ1: 6M2I8M </span><br><span class="line">READ2: 4M1P1I9M  </span><br><span class="line">READ3: 5M2P5M</span><br></pre></td></tr></table></figure></li>
+<li><p>&#x3D;：sequence match 正确匹配</p>
+</li>
+<li><p>X：sequence mismatch 错误匹配</p>
+</li>
+</ul>
+<blockquote>
+<p>perl CIGAR代码 为了检测每个read的甲基化情况</p>
+</blockquote>
+  <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">my</span> @f=<span class="keyword">split</span>(<span class="regexp">/\s+/</span>,$line);</span><br><span class="line"></span><br><span class="line"><span class="keyword">my</span> $flag = $f[<span class="number">1</span>];</span><br><span class="line"><span class="keyword">my</span> $chr = $f[<span class="number">2</span>];</span><br><span class="line"><span class="keyword">my</span> $pos = $f[<span class="number">3</span>];</span><br><span class="line"><span class="keyword">my</span> $cigar_2 = $f[<span class="number">5</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment"># parsing CIGAR string</span></span><br><span class="line"><span class="keyword">my</span> @len = <span class="keyword">split</span> (<span class="regexp">/\D+/</span>,$cigar_2); <span class="comment"># storing the length per operation</span></span><br><span class="line"><span class="keyword">my</span> @ops = <span class="keyword">split</span> (<span class="regexp">/\d+/</span>,$cigar_2); <span class="comment"># storing the operation</span></span><br><span class="line"><span class="keyword">shift</span> @ops; <span class="comment"># remove the empty first element</span></span><br><span class="line"><span class="keyword">die</span> <span class="string">&quot;CIGAR string contained a non-matching number of lengths and operations ($cigar_2)\n&quot;</span> <span class="keyword">unless</span> (<span class="keyword">scalar</span> @len == <span class="keyword">scalar</span> @ops);</span><br><span class="line"></span><br><span class="line"><span class="comment">### determining end position of the read</span></span><br><span class="line"><span class="keyword">my</span> $readPos = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">my</span> $genomePos = $pos;</span><br><span class="line"></span><br><span class="line"><span class="keyword">foreach</span> <span class="keyword">my</span> $index(<span class="number">0</span>..$#len)&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">my</span> $lengthSeg = $len[$index];</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> ($ops[$index] eq <span class="string">&#x27;M&#x27;</span>)&#123;  <span class="comment"># standard matching bases</span></span><br><span class="line"></span><br><span class="line">		$readPos += $lengthSeg;</span><br><span class="line">		$genomePos += $lengthSeg;</span><br><span class="line">	  </span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">elsif</span>($ops[$index] eq <span class="string">&#x27;I&#x27;</span>)&#123; <span class="comment"># insertions do not affect the end position</span></span><br><span class="line">	  </span><br><span class="line">		$readPos += $lengthSeg;</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">elsif</span>($ops[$index] eq <span class="string">&#x27;D&#x27;</span>)&#123; <span class="comment"># deletions do affect the end position</span></span><br><span class="line">	  $genomePos += $lengthSeg;</span><br><span class="line"></span><br><span class="line">	&#125;<span class="keyword">elsif</span>($ops[$index] eq <span class="string">&#x27;S&#x27;</span>)&#123; <span class="comment"># deletions do affect the end position</span></span><br><span class="line">	    $readPos += $lengthSeg;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="2-7-第7列：RNEXT"><a href="#2-7-第7列：RNEXT" class="headerlink" title="2.7 第7列：RNEXT"></a>2.7 第7列：RNEXT</h2><ul>
+<li><p>该read的mate read比对上的参考序列的名字，该名字出现在Header section的@SQ行的SN标识中，</p>
+</li>
+<li><p>如果和该read所在行的第三列“RNAME”一样，则用“&#x3D;”表示，说明这对read比对到了同一条参考序列上；</p>
+</li>
+<li><p>如果mate read没有比对上，第七列则用“*”表示；</p>
+</li>
+<li><p>如果这对read没有比对到同一条参考序列，那么这一列则是mate read所在行第三列的“RNAME”。</p>
+</li>
+</ul>
+<h2 id="2-8-第8列：PNEXT"><a href="#2-8-第8列：PNEXT" class="headerlink" title="2.8 第8列：PNEXT"></a>2.8 第8列：PNEXT</h2><ul>
+<li>该read的mate read比对到的参考序列“RNAME”<strong>最左侧</strong>的位置坐标，也是mate read CIGAR中第一个比对标识“M”对应的最左侧碱基在参考序列的位置，未比对上的read在参考序列中没有坐标，此列标识为“0”。</li>
+</ul>
+<h2 id="2-9-第9列：ISIZE"><a href="#2-9-第9列：ISIZE" class="headerlink" title="2.9 第9列：ISIZE"></a>2.9 第9列：ISIZE</h2><ul>
+<li><p>表示pair read完全匹配到同一条参考序列时，两个read之间的长度，可简单理解为测序文库的长度。这个定义有两种情况（虚线表示未比对上的序列，即soft-clipped bases）：</p>
+</li>
+<li><p>第一种情况如图左所示，Read1和Read2比对到同一条参考序列，此时ISIZE即为Read2的最右侧比对坐标减去Read1最左侧比对坐标；</p>
+</li>
+<li><p>第二种情况如图右所示，由于至今没有明确的定义和共识，因此ISIZE可以是TLEN#1，也可以是TLEN#2，视情况而定。</p>
+</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">                                            |&lt;--TLEN#1----&gt;|</span><br><span class="line">-------------------------------   -----------------------------------</span><br><span class="line">|---R1---&gt; 99                               |---R1-----------------&gt; 99 </span><br><span class="line"></span><br><span class="line">                &lt;----R2----| 147     &lt;----------R2---------|  147</span><br><span class="line">-------------------------------   ------------------------------------</span><br><span class="line">|&lt;-------TLEN #1/#2-------&gt;|         |&lt;-------TLEN #2--------------&gt;|</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-10-第10列：SEQ"><a href="#2-10-第10列：SEQ" class="headerlink" title="2.10 第10列：SEQ"></a>2.10 第10列：SEQ</h2><ul>
+<li>存储的序列，没有存储，此列则用“*”标识。该序列的长度<strong>一定等于</strong>CIGAR标识中“M”，“I”，“S”，“&#x3D;”，“X”标识的碱基长度之和。</li>
+</ul>
+<h2 id="2-11-第11列：QUAL-Base-quality-score"><a href="#2-11-第11列：QUAL-Base-quality-score" class="headerlink" title="2.11 第11列：QUAL:Base quality score"></a>2.11 第11列：QUAL:Base quality score</h2><ul>
+<li><p>序列的每个碱基对应一个碱基质量字符，每个碱基质量字符对应的ASCII码值减去33（Sanger Phred-33 质量值体系），即为该碱基的测序质量得分（Phred Quality Score）。不同Phred Quality Score代表不同的碱基测序错误率，如Phred Quality Score值为20和30分别表示碱基测序错误率为1%和0.1%。（ASCII码从0-127，为什么很多Phred评分从33开始呢？因为33是第一个肉眼可见的字符!，在此之前的都是控制符，比如空格、制表等，不方便用这些控制符来表示一个碱基的质量。）</p>
+</li>
+<li><p>假设一个碱基测序错误的概率是P，那么此时对应的Phred quality score（常用Q表示）</p>
+<blockquote>
+<p>$Q &#x3D; -10log_{10}(P)$</p>
+</blockquote>
+</li>
+<li><p>假设100个碱基中有1个出现错误，即P&#x3D;0.01，根据上式可以计算，此时Q&#x3D;20；同理，当测序错误率为0.001时，此时Q&#x3D;30。<br>测序结果中的每一个碱基都有这么一个Phred评分。为了便于描述，人们习惯上将Phred评分对应一个ASCII码，这样每一个碱基的质量都可以用一个字符来表述了。</p>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th align="left">P</th>
+<th align="center">Q (Phred quality score)</th>
+<th align="center">Sanger Phred</th>
+<th align="left">ASCII</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">0.01</td>
+<td align="center">20</td>
+<td align="center">53</td>
+<td align="left"><strong>5</strong></td>
+</tr>
+<tr>
+<td align="left">0.001</td>
+<td align="center">30</td>
+<td align="center">63</td>
+<td align="left"><strong>?</strong></td>
+</tr>
+<tr>
+<td align="left">0.0001</td>
+<td align="center">40</td>
+<td align="center">73</td>
+<td align="left"><strong>I</strong></td>
+</tr>
+<tr>
+<td align="left">0.00001</td>
+<td align="center">50</td>
+<td align="center">83</td>
+<td align="left"><strong>S</strong></td>
+</tr>
+</tbody></table>
+<h1 id="3-samtools-软件使用"><a href="#3-samtools-软件使用" class="headerlink" title="3. samtools 软件使用"></a>3. samtools 软件使用</h1><h2 id="3-1-sort：-sort-alignment-file"><a href="#3-1-sort：-sort-alignment-file" class="headerlink" title="3.1 sort： sort alignment file"></a>3.1 sort： sort alignment file</h2><ul>
+<li>本命令对bam文件中的序列进行排序，默认下是按序列在fasta文件中的顺序（即header）和序列从左往右的位点排序。</li>
+</ul>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">samtools <span class="keyword">sort</span> [-T out.prefix][-@ threads][-m maxMem][-o out.sorted.bam][in.bam]</span><br><span class="line">samtools <span class="keyword">sort</span> -@ <span class="number">10</span> -o abc.sorted.bam abc.bam</span><br><span class="line">samtools <span class="keyword">sort</span> -m <span class="number">500000000</span> -o abc.sorted.bam abc.bam <span class="comment"># 500M dang abc.bam文件比较大，split的文件比较多，比如200多个。</span></span><br></pre></td></tr></table></figure>
+<h2 id="3-2-merge：-merge-sorted-alignments"><a href="#3-2-merge：-merge-sorted-alignments" class="headerlink" title="3.2 merge： merge sorted alignments"></a>3.2 merge： merge sorted alignments</h2><ul>
+<li><p>本命令将多个排好序的bam比对文件进行合并，产生一个排好序的bam输出文件(合并后的文件不需要再进行sort)，这个文件含有所有的输入记录，并且保留了他们原来的顺序。</p>
+<blockquote>
+<p>samtools merge [out.bam][in1.bam][in2.bam][in3.bam]</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="3-3-index：index-alignment"><a href="#3-3-index：index-alignment" class="headerlink" title="3.3 index：index alignment"></a>3.3 index：index alignment</h2><ul>
+<li><p>本命令对bam文件建立索引并产生后缀为.bai的文件，用于快速的随机处理。很多后续分析的过程需要有bai文件的存在，特别是显示序列比对情况下，比如samtool的tview命令等。#必须对bam文件进行默认情况下的排序后，才能进行index。否则会报错</p>
+<blockquote>
+<p>samtools index aln.sorted.bam</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="3-4-view：SAMBAMCRAM-conversion"><a href="#3-4-view：SAMBAMCRAM-conversion" class="headerlink" title="3.4 view：SAM&lt;-&gt;BAM&lt;-&gt;CRAM conversion"></a>3.4 view：SAM&lt;-&gt;BAM&lt;-&gt;CRAM conversion</h2><ul>
+<li>本命令将sam文件转换成bam文件；然后对bam文件进行各种操作，比如数据的排序和提取(这些操作是对bam文件进行的，不能对sam文件进行该操作)；最后将排序或提取得到的数据输出为bam或sam格式。bam文件优点：bam文件为二进制文件，占用的磁盘空间比sam文本文件小；利用bam二进制文件的运算速度快。</li>
+</ul>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">samtools view -b abc.sam &gt; abc.bam</span><br><span class="line">samtools view -b abc.sam -o abc.bam</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-5-tview"><a href="#3-5-tview" class="headerlink" title="3.5 tview"></a>3.5 tview</h2><ul>
+<li>直观显示reads比对到基因组的情况，与IGV类似需要先sort和index</li>
+</ul>
+<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools tview abc.sorted.bam hg19.fasta</span><br></pre></td></tr></table></figure>
+<ul>
+<li>press <strong>g</strong> to check the alignment start from a region in the format like chr10:10,000,000 or &#x3D;10,000,000 when viewing the same reference sequence.</li>
+<li>c, C, n …</li>
+</ul>
+<h2 id="3-6-depth"><a href="#3-6-depth" class="headerlink" title="3.6 depth"></a>3.6 depth</h2><ul>
+<li>统计每个碱基位点的测序深度;需要使用重定向定义输出文件；要使用构建过索引的bam Usage: bam2depth [-r reg] [-q baseQthres] [-Q mapQthres] [-b in.bed] […] -r：（region）加染色体号； -q：要求测序碱基质量最低值； -Q：要求比对的质量最低值<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">samtools depth abc.sorted.bam &gt;abc.depth</span><br></pre></td></tr></table></figure></li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2022/01/15/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" data-id="clw7k0t090003w6gp5by3ap0h" data-title="Sam/Bam文件格式详解" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          VCF文件格式详解
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">May 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/07/">July 2023</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/01/">January 2022</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2024/05/14/hello-world/">Hello World</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/24/1.linuxCommandLine/">Linux 常见命令</a>
+          </li>
+        
+          <li>
+            <a href="/2023/07/21/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/">常见生信软件安装</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/16/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">GATK使用方法详解-变异检测</a>
+          </li>
+        
+          <li>
+            <a href="/2022/01/15/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">VCF文件格式详解</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2024 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
