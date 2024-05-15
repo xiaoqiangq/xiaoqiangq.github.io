@@ -1,7 +1,7 @@
 
 
 <!DOCTYPE html>
-<html lang="en" data-default-color-scheme=auto>
+<html lang="zh-CN" data-default-color-scheme=auto>
 
 
 
@@ -19,18 +19,18 @@
     <meta name="description" content="Sam&#x2F;Bam文件格式详解 bam文件是sam文件的二进制格式。(https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;SAMv1.pdf) 1. Header section 该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等 @HD行：这一行中有各种不同的标识 标识“VN”用以说明格式版本 标识“SO”用以说明比对排序的情况，有unknown (">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Sam&#x2F;Bam文件格式详解">
-<meta property="og:url" content="http://example.com/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Qiang Wei&#39;s Lab">
 <meta property="og:description" content="Sam&#x2F;Bam文件格式详解 bam文件是sam文件的二进制格式。(https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;SAMv1.pdf) 1. Header section 该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等 @HD行：这一行中有各种不同的标识 标识“VN”用以说明格式版本 标识“SO”用以说明比对排序的情况，有unknown (">
-<meta property="og:locale" content="en_US">
+<meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-22T08:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-15T08:52:25.262Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:modified_time" content="2024-05-15T10:15:39.576Z">
+<meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>Sam/Bam文件格式详解 - Hexo</title>
+  <title>Sam/Bam文件格式详解 - Qiang Wei&#39;s Lab</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -68,7 +68,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"xiaoqiangq.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -114,7 +114,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/" target="_self">
                 <i class="iconfont icon-home-fill"></i>
-                <span>Home</span>
+                <span>首页</span>
               </a>
             </li>
           
@@ -126,7 +126,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/archives/" target="_self">
                 <i class="iconfont icon-archive-fill"></i>
-                <span>Archives</span>
+                <span>归档</span>
               </a>
             </li>
           
@@ -138,7 +138,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/categories/" target="_self">
                 <i class="iconfont icon-category-fill"></i>
-                <span>Categories</span>
+                <span>分类</span>
               </a>
             </li>
           
@@ -150,7 +150,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/tags/" target="_self">
                 <i class="iconfont icon-tags-fill"></i>
-                <span>Tags</span>
+                <span>标签</span>
               </a>
             </li>
           
@@ -162,7 +162,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/about/" target="_self">
                 <i class="iconfont icon-user-fill"></i>
-                <span>About</span>
+                <span>关于</span>
               </a>
             </li>
           
@@ -208,7 +208,7 @@
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
         <time datetime="2024-01-22 16:08" pubdate>
-          January 22, 2024 pm
+          2024年1月22日 下午
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3k words
+          3k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          25 mins
+          25 分钟
         
       </span>
     
@@ -281,9 +281,9 @@
 <li>标识“SO”用以说明比对排序的情况，有unknown (default)、unsorted、queryname和coordinate,对于coordinate，排序的主键是Alignments section的第三列“RNAME”，其顺序由@SQ行的“SN”标识的顺序定义，次要排序键是Alignments section的第四列“POS”字段。对于RNAME和POS相等的比对，排列顺序则是任意的</li>
 <li>@SQ行的“SN”标签是参考序列说明，它的值主要是用于Alignments section的第三列“RNAME”和第七列“MRNM”比对的记录</li>
 <li>@PG行是使用的程序说明；该行“ID”为程序记录标识符，“PN”为程序名字，“CL”为命令行</li>
-<li>@CO行是任意的说明信息<span id="more"></span>
-<strong>注意事项</strong></li>
+<li>@CO行是任意的说明信息</li>
 </ul>
+<p><strong>注意事项</strong></p>
 <ol>
 <li><strong>mapping(bwa,GATK,bismark,…)</strong></li>
 <li><strong>duplication(picard,samblaster,sambamba,…)</strong></li>
@@ -710,31 +710,31 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>Sam/Bam文件格式详解</div>
-      <div>http://example.com/2024/01/22/bam文件格式/</div>
+      <div>https://xiaoqiangq.github.io/2024/01/22/bam文件格式/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
-          <div>Author</div>
+          <div>作者</div>
           <div>魏强</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
-          <div>Posted on</div>
-          <div>January 22, 2024</div>
+          <div>发布于</div>
+          <div>2024年1月22日</div>
         </div>
       
       
       
         <div class="license-meta-item">
-          <div>Licensed under</div>
+          <div>许可协议</div>
           <div>
             
               
               
                 <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
-                  <span class="hint--top hint--rounded" aria-label="BY - Attribution">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
                     <i class="iconfont icon-by"></i>
                   </span>
                 </a>
@@ -757,7 +757,7 @@
                       <a href="/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" title="VCF文件格式详解">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile">VCF文件格式详解</span>
-                        <span class="visible-mobile">Previous</span>
+                        <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
@@ -766,7 +766,7 @@
                     
                       <a href="/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" title="常见生信软件安装">
                         <span class="hidden-mobile">常见生信软件安装</span>
-                        <span class="visible-mobile">Next</span>
+                        <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
                     
@@ -787,7 +787,7 @@
     <div id="toc">
   <p class="toc-header">
     <i class="iconfont icon-list"></i>
-    <span>Table of Contents</span>
+    <span>目录</span>
   </p>
   <div class="toc-body" id="toc-body"></div>
 </div>
@@ -843,7 +843,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -851,7 +851,7 @@
       <div class="modal-body mx-3">
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
@@ -1030,7 +1030,7 @@
   
 
   <noscript>
-    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
   </noscript>
 </body>
 </html>
