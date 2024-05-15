@@ -1,453 +1,611 @@
+
+
 <!DOCTYPE html>
-<html>
+<html lang="en" data-default-color-scheme=auto>
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
   
-  <title>Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
+    <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
 <meta property="og:url" content="http://example.com/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="en_US">
 <meta property="article:author" content="John Doe">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="shortcut icon" href="/favicon.png">
+<meta name="twitter:card" content="summary_large_image">
   
   
   
-<link rel="stylesheet" href="/css/style.css">
+  <title>Hexo</title>
 
-  
-    
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
   
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
   
 <meta name="generator" content="Hexo 7.2.0"></head>
 
+
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
         
-          <a class="main-nav-link" href="/">Home</a>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>Home</span>
+              </a>
+            </li>
+          
         
-          <a class="main-nav-link" href="/archives">Archives</a>
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>Archives</span>
+              </a>
+            </li>
+          
         
-      </nav>
-      <nav id="sub-nav">
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>Categories</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>Tags</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>About</span>
+              </a>
+            </li>
+          
         
         
-          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
-        
-        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://example.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-GATK4使用方法详解-变异检测" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" class="article-date">
-  <time class="dt-published" datetime="2024-01-23T06:08:14.000Z" itemprop="datePublished">2024-01-23</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E4%BA%8C%E4%BB%A3%E6%B5%8B%E5%BA%8F/">二代测序</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">GATK使用方法详解-变异检测</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>GATK4是最新的GATK版本，它在算法上进行了优化，运行速率得到提高，而且整合了picard。GATK4依然是用java 语言开发的，但使用方式上更加人性化，比如所有命令都是gatk cmd方式，这里的cmd是任何可以用的cmd。GATK4 的最佳实践给出了5套pipeline: <strong>Germline SNP&#x2F;Indel</strong>, Somatic SNV&#x2F;Indel, RNAseq SNP&#x2F;Indel, Germline CNV, Somatic CNV。目前版本号是 4.2.4 <a target="_blank" rel="noopener" href="https://gatk.broadinstitute.org/hc/en-us">https://gatk.broadinstitute.org/hc/en-us</a> </p>
-<h1 id="1-建立索引"><a href="#1-建立索引" class="headerlink" title="1. 建立索引"></a>1. 建立索引</h1><ol>
-<li>gatk  CreateSequenceDictionary -R hg19.fa -O hg19.dict</li>
-<li>samtools faidx genome.fasta # .fai</li>
-<li>bwa index ref.fa # .amb, .ann, .bwt, .pac, .sa</li>
-<li>qplot –reference ucsc.hg19.fasta  –create_gc ucsc.hg19.winsize100.gc #.winsize100.gc</li>
-<li>bowtie-build ucsc.hg19.fasta ucsc.hg19 ##</li>
-<li>bowtie2-build human_g1k_v37.fa human_g1k_v37 #bowtie2-2.4.1
-        
-          <p class="article-more-link">
-            <a href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" data-id="clw7l0lmt0004olgp4z4dfjh7" data-title="GATK使用方法详解-变异检测" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-VCF文件格式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" class="article-date">
-  <time class="dt-published" datetime="2024-01-22T09:08:14.000Z" itemprop="datePublished">2024-01-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">VCF文件格式详解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong>VCF文件格式详解</strong></p>
-<p>VCF介绍</p>
-<p>VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。</p>
-<h1 id="1-VCF的主体结构"><a href="#1-VCF的主体结构" class="headerlink" title="1. VCF的主体结构"></a>1. VCF的主体结构</h1><p>VCF文件分为两部分内容:</p>
-<ul>
-<li><ol>
-<li>以“#”开头的注释部分</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>没有“#”开头的主体部分</li>
-</ol>
-</li>
-</ul>
-<p>去掉了头部的注释行，只留下了代表每一行意义的注释行。<br>主体部分中每一行代表一个Variant的信息。</p>
-        
-          <p class="article-more-link">
-            <a href="/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" data-id="clw7l0lmt0005olgp63ov2l0v" data-title="VCF文件格式详解" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-bam文件格式" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" class="article-date">
-  <time class="dt-published" datetime="2024-01-22T08:08:14.000Z" itemprop="datePublished">2024-01-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">Sam/Bam文件格式详解</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p><strong>Sam&#x2F;Bam文件格式详解</strong></p>
-<p>bam文件是sam文件的二进制格式。(<a target="_blank" rel="noopener" href="https://samtools.github.io/hts-specs/SAMv1.pdf">https://samtools.github.io/hts-specs/SAMv1.pdf</a>)</p>
-<h1 id="1-Header-section"><a href="#1-Header-section" class="headerlink" title="1. Header section"></a>1. Header section</h1><ul>
-<li>该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等</li>
-<li>@HD行：这一行中有各种不同的标识</li>
-<li>标识“VN”用以说明格式版本</li>
-<li>标识“SO”用以说明比对排序的情况，有unknown (default)、unsorted、queryname和coordinate,对于coordinate，排序的主键是Alignments section的第三列“RNAME”，其顺序由@SQ行的“SN”标识的顺序定义，次要排序键是Alignments section的第四列“POS”字段。对于RNAME和POS相等的比对，排列顺序则是任意的</li>
-<li>@SQ行的“SN”标签是参考序列说明，它的值主要是用于Alignments section的第三列“RNAME”和第七列“MRNM”比对的记录</li>
-<li>@PG行是使用的程序说明；该行“ID”为程序记录标识符，“PN”为程序名字，“CL”为命令行</li>
-<li>@CO行是任意的说明信息
-        
-          <p class="article-more-link">
-            <a href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" data-id="clw7l0lmu0006olgpa2x51o7r" data-title="Sam/Bam文件格式详解" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-2.常见软件安装整理" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" class="article-date">
-  <time class="dt-published" datetime="2024-01-22T07:08:14.000Z" itemprop="datePublished">2024-01-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/">常见生信软件安装</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="常见生信软件安装"><a href="#常见生信软件安装" class="headerlink" title="常见生信软件安装"></a>常见生信软件安装</h1><h2 id="1-手动安装"><a href="#1-手动安装" class="headerlink" title="1. 手动安装"></a>1. 手动安装</h2><p>bwa, samtools, bcftools, bgzip, tabix</p>
-<h3 id="1-bwa"><a href="#1-bwa" class="headerlink" title="1.bwa"></a>1.bwa</h3><h3 id="2-samtools-bcftools-版本要一致-1-17"><a href="#2-samtools-bcftools-版本要一致-1-17" class="headerlink" title="2.samtools, bcftools 版本要一致 #1.17"></a>2.samtools, bcftools 版本要一致 #1.17</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#Building each desired package from source is very simple:</span><br><span class="line">    cd samtools-1.x    # and similarly for bcftools and htslib</span><br><span class="line">    ./configure --prefix=/where/to/install</span><br><span class="line">    make</span><br><span class="line">    make install</span><br><span class="line"></span><br><span class="line">    ### install bgzip, tabix</span><br><span class="line">    cd .../samtools-1.17 # Within the unpacked release directory</span><br><span class="line">    ./configure --prefix=/path/to/location</span><br><span class="line">    make all all-htslib</span><br><span class="line">    make install install-htslib</span><br></pre></td></tr></table></figure>
-        
-          <p class="article-more-link">
-            <a href="/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" data-id="clw7l0lmr0002olgp50gvhify" data-title="常见生信软件安装" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-1.linuxCommandLine" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2024/01/22/1.linuxCommandLine/" class="article-date">
-  <time class="dt-published" datetime="2024-01-22T06:08:14.000Z" itemprop="datePublished">2024-01-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2024/01/22/1.linuxCommandLine/">Linux 常见命令</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h1 id="Unix-Linux-操作系统介绍"><a href="#Unix-Linux-操作系统介绍" class="headerlink" title="Unix&#x2F;Linux 操作系统介绍"></a>Unix&#x2F;Linux 操作系统介绍</h1><h2 id="1-文件的cp、rm和mv命令"><a href="#1-文件的cp、rm和mv命令" class="headerlink" title="1. 文件的cp、rm和mv命令"></a>1. 文件的cp、rm和mv命令</h2><h3 id="cp-复制"><a href="#cp-复制" class="headerlink" title="cp 复制"></a>cp 复制</h3><ul>
-<li>说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具 有同一特征的所有文件。</li>
-<li>语法: cp [参数] 源文件或目录 目标文件或目录</li>
-<li>参数:<ul>
-<li>-a 该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。</li>
-<li>-d 拷贝时保留链接。</li>
-<li>-f 删除已经存在的目标文件而不提示。</li>
-<li>-i 和 f 选项相反，在覆盖目标文件之前将给出提示要求用户确认。回答 y 时目标文件将被覆盖，是交互式拷贝。为防止用户在不经意的情况下用 cp 命令破坏另一个文件，如用户指定 的目标文件名已存在，用 cp 命令拷贝文件后，这个文件就会被新源文件覆盖，因此，建议 用户在使用 cp 命令拷贝文件时，最好使用 i 选项。</li>
-<li>-p 此时 cp 除复制源文件的内容外，还将把其修改时间和访问权限也复制到新文件中。</li>
-<li>-r 若给出的源文件是一目录文件，此时 cp 将递归复制该目录下所有的子目录和文件。此时目标文件必须为一个目录名。 </li>
-<li>-l 不作拷贝，只是链接文件。
-        
-          <p class="article-more-link">
-            <a href="/2024/01/22/1.linuxCommandLine/#more">Read More</a>
-          </p>
-        
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://example.com/2024/01/22/1.linuxCommandLine/" data-id="clw7l0lmp0001olgpfbq42ry1" data-title="Linux 常见命令" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E4%BA%8C%E4%BB%A3%E6%B5%8B%E5%BA%8F/">二代测序</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/">生物信息学</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/01/">January 2024</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/">GATK使用方法详解-变异检测</a>
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
           </li>
+          
         
-          <li>
-            <a href="/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">VCF文件格式详解</a>
-          </li>
         
-          <li>
-            <a href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/">Sam/Bam文件格式详解</a>
-          </li>
-        
-          <li>
-            <a href="/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/">常见生信软件安装</a>
-          </li>
-        
-          <li>
-            <a href="/2024/01/22/1.linuxCommandLine/">Linux 常见命令</a>
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
           </li>
         
       </ul>
     </div>
   </div>
+</nav>
 
   
-</aside>
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="An elegant Material-Design theme for Hexo"></span>
+          
+        </div>
+
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
+
       
-      &copy; 2024 John Doe<br>
-      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
     </div>
   </div>
-</footer>
+</div>
 
-    </div>
-    <nav id="mobile-nav">
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" target="_self">
+          GATK使用方法详解-变异检测
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" target="_self">
+        <div>
+          GATK4是最新的GATK版本，它在算法上进行了优化，运行速率得到提高，而且整合了picard。GATK4依然是用java 语言开发的，但使用方式上更加人性化，比如所有命令都是gatk cmd方式，这里的cmd是任何可以用的cmd。GATK4 的最佳实践给出了5套pipeline: Germline SNP&#x2F;Indel, Somatic SNV&#x2F;Indel, RNAseq SN
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-23 14:08" pubdate>
+              2024-01-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
   
-    <a href="/" class="mobile-nav-link">Home</a>
   
-    <a href="/archives" class="mobile-nav-link">Archives</a>
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E4%BA%8C%E4%BB%A3%E6%B5%8B%E5%BA%8F/" class="category-chain-item">二代测序</a>
   
-</nav>
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" target="_self">
+          VCF文件格式详解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" target="_self">
+        <div>
+          VCF文件格式详解 VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。 1. VCF的主体结构VCF文件分为两部分内容:   以“#”开头的注释部分    没有“#”开头的主体部分    去掉了头部的注释行，只留下了代表每一行意义的注释行。主体部分中每一行代表一个Variant的信息。
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-22 17:08" pubdate>
+              2024-01-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" class="category-chain-item">生物信息学</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" target="_self">
+          Sam/Bam文件格式详解
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" target="_self">
+        <div>
+          Sam&#x2F;Bam文件格式详解 bam文件是sam文件的二进制格式。(https://samtools.github.io/hts-specs/SAMv1.pdf) 1. Header section 该部分全部以“@”开头，提供基本的软件版本，参考序列信息，排序信息等 @HD行：这一行中有各种不同的标识 标识“VN”用以说明格式版本 标识“SO”用以说明比对排序的情况，有unknown (
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-22 16:08" pubdate>
+              2024-01-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" class="category-chain-item">生物信息学</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" target="_self">
+          常见生信软件安装
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/" target="_self">
+        <div>
+          常见生信软件安装1. 手动安装bwa, samtools, bcftools, bgzip, tabix 1.bwa2.samtools, bcftools 版本要一致 #1.171234567891011#Building each desired package from source is very simple:    cd samtools-1.x    # and similarly
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-22 15:08" pubdate>
+              2024-01-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" class="category-chain-item">生物信息学</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h2 class="index-header">
+        
+        <a href="/2024/01/22/1.linuxCommandLine/" target="_self">
+          Linux 常见命令
+        </a>
+      </h2>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2024/01/22/1.linuxCommandLine/" target="_self">
+        <div>
+          Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具 有同一特征的所有文件。 语法: cp [参数] 源文件或目录 目标文件或目录 参数: -a 该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR 选项的组合。 -d 拷贝时保留链接。 -f 删除已
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2024-01-22 14:08" pubdate>
+              2024-01-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" class="category-chain-item">生物信息学</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     
 
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
 
-<script src="/js/jquery-3.6.4.min.js"></script>
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">Search</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">Keyword</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
 
 
 
   
-<script src="/fancybox/jquery.fancybox.min.js"></script>
+    <script  src="/js/img-lazyload.js" ></script>
+  
 
 
 
 
-<script src="/js/script.js"></script>
+  <script  src="/js/local-search.js" ></script>
 
 
 
 
 
-  </div>
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">Blog works best with JavaScript enabled</div>
+  </noscript>
 </body>
 </html>
