@@ -24,7 +24,7 @@
 <meta property="og:description" content="Unix&#x2F;Linux 操作系统介绍1. 文件的cp、rm和mv命令cp 复制 说明:该命令的功能是将指定的文件或目录拷贝到另一文件或目录中。可以使用通配符拷贝具有同一特征的所有文件。 语法: cp [参数] 源文件或目录 目标文件或目录 参数:-a  该选项通常在拷贝目录时使用。它保留链接、文件属性，并递归地拷贝目录，其作用等于dpR选项的组合。-d  拷贝时保留链接。-f  删除已经存">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-01-22T06:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-15T13:11:52.617Z">
+<meta property="article:modified_time" content="2024-05-15T13:14:52.162Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -352,11 +352,19 @@
 <li><p>参数:<br>-p  显示下一屏之前先清屏。<br>-c  作用同-p基本一样<br>-l  不处理ctrl+l(换页符)。如果没有给出这个选项，则more命令在显示了一个包含有ctrl+l字符的行后将暂停显示，并等待接收命令。<br>-s  文件中连续的空白行压缩成一个空白行显示。</p>
 </li>
 <li><p>例子:</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">more -c -5 example.txt       执行该命令后，先清屏，然后将以每五行的方式显示文件example.txt的内容。<br></code></pre></td></tr></table></figure></li>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">more -c -5 example.txt   执行该命令后，先清屏，然后将以每五行的方式显示文件example.txt的内容。<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h3 id="cat-命令"><a href="#cat-命令" class="headerlink" title="cat 命令"></a>cat 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">- 说明:该命令功能之一是用来显示文件，它依次读取其后所指文件的内容并将其输出到标准输 出。该命令功能之二是用来将两个或多个文件连接起来。<br>- 语法:<span class="hljs-built_in">cat</span> [参数] 文件<br>- 参数:<br>  - -v  用一种特殊形式显示控制字符，LFD 与 TAB 除外。加了-v 选项后，-T 和 -E 选项将起作用。<br>  - -T  将 TAB 显示为 “ù I”。该选项需要与 -v 选项一起使用。即如果没有使用 -v 选项，则这个选项将被忽略。<br>  - -E  在每行的末尾显示一个$符。该选项需要与 -v 选项一起使用。 -A 等于 -vET。<br>  - -t  等于 -vT。<br>  - -e  等于 -vE。<br>  - -n  在文件的每行前面显示行号。<br>  - -b  和-n 相似，只不过对于空白行不编号。<br>  - -s  当遇到有连续两行以上的空白行时，就代换为一行的空白行。<br><br>- 例子:<br>  - <span class="hljs-built_in">cat</span> -A example.txt          在屏幕上显示出 example.txt 文件的内容，而且如果文件中含有特殊字符的话，一并显示。<br>  - <span class="hljs-built_in">cat</span> file1 file2 &gt; file3     这样就把文件 file1 和文件 file2 的内容合并起来，放入文件file3 中(此时在屏幕上并不能直接看到该命令执行后的结果)。<br></code></pre></td></tr></table></figure>
-
-<h3 id="head-命令"><a href="#head-命令" class="headerlink" title="head 命令"></a>head 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">- 说明:显示指定文件的前若干行。该命令显示每个指定文件的前面 n 行。如果没有给出 n 值，缺省设置为10。如果没有指定文件，<span class="hljs-built_in">head</span> 就从标准输入读取。<br>- 语法:<span class="hljs-built_in">head</span> [参数] 文件<br>- 参数:<br>  - -line<br>  - -n line<br>- 例子:<br>  - <span class="hljs-built_in">head</span> -5 example.txt      查看example.txt的前 5 行。<br></code></pre></td></tr></table></figure>
+<h3 id="cat-命令"><a href="#cat-命令" class="headerlink" title="cat 命令"></a>cat 命令</h3><ul>
+<li><p>说明:该命令功能之一是用来显示文件，它依次读取其后所指文件的内容并将其输出到标准输出。该命令功能之二是用来将两个或多个文件连接起来。</p>
+</li>
+<li><p>语法:cat [参数] 文件</p>
+</li>
+<li><p>参数:<br>-v  用一种特殊形式显示控制字符，LFD与TAB除外。加了-v选项后，-T和-E选项将起作用。<br>-T  将TAB显示为“ù I”。该选项需要与-v选项一起使用。即如果没有使用-v选项，则这个选项将被忽略。<br>-E  在每行的末尾显示一个$符。该选项需要与-v选项一起使用。-A等于-vET。<br>-t  等于-vT。<br>-e  等于-vE。<br>-n  在文件的每行前面显示行号。<br>-b  和-n相似，只不过对于空白行不编号。<br>-s  当遇到有连续两行以上的空白行时，就代换为一行的空白行。</p>
+</li>
+<li><p>例子:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> -A example.txt        在屏幕上显示出example.txt文件的内容，而且如果文件中含有特殊字符的话，一并显示。<br><span class="hljs-built_in">cat</span> file1 file2 &gt; file3   这样就把文件file1和文件file2的内容合并起来，放入文件file3中(此时在屏幕上并不能直接看到该命令执行后的结果)。<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="head-命令"><a href="#head-命令" class="headerlink" title="head 命令"></a>head 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">- 说明:显示指定文件的前若干行。该命令显示每个指定文件的前面n行。如果没有给出n值，缺省设置为10。如果没有指定文件，<span class="hljs-built_in">head</span>就从标准输入读取。<br>- 语法:<span class="hljs-built_in">head</span> [参数] 文件<br>- 参数:<br>  - -line<br>  - -n line<br>- 例子:<br>  - <span class="hljs-built_in">head</span> -5 example.txt      查看example.txt的前 5 行。<br></code></pre></td></tr></table></figure>
 
 <h3 id="tail-命令"><a href="#tail-命令" class="headerlink" title="tail 命令"></a>tail 命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">- 说明:输出文件内容后面的部分，默认为最后十行。<br>- 语法:<span class="hljs-built_in">tail</span> [参数] 文件<br>- 参数:<br>  - -n  只显示后面的n行。<br>  - -c  显示最后几个字节。<br>  - -f  动态显示，常用于跟踪消息文件。<br>- 例子:<br>  - <span class="hljs-built_in">tail</span> -5 /etc/passwd         查看文件/etc/passwd 的最后 5 行<br>  - <span class="hljs-built_in">tail</span> -n 5 test.txt          查看text.txt文件的后5行<br>  - <span class="hljs-built_in">tail</span> -f /var/log/messages   动态显示文件/var/log/messages 的最后 10 行<br>  - <span class="hljs-built_in">tail</span> -c 10 test.txt         查看 text.txt 文件的后 10 个字节<br></code></pre></td></tr></table></figure>
 
