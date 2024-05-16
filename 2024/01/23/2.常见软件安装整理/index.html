@@ -16,15 +16,15 @@
   <meta name="author" content="Qiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="常见生信软件安装1. 手动安装bwa, samtools, bcftools, bgzip, tabix 1.bwa2.samtools, bcftools 版本要一致 #1.171234567891011#Building each desired package from source is very simple:    cd samtools-1.x    # and similarly">
+    <meta name="description" content="常见生信软件安装手动安装 bwa, samtools, bcftools, bgzip, tabix  1.BWA 说明:BWA是用于将DNA与大型参考基因组（例如人类基因组）进行比对的开源软件。 版本 0.7.17 下载安装1234567cd ~&#x2F;softwaremkdir bwa &amp;&amp; cd bwa#http:&#x2F;&#x2F;sourceforge.net&#x2F;projects&#x2F;bio-bwa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="2.常见生信软件安装">
-<meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/22/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/index.html">
+<meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/23/2.%E5%B8%B8%E8%A7%81%E8%BD%AF%E4%BB%B6%E5%AE%89%E8%A3%85%E6%95%B4%E7%90%86/index.html">
 <meta property="og:site_name" content="Qiang Wei&#39;s Lab">
-<meta property="og:description" content="常见生信软件安装1. 手动安装bwa, samtools, bcftools, bgzip, tabix 1.bwa2.samtools, bcftools 版本要一致 #1.171234567891011#Building each desired package from source is very simple:    cd samtools-1.x    # and similarly">
+<meta property="og:description" content="常见生信软件安装手动安装 bwa, samtools, bcftools, bgzip, tabix  1.BWA 说明:BWA是用于将DNA与大型参考基因组（例如人类基因组）进行比对的开源软件。 版本 0.7.17 下载安装1234567cd ~&#x2F;softwaremkdir bwa &amp;&amp; cd bwa#http:&#x2F;&#x2F;sourceforge.net&#x2F;projects&#x2F;bio-bwa">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-22T07:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-15T10:52:31.140Z">
+<meta property="article:published_time" content="2024-01-23T07:08:14.000Z">
+<meta property="article:modified_time" content="2024-05-16T14:21:21.033Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -209,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-22 15:08" pubdate>
-          2024年1月22日 下午
+        <time datetime="2024-01-23 15:08" pubdate>
+          2024年1月23日 下午
         </time>
       </span>
     
@@ -221,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          152 字
+          499 字
         
       </span>
     
@@ -232,7 +232,7 @@
         
         
         
-          2 分钟
+          5 分钟
         
       </span>
     
@@ -295,9 +295,21 @@
             
               <div class="markdown-body">
                 
-                <h1 id="常见生信软件安装"><a href="#常见生信软件安装" class="headerlink" title="常见生信软件安装"></a>常见生信软件安装</h1><h2 id="1-手动安装"><a href="#1-手动安装" class="headerlink" title="1. 手动安装"></a>1. 手动安装</h2><p>bwa, samtools, bcftools, bgzip, tabix</p>
-<h3 id="1-bwa"><a href="#1-bwa" class="headerlink" title="1.bwa"></a>1.bwa</h3><h3 id="2-samtools-bcftools-版本要一致-1-17"><a href="#2-samtools-bcftools-版本要一致-1-17" class="headerlink" title="2.samtools, bcftools 版本要一致 #1.17"></a>2.samtools, bcftools 版本要一致 #1.17</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#Building each desired package from source is very simple:</span><br>    <span class="hljs-built_in">cd</span> samtools-1.x    <span class="hljs-comment"># and similarly for bcftools and htslib</span><br>    ./configure --prefix=/where/to/install<br>    make<br>    make install<br><br>    <span class="hljs-comment">### install bgzip, tabix</span><br>    <span class="hljs-built_in">cd</span> .../samtools-1.17 <span class="hljs-comment"># Within the unpacked release directory</span><br>    ./configure --prefix=/path/to/location<br>    make all all-htslib<br>    make install install-htslib<br></code></pre></td></tr></table></figure>
-
+                <h1 id="常见生信软件安装"><a href="#常见生信软件安装" class="headerlink" title="常见生信软件安装"></a>常见生信软件安装</h1><h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><ul>
+<li>bwa, samtools, bcftools, bgzip, tabix</li>
+</ul>
+<h3 id="1-BWA"><a href="#1-BWA" class="headerlink" title="1.BWA"></a>1.BWA</h3><ul>
+<li>说明:BWA是用于将DNA与大型参考基因组（例如人类基因组）进行比对的开源软件。</li>
+<li>版本 0.7.17</li>
+<li>下载安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/software<br><span class="hljs-built_in">mkdir</span> bwa &amp;&amp; <span class="hljs-built_in">cd</span> bwa<br><span class="hljs-comment">#http://sourceforge.net/projects/bio-bwa/files/</span><br>wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2<br>tar xvfj bwa-0.7.15.tar.bz2<br><span class="hljs-built_in">cd</span> bwa-0.7.17<br>make<br></code></pre></td></tr></table></figure></li>
+<li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">bwa index hg38.fa  建立参考基因组索引<br><br><span class="hljs-comment"># single end</span><br>bwa mem ref.fa reads.fq &gt; mem-se.sam<br><br><span class="hljs-comment"># paired end</span><br>$ bwa mem ref.fa read1.fq read2.fq &gt; mem-pe.sam<br><span class="hljs-comment">#使用 BWA 进行比对，并通过管道传递给 Samtools 进行转换和排序</span><br>$ bwa mem -t 4 -M -R <span class="hljs-string">&quot;\@RG\tID:&#123;library&#125;\tLB:&#123;library&#125;\tPL:Illumina\tPU:&#123;sample&#125;\tSM:&#123;sample&#125;\tDT:&#123;time&#125;\&quot; ref.fa read1.fastq.gz read2.fastq.gz | | samtools view -Sb - | samtools sort - -o sorted_reads.bam</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-samtools"><a href="#2-samtools" class="headerlink" title="2.samtools"></a>2.samtools</h3><ul>
+<li>说明:samtools是一个用于操作sam和bam文件的工具合集。能够实现二进制查看、格式转换、排序及合并等功能，结合sam格式中的flag、tag等信息，还可以完成比对结果的统计汇总。同时利用linux中的grep、awk等操作命令，还可以大大扩展samtools的使用范围与功能。包含有许多命令。</li>
+<li>版本 1.18</li>
+<li>下载安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> samtools &amp;&amp; <span class="hljs-built_in">cd</span> samtools<br>wget https://github.com/samtools/samtools/releases/download/1.20/samtools-1.20.tar.bz2<br>tar -xzvf samtools-1.9.tar.bz2<br><span class="hljs-built_in">cd</span> samtools-1.x    <span class="hljs-comment"># and similarly for bcftools and htslib</span><br>./configure --prefix=/where/to/install<br>make<br>make install<br><br><span class="hljs-comment">### install bgzip, tabix</span><br><span class="hljs-built_in">cd</span> .../samtools-1.17 <span class="hljs-comment"># Within the unpacked release directory</span><br>./configure --prefix=/path/to/location<br>make all all-htslib<br>make install install-htslib<br></code></pre></td></tr></table></figure></li>
+<li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#view</span><br>samtools view -S -b sample.sam &gt; sample.bam<br>samtools view -S -b sample.sam -o sample.bam<br>samtools view sample.bam | <span class="hljs-built_in">head</span><br><br><span class="hljs-comment">#tview</span><br>samtools tview SRR2584866.aligned.sorted.bam ref.fa<br><br><span class="hljs-comment">#indexing</span><br>samtools faidx ref.fa <span class="hljs-comment">#生成ref.fa.fai</span><br>samtools index test.sorted.dup.bam <span class="hljs-comment">#生成test.sorted.dup.bam.bai</span><br><br><span class="hljs-comment">#sort</span><br>samtools <span class="hljs-built_in">sort</span> -@ 3 -o t.sort.bam t.aligned.bam<br><br><span class="hljs-comment">#mpileup</span><br>samtools mpileup test.sort.dup.bam -o test.sort.dup.bcf<br><br><span class="hljs-comment">#statistics</span><br>samtools flagstat t1.sort.bam &gt; t1.flagstat.txt<br>samtools depth SRR2584866.aligned.sorted.bam &gt; depth.txt<br><br><br></code></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="2-conda安装包安装"><a href="#2-conda安装包安装" class="headerlink" title="2. conda安装包安装"></a>2. conda安装包安装</h2><h3 id="1-conda-install-c-bioconda-pysam-会安装一下3个包"><a href="#1-conda-install-c-bioconda-pysam-会安装一下3个包" class="headerlink" title="1.conda install -c bioconda pysam #会安装一下3个包"></a>1.conda install -c bioconda pysam #会安装一下3个包</h3><pre><code class="hljs">samtools=1.3.1
 bcftools=1.3.1
 htslib=1.3.1
@@ -362,7 +374,7 @@ snakemake -s Snakefile
   <div class="license-box my-3">
     <div class="license-title">
       <div>2.常见生信软件安装</div>
-      <div>https://xiaoqiangq.github.io/2024/01/22/2.常见软件安装整理/</div>
+      <div>https://xiaoqiangq.github.io/2024/01/23/2.常见软件安装整理/</div>
     </div>
     <div class="license-meta">
       
@@ -374,7 +386,7 @@ snakemake -s Snakefile
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月22日</div>
+          <div>2024年1月23日</div>
         </div>
       
       
@@ -406,18 +418,12 @@ snakemake -s Snakefile
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" title="3.Sam/Bam文件格式详解">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">3.Sam/Bam文件格式详解</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/22/1.linuxCommandLine/" title="1.Linux 常用命令">
-                        <span class="hidden-mobile">1.Linux 常用命令</span>
+                      <a href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" title="GATK使用方法详解-变异检测">
+                        <span class="hidden-mobile">GATK使用方法详解-变异检测</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
