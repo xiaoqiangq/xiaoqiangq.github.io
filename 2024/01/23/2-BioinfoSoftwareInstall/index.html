@@ -1,0 +1,746 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Qiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="常见生信软件安装 为了有效地组织和管理软件安装目录，简化可执行文件的调用路径，并保持系统目录的整洁和安全，可以按照以下步骤执行命令：1234567891011121314# 1. 将所有安装软件放在 &#x2F;data&#x2F;software 下面# 这一步假设你已经将软件解压或安装到了 &#x2F;data&#x2F;software 下的子目录中# 2. 建立文件夹，用于存放所有可执行文件的软连接mkdir -p &#x2F;data&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2.常见生信软件安装">
+<meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/index.html">
+<meta property="og:site_name" content="Qiang Wei&#39;s Lab">
+<meta property="og:description" content="常见生信软件安装 为了有效地组织和管理软件安装目录，简化可执行文件的调用路径，并保持系统目录的整洁和安全，可以按照以下步骤执行命令：1234567891011121314# 1. 将所有安装软件放在 &#x2F;data&#x2F;software 下面# 这一步假设你已经将软件解压或安装到了 &#x2F;data&#x2F;software 下的子目录中# 2. 建立文件夹，用于存放所有可执行文件的软连接mkdir -p &#x2F;data&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/intersect-glyph.webp">
+<meta property="article:published_time" content="2024-01-23T07:08:14.000Z">
+<meta property="article:modified_time" content="2024-05-18T10:01:51.548Z">
+<meta property="article:author" content="Qiang Wei">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/intersect-glyph.webp">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>2.常见生信软件安装 - Qiang Wei&#39;s Lab</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiaoqiangq.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 40vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Qiang</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="2.常见生信软件安装"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-23 15:08" pubdate>
+          2024年1月23日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          20 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">2.常见生信软件安装</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年5月18日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="常见生信软件安装"><a href="#常见生信软件安装" class="headerlink" title="常见生信软件安装"></a>常见生信软件安装</h1><ul>
+<li>为了有效地组织和管理软件安装目录，简化可执行文件的调用路径，并保持系统目录的整洁和安全，可以按照以下步骤执行命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 将所有安装软件放在 /data/software 下面</span><br><span class="hljs-comment"># 这一步假设你已经将软件解压或安装到了 /data/software 下的子目录中</span><br><br><span class="hljs-comment"># 2. 建立文件夹，用于存放所有可执行文件的软连接</span><br><span class="hljs-built_in">mkdir</span> -p /data/software/bin<br><br><span class="hljs-comment"># 3. 编辑 ~/.bashrc 文件，添加以下内容以更新环境变量</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=&quot;/data/software/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.bashrc<br><br><span class="hljs-comment"># 4. 保存文件后，使修改立即生效</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br><br><span class="hljs-comment"># 5. 创建软连接（示例，假设 liftOver 在 /data/software/liftOver 下）</span><br><span class="hljs-built_in">ln</span> -s /data/software/liftOver/liftOver /data/software/bin/liftOver<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><ul>
+<li>bwa, samtools, bgzip, tabix, bcftools</li>
+</ul>
+<h3 id="1-BWA"><a href="#1-BWA" class="headerlink" title="1.BWA"></a>1.BWA</h3><ul>
+<li>说明:BWA是用于将DNA与大型参考基因组（例如人类基因组）进行比对的开源软件。</li>
+<li>版本 0.7.17</li>
+<li>下载安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/software<br><span class="hljs-built_in">mkdir</span> bwa &amp;&amp; <span class="hljs-built_in">cd</span> bwa<br><br><span class="hljs-comment"># 从官方网站下载</span><br>wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2<br>tar -jxvf bwa-0.7.17.tar.bz2<br><span class="hljs-built_in">cd</span> bwa-0.7.17<br>make<br><br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/bwa ~/software/bin/bwa<br></code></pre></td></tr></table></figure></li>
+<li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 建立参考基因组索引</span><br>bwa index ref.fa  <br><br><span class="hljs-comment"># single end</span><br>bwa mem ref.fa reads.fq.gz &gt; mem-se.sam<br><br><span class="hljs-comment"># paired end</span><br>bwa mem ref.fa r1.fq.gz r2.fq.gz &gt; mem-pe.sam<br><br><span class="hljs-comment">#使用 BWA 进行比对，并通过管道传递给 Samtools 进行转换和排序</span><br>bwa mem ref.fa r1.fq.gz r2.fq.gz | samtools view -Sb - | samtools <span class="hljs-built_in">sort</span> - -o sorted_reads.bam<br>bwa mem -t 4 -M -R <span class="hljs-string">&quot;\@RG\tID:&#123;library&#125;\tLB:&#123;library&#125;\tPL:Illumina\tPU:&#123;sample&#125;\tSM:&#123;sample&#125;\tDT:&#123;time&#125;\&quot; ref.fa read1.fq.gz read2.fq.gz | samtools view -Sb - | samtools sort - -o sorted_reads.bam</span><br><span class="hljs-string">bwa mem -t 4 -M -R &quot;</span>\@RG\tID:&#123;library&#125;\tLB:&#123;library&#125;\tPL:Illumina\tPU:&#123;sample&#125;\tSM:&#123;sample&#125;\tDT:&#123;time&#125;\&quot; ref.fa read1.fq.gz read2.fq.gz | samtools <span class="hljs-built_in">sort</span> -o sorted_reads.bam<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-Samtools-Tabix-Bgzip"><a href="#2-Samtools-Tabix-Bgzip" class="headerlink" title="2.Samtools Tabix Bgzip"></a>2.Samtools Tabix Bgzip</h3><ul>
+<li>说明:</li>
+</ul>
+<ol>
+<li>Samtools是一组用于处理SAM（Sequence Alignment&#x2F;Map）和BAM（Binary Alignment&#x2F;Map）格式文件的工具。它能够实现二进制查看、格式转换、排序及合并等功能。结合SAM格式中的flag、tag等信息，还可以完成比对结果的统计汇总。同时，利用Linux中的grep、awk等操作命令，可以大大扩展Samtools的使用范围与功能。Samtools包含许多命令，例如 view、sort、index、flagstat等。</li>
+<li>Tabix 可以对NGS分析中常见格式的文件建立索引，从而加快访问速度。它不仅支持VCF文件，还支持BED、GFF、SAM等格式。只要是带有排序过的位置信息，都可以有效建立索引和查询。</li>
+<li>Bgzip 是一个用于压缩和索引生物信息学数据文件的工具，可以在压缩文件大小和读取性能之间取得平衡，提高对大型生物信息学文件的处理效率。它是基于GZIP算法，并在其基础上添加了块压缩和索引功能。由于SNP位点数量巨大，对应的VCF文件也非常大，为了节省存储空间，最常见的做法就是压缩。只要是带有排序过的位置信息的文件，都可以有效压缩。</li>
+</ol>
+<ul>
+<li><p>版本 1.20</p>
+</li>
+<li><p>下载安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> samtools &amp;&amp; <span class="hljs-built_in">cd</span> samtools<br>wget https://github.com/samtools/samtools/releases/download/1.20/samtools-1.20.tar.bz2<br>tar -jxvf samtools-1.20.tar.bz2<br><br><span class="hljs-comment">#安装samtools，tabix，bgzip</span><br><span class="hljs-built_in">cd</span> samtools-1.x    <span class="hljs-comment"># and similarly for bcftools and htslib</span><br>./configure --prefix=`<span class="hljs-built_in">pwd</span>` <span class="hljs-comment">#非root</span><br>make all all-htslib<br>make install install-htslib<br><br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/bin/samtools ~/software/bin/samtools<br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/bin/tabix ~/software/bin/tabix<br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/bin/bgzip ~/software/bin/bgzip<br></code></pre></td></tr></table></figure></li>
+<li><p>samtools使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#view</span><br>samtools view -Sb sample.sam &gt; sample.bam<br>samtools view -Sb sample.sam -o sample.bam<br>samtools view sample.bam | <span class="hljs-built_in">head</span><br><br><span class="hljs-comment">#tview</span><br>samtools tview sorted.bam ref.fa<br><br><span class="hljs-comment">#indexing</span><br>samtools faidx ref.fa <span class="hljs-comment">#生成ref.fa.fai</span><br>samtools index sorted.bam <span class="hljs-comment">#生成sorted.bam.bai</span><br><br><span class="hljs-comment">#sort</span><br>samtools <span class="hljs-built_in">sort</span> input.bam -o sorted.bam<br><br><span class="hljs-comment">#mpileup has been removed in samtools</span><br>samtools mpileup sorted.dup.bam -o sorted.dup.bcf<br><br><span class="hljs-comment">#statistics</span><br>samtools flagstat sorted.bam &gt; t1.flagstat.txt<br>samtools depth sorted.bam &gt; depth.txt<br><br><span class="hljs-comment">#merge</span><br>samtools merge out.bam in1.bam in2.bam in3.bam<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>bgzip和tabix 配合使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩 VCF 文件，生成 sorted.vcf.gz</span><br>bgzip sorted.vcf<br><br><span class="hljs-comment"># 解压缩 VCF 文件</span><br>bgzip -d sorted.vcf.gz<br>gunzip -c sorted.vcf.gz | less<br><br><span class="hljs-comment"># 对vcf, gff文件建立索引，生成一个后缀为 .tbi 的文件</span><br>tabix -p vcf sorted.vcf.gz<br>tabix -p gff sorted.gff.gz<br><span class="hljs-comment"># 对任意带有位置信息的文件建立索引</span><br>tabix -s 1 -b 2 -e 2 sorted.vcf.gz<br><br><br><span class="hljs-comment"># 构建好索引之后，可以快速获取指定区域的内容。</span><br><span class="hljs-comment"># 获取位于11号染色体的SNP位点</span><br>tabix sorted.vcf.gz chr11<br><br><span class="hljs-comment"># 获取位于11号染色体上突变位置大于或等于2343545的SNP位点</span><br>tabix sorted.vcf.gz chr11:2343545 | less<br><br><span class="hljs-comment"># 获取位于11号染色体上突变位置介于2343540到2343596的SNP位点</span><br>tabix sorted.vcf.gz chr11:2343540-2343596 | less<br><br><span class="hljs-comment"># 批量检索，regions.txt 文件中每行包含一个位置（chromosome:start-end）</span><br>tabix sorted.vcf.gz -R regions.txt | bgzip -c &gt; sorted.regions.vcf.gz<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="BCFtools"><a href="#BCFtools" class="headerlink" title="BCFtools"></a>BCFtools</h3><ul>
+<li>说明:BCFtools（Binary Call Format tools）是一个用于处理Variant Call Format (VCF) 和Binary Call Format (BCF)文件的命令行工具集。它是与Samtools一起开发的，用于对比对后的BAM文件进行SNP和Indel的检测。bcftools可以用于SNP和Indel的过滤、注释、统计和可视化等操作。</li>
+<li>版本 1.20</li>
+<li>下载安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> bcftools &amp;&amp; <span class="hljs-built_in">cd</span> bcftools<br>wget https://github.com/samtools/bcftools/releases/download/1.20/bcftools-1.20.tar.bz2<br>tar -jxvf bcftools-1.20.tar.bz2<br><br><span class="hljs-comment">#安装</span><br><span class="hljs-built_in">cd</span> bcftools-1.x<br>./configure --prefix=`<span class="hljs-built_in">pwd</span>` <span class="hljs-comment">#非root</span><br>make<br>make install<br><br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/bin/bcftools ~/software/bin/bcftools<br></code></pre></td></tr></table></figure></li>
+<li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#查看VCF/BCF文件信息</span><br>bcftools view -h file.vcf.gz<br><br><span class="hljs-comment">#过滤SNP和Indel</span><br>bcftools filter -i <span class="hljs-string">&#x27;%QUAL&gt;20&#x27;</span> file.vcf.gz &gt; filtered.vcf<br>bcftools filter -o z file.vcf.gz &gt; filtered.vcf.gz<br><br><span class="hljs-comment">#统计SNP和Indel</span><br>bcftools stats file.vcf &gt; stats.txt<br><span class="hljs-comment">#可视化SNP和Indel</span><br>plot-vcfstats -p plots/ stats.txt<br><br><span class="hljs-comment">#calling variants</span><br>bcftools mpileup -Ou -f ref.fa aln.bam | \<br>    bcftools call -Ou -<span class="hljs-built_in">mv</span> | \<br>    bcftools filter -s LowQual -e <span class="hljs-string">&#x27;%QUAL&lt;20 || DP&gt;100&#x27;</span> -O z &gt; var.flt.vcf.gz<br><br><span class="hljs-comment">#合并VCF.gz文件</span><br>bcftools merge -O z -o merged.vcf.gz file1.vcf.gz file2.vcf.gz file3.vcf.gz<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Bedtools2"><a href="#Bedtools2" class="headerlink" title="Bedtools2"></a>Bedtools2</h3><ul>
+<li><p>说明:bedtools工具是用于广泛的基因组学分析任务的一把利器。最广泛使用的工具能够实现基因组算术：即基因组上的集合理论。例如，bedtools允许人们从广泛使用的基因组文件格式（如BAM、BED、GFF&#x2F;GTF、VCF）的多个文件中交叉、合并、计数、互补和洗牌基因组区间。虽然每个单独的工具被设计用来做一个相对简单的任务（例如，与两个区间文件相交），但通过在UNIX命令行上结合多个bedtools操作可以进行相当复杂的分析。</p>
+</li>
+<li><p>版本 2.31.1</p>
+</li>
+<li><p>下载安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> bedtools &amp;&amp; <span class="hljs-built_in">cd</span> bedtools<br>wget https://github.com/arq5x/bedtools2/releases/download/v2.31.1/bedtools-2.31.1.tar.gz<br>tar -zxvf bedtools-2.31.1.tar.gz<br><span class="hljs-built_in">cd</span> bedtools2<br>make<br><br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/bin/bedtools ~/software/bin/bedtools<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+<img src="/2024/01/23/2-BioinfoSoftwareInstall/intersect-glyph.webp" srcset="/img/loading.gif" lazyload class="">
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#显示cpg.bed中和exons.bed有重叠的intervals</span><br>bedtools intersect -a cpg.bed -b exons.bed<br><br><span class="hljs-comment">#cpg.bed文件中不和exons.bed任何intervals重叠的记录</span><br>bedtools intersect -a cpg.bed -b exons.bed -v<br><br><span class="hljs-comment"># 同时显示重叠区域的A、B文件中的原始记录</span><br>bedtools intersect -a exons.bed -b cpg.bed -wa -wb<br><br><span class="hljs-comment">#merge要求输入文件先排序</span><br><span class="hljs-comment">#排序，输入文件先按染色体排序，然后按起始位置排序。</span><br><span class="hljs-built_in">sort</span> -k1,1 -k2,2n test.bed &gt;test.sorted.bed<br><span class="hljs-comment">#显示最终的&quot;合并&quot;区间</span><br>bedtools merge -i exons.bed | <span class="hljs-built_in">head</span> -n 20<br><br><span class="hljs-comment">#合并距离不超过1000的区间，</span><br>bedtools merge -i exons.bed -d 1000 -c 1 -o count | <span class="hljs-built_in">head</span> -20<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="liftover"><a href="#liftover" class="headerlink" title="liftover"></a>liftover</h3><ul>
+<li><p>说明：LiftOver是一个广泛使用的工具，用于在不同版本的基因组参考序列之间转换基因组坐标。例如，可以将基因组坐标从GRCh37(hg19)转换到GRCh38(hg38)。LiftOver可以通过UCSC工具或者通过命令行使用。</p>
+<p>人类基因组计划启动20年，目前出了很多基因组版本，UCSC、NCBI、Ensembl、1000 Genomes Project、Broad Institute等机构和项目也会对人类基因组参考序列进行命名和使用。</p>
+<p>2022年的T2T-CHM13&#x2F;hs1<br>2013年的GRCh38&#x2F;hg38<br>2009年的GRCh37&#x2F;hg19<br>2006年的GRCh36&#x2F;hg18<br>2004年的GRCh35&#x2F;hg17</p>
+</li>
+<li><p>版本</p>
+</li>
+<li><p>下载安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">##网页版提交</span><br>https://genome.sph.umich.edu/wiki/LiftOver <span class="hljs-comment">#Web_interface</span><br><br><span class="hljs-comment">#软件下载</span><br><span class="hljs-built_in">mkdir</span> liftover &amp;&amp; <span class="hljs-built_in">cd</span> liftover<br>wget http://hgdownload.soe.ucsc.edu/admin/exe/linux.x86_64/liftOver<br><span class="hljs-built_in">chmod</span> 755 liftOver<br><br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/liftOver ~/software/liftOver<br><br><span class="hljs-comment">#下载所需的链文件（Chain Files）</span><br>wget http://hgdownload.soe.ucsc.edu/goldenPath/hg38/liftOver/hg38ToHg19.over.chain.gz<br>wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg38.over.chain.gz<br>wget http://hgdownload.soe.ucsc.edu/goldenPath/hg19/liftOver/hg19ToHg18.over.chain.gz<br>wget http://hgdownload.soe.ucsc.edu/goldenPath/hg18/liftOver/hg18ToHg19.over.chain.gz<br>wget http://hgdownload.soe.ucsc.edu/goldenPath/hg18/liftOver/hg18ToHg38.over.chain.gz<br><br>wget https://raw.githubusercontent.com/xiaoqiangq/Fastq2Vcf/master/lib/makeAnnovarIndex.pl<br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>使用</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">less hg38_cosmic91.txt |sed <span class="hljs-string">&#x27;s/^/chr/g&#x27;</span> |perl -lane <span class="hljs-string">&#x27;print join(&quot;\t&quot;,@F[0,1],$F[2]+1,join(&quot;\:&quot;,@F[3..@F-1])) &#x27;</span> &gt;hg38_cosmic91.txt2<br><br>liftOver hg38_cosmic91.txt2 hg38ToHg19.over.chain.gz output.bed unlifted.bed <span class="hljs-comment">#output.bed 染色体没有sort，所以排序</span><br><br><span class="hljs-comment">#排序</span><br><span class="hljs-keyword">for</span> c <span class="hljs-keyword">in</span> &#123;1..22&#125; X Y MT ;<span class="hljs-keyword">do</span> <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;less output.bed |sed &#x27;s/:/\t/g&#x27; |sed &#x27;s/^chr//&#x27;|perl -lane &#x27;if(\$F[0] eq \&quot;<span class="hljs-variable">$c</span>\&quot;)&#123;print join(\&quot;\\t\&quot;,@F[0,1],\$F[2]-1,@F[3..@F-1])&#125;&#x27; |sort -k2,2n -k3,3n &gt;chr<span class="hljs-variable">$c</span>.tmp&quot;</span>;<span class="hljs-keyword">done</span> |local-run -n 25<br><br><span class="hljs-comment">#合并</span><br>less chr1.tmp chr2.tmp chr3.tmp chr4.tmp chr5.tmp chr6.tmp chr7.tmp chr8.tmp chr9.tmp chr10.tmp chr11.tmp chr12.tmp chr13.tmp chr14.tmp chr15.tmp chr16.tmp chr17.tmp chr18.tmp chr19.tmp chr20.tmp chr21.tmp chr22.tmp chrX.tmp chrY.tmp &gt; hg19_gnomad312_genome.txt <span class="hljs-comment"># 加入header</span><br><br><span class="hljs-comment">#生成idx</span><br>perl makeAnnovarIndex.pl hg19_gnomad312_genome.txt 1000 <span class="hljs-comment">#idx</span><br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="Bismark"><a href="#Bismark" class="headerlink" title="Bismark"></a>Bismark</h3><ul>
+<li>说明:</li>
+<li>版本 </li>
+<li>下载安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> ~/software<br><span class="hljs-built_in">mkdir</span> bwa &amp;&amp; <span class="hljs-built_in">cd</span> bwa<br><br><span class="hljs-comment"># 从官方网站下载</span><br>wget https://sourceforge.net/projects/bio-bwa/files/bwa-0.7.17.tar.bz2<br>tar -jxvf bwa-0.7.17.tar.bz2<br><span class="hljs-built_in">cd</span> bwa-0.7.17<br>make<br><br><span class="hljs-built_in">ln</span> -s `<span class="hljs-built_in">pwd</span>`/bwa ~/software/bin/bwa<br></code></pre></td></tr></table></figure></li>
+<li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 建立参考基因组索引</span><br>bwa index ref.fa  <br><br><span class="hljs-comment"># single end</span><br>bwa mem ref.fa reads.fq.gz &gt; mem-se.sam<br><br><span class="hljs-comment"># paired end</span><br>bwa mem ref.fa r1.fq.gz r2.fq.gz &gt; mem-pe.sam<br><br><span class="hljs-comment">#使用 BWA 进行比对，并通过管道传递给 Samtools 进行转换和排序</span><br>bwa mem ref.fa r1.fq.gz r2.fq.gz | samtools view -Sb - | samtools <span class="hljs-built_in">sort</span> - -o sorted_reads.bam<br>bwa mem -t 4 -M -R <span class="hljs-string">&quot;\@RG\tID:&#123;library&#125;\tLB:&#123;library&#125;\tPL:Illumina\tPU:&#123;sample&#125;\tSM:&#123;sample&#125;\tDT:&#123;time&#125;\&quot; ref.fa read1.fq.gz read2.fq.gz | samtools view -Sb - | samtools sort - -o sorted_reads.bam</span><br><span class="hljs-string">bwa mem -t 4 -M -R &quot;</span>\@RG\tID:&#123;library&#125;\tLB:&#123;library&#125;\tPL:Illumina\tPU:&#123;sample&#125;\tSM:&#123;sample&#125;\tDT:&#123;time&#125;\&quot; ref.fa read1.fq.gz read2.fq.gz | samtools <span class="hljs-built_in">sort</span> -o sorted_reads.bam<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="2-conda安装包安装"><a href="#2-conda安装包安装" class="headerlink" title="2. conda安装包安装"></a>2. conda安装包安装</h2><h3 id="1-conda-install-c-bioconda-pysam-会安装一下3个包"><a href="#1-conda-install-c-bioconda-pysam-会安装一下3个包" class="headerlink" title="1.conda install -c bioconda pysam #会安装一下3个包"></a>1.conda install -c bioconda pysam #会安装一下3个包</h3><pre><code class="hljs">samtools=1.3.1
+bcftools=1.3.1
+htslib=1.3.1
+</code></pre>
+<h3 id="2-snakemake"><a href="#2-snakemake" class="headerlink" title="2.snakemake"></a>2.snakemake</h3><pre><code class="hljs">安装 mamba
+conda install -n base -c conda-forge mamba
+将 snakemake 安装到虚拟环境
+mamba create -c conda-forge -c bioconda -n snakemake snakemake
+
+conda activate snakemake
+snakemake --help
+
+git clone https://bitbucket.org/snakemake/snakemake-tutorial.git
+cd snakemake-tutorial
+tree
+
+安装pipeline所需要的包，比如bwa，samtools等
+conda install -c conda-forge graphviz #dot画图 2.42.3 装在 snakemake 的环境下面。
+
+snakemake --dag  | dot -Tsvg &gt; dag.svg #生成有向无环图 (DAG)
+snakemake --cores 1 
+snakemake --cores 1
+snakemake -s Snakefile
+</code></pre>
+<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><h2 id="3-R-安装包"><a href="#3-R-安装包" class="headerlink" title="3.R 安装包"></a>3.R 安装包</h2><p>conda active r-base<br>conda install R </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" class="category-chain-item">生物信息学</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>2.常见生信软件安装</div>
+      <div>https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Qiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" title="GATK使用方法详解-变异检测">
+                        <span class="hidden-mobile">GATK使用方法详解-变异检测</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://www.cpu.edu.cn/" target="_blank" rel="nofollow noopener"><span>CPU</span></a> <i class="iconfont icon-love"></i> <a href="https://ygl.cpu.edu.cn/gmis5/dsfc/dsfcgrxx/545CA439547A89F80D33CDEEC7CB033C" target="_blank" rel="nofollow noopener"><span>Qiang</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
