@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/intersect-glyph.webp">
 <meta property="article:published_time" content="2024-01-23T07:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-19T14:24:15.490Z">
+<meta property="article:modified_time" content="2024-05-19T14:27:23.746Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/intersect-glyph.webp">
@@ -308,7 +308,7 @@
                 <h1 id="常见生信软件安装"><a href="#常见生信软件安装" class="headerlink" title="常见生信软件安装"></a>常见生信软件安装</h1><ul>
 <li>为了有效地组织和管理软件安装目录，简化可执行文件的调用路径，并保持系统目录的整洁和安全，可以按照以下步骤执行命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 将所有安装软件放在 ~/software 下面</span><br><span class="hljs-comment"># 这一步假设你已经将软件解压或安装到了 ~/software 下的子目录中</span><br><br><span class="hljs-comment"># 2. 建立文件夹，用于存放所有可执行文件的软连接</span><br><span class="hljs-built_in">mkdir</span> -p ~/software/bin<br><br><span class="hljs-comment"># 3. 编辑 ~/.bashrc 文件，添加以下内容以更新环境变量</span><br><span class="hljs-built_in">echo</span> <span class="hljs-string">&#x27;export PATH=&quot;~/software/bin:$PATH&quot;&#x27;</span> &gt;&gt; ~/.bashrc<br><br><span class="hljs-comment"># 4. 保存文件后，使修改立即生效</span><br><span class="hljs-built_in">source</span> ~/.bashrc<br><br><span class="hljs-comment"># 5. 创建软连接（示例，假设 liftOver 在 ~/software/liftOver 下）</span><br><span class="hljs-built_in">ln</span> -s ~/software/liftOver/liftOver ~/software/bin/liftOver<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h2><ul>
+<h2 id="1-手动安装"><a href="#1-手动安装" class="headerlink" title="1.手动安装"></a>1.手动安装</h2><ul>
 <li>bwa, samtools, bgzip, tabix, bcftools</li>
 </ul>
 <h3 id="1-BWA"><a href="#1-BWA" class="headerlink" title="1.BWA"></a>1.BWA</h3><ul>
@@ -391,7 +391,7 @@
 <li>下载安装:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> biscuit &amp;&amp; <span class="hljs-built_in">cd</span> biscuit<br>wget https://github.com/huishenlab/biscuit/releases/download/v1.5.0.20240506/biscuit_1_5_0_linux_amd64 -O biscuit2<br><br>wget https://github.com/huishenlab/biscuit/archive/refs/tags/v1.5.0.20240506.tar.gz<br>tar -xzvf v1.5.0.20240506.tar.gz<br><span class="hljs-built_in">mv</span> biscuit-1.5.0.20240506 biscuit-1.5.0<br><span class="hljs-built_in">cd</span> biscuit-1.5.0<br><br><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-built_in">cd</span> build<br>cmake -DCMAKE_INSTALL_PREFIX=../ ../<br>make &amp;&amp; make install<br><br><br>https://github.com/huishenlab/biscuit/archive/refs/tags/v1.4.0.20240108.tar.gz<br><br></code></pre></td></tr></table></figure></li>
 <li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#准备基因组</span><br>biscuit index /path/to/genome.fa<br><br><span class="hljs-comment">#进行比对</span><br>biscuit align /path/to/genome.fa read1.fastq read2.fastq -o output.bam<br><br><span class="hljs-comment"># 甲基化调用</span><br>biscuit pileup /path/to/genome.fa dedup_output.bam -o methylation_output.vcf<br><br><span class="hljs-comment">#过滤和分析</span><br>biscuit vcf2bed -c 10 methylation_output.vcf &gt; filtered_methylation.bed<br></code></pre></td></tr></table></figure></li>
 </ul>
-<h2 id="2-conda安装包安装"><a href="#2-conda安装包安装" class="headerlink" title="2. conda安装包安装"></a>2. conda安装包安装</h2><ul>
+<h2 id="2-Conda安装包安装"><a href="#2-Conda安装包安装" class="headerlink" title="2.Conda安装包安装"></a>2.Conda安装包安装</h2><ul>
 <li><p>说明：Conda 是一个流行的包管理器和环境管理器，广泛用于 Python 和其他数据科学工具的安装和管理。</p>
 </li>
 <li><p>版本:24.1.2</p>
