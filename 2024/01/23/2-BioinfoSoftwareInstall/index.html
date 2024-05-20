@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/intersect-glyph.webp">
 <meta property="article:published_time" content="2024-01-23T07:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-19T14:27:23.746Z">
+<meta property="article:modified_time" content="2024-05-20T13:30:20.454Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiaoqiangq.github.io/2024/01/23/2-BioinfoSoftwareInstall/intersect-glyph.webp">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          4k 字
+          4.3k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          34 分钟
+          36 分钟
         
       </span>
     
@@ -297,7 +297,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年5月19日 晚上
+                    本文最后更新于 2024年5月20日 晚上
                   
                 
               </p>
@@ -391,6 +391,11 @@
 <li>下载安装:<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> biscuit &amp;&amp; <span class="hljs-built_in">cd</span> biscuit<br>wget https://github.com/huishenlab/biscuit/releases/download/v1.5.0.20240506/biscuit_1_5_0_linux_amd64 -O biscuit2<br><br>wget https://github.com/huishenlab/biscuit/archive/refs/tags/v1.5.0.20240506.tar.gz<br>tar -xzvf v1.5.0.20240506.tar.gz<br><span class="hljs-built_in">mv</span> biscuit-1.5.0.20240506 biscuit-1.5.0<br><span class="hljs-built_in">cd</span> biscuit-1.5.0<br><br><span class="hljs-built_in">mkdir</span> build &amp;&amp; <span class="hljs-built_in">cd</span> build<br>cmake -DCMAKE_INSTALL_PREFIX=../ ../<br>make &amp;&amp; make install<br><br><br>https://github.com/huishenlab/biscuit/archive/refs/tags/v1.4.0.20240108.tar.gz<br><br></code></pre></td></tr></table></figure></li>
 <li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#准备基因组</span><br>biscuit index /path/to/genome.fa<br><br><span class="hljs-comment">#进行比对</span><br>biscuit align /path/to/genome.fa read1.fastq read2.fastq -o output.bam<br><br><span class="hljs-comment"># 甲基化调用</span><br>biscuit pileup /path/to/genome.fa dedup_output.bam -o methylation_output.vcf<br><br><span class="hljs-comment">#过滤和分析</span><br>biscuit vcf2bed -c 10 methylation_output.vcf &gt; filtered_methylation.bed<br></code></pre></td></tr></table></figure></li>
 </ul>
+<h3 id="R"><a href="#R" class="headerlink" title="R"></a>R</h3><ul>
+<li>说明:R语言是一种用于统计计算和数据可视化的编程语言和环境。它在统计计算、数据可视化、数据处理和转换等方面广泛应用。</li>
+<li>版本：4.4.0</li>
+<li>安装 建议使用conda安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#</span><br><span class="hljs-built_in">mkdir</span> R &amp;&amp; <span class="hljs-built_in">cd</span> R<br>wget https://cran.r-project.org/src/base/R-4/R-4.4.0.tar.gz<br><br>tar -xvf R-4.4.0.tar.gz <br><span class="hljs-built_in">cd</span> R-4.4.0/<br><br>./configure --prefix=`<span class="hljs-built_in">pwd</span>`<br><span class="hljs-comment">#configure: WARNING: --with-libdeflate-compression requires libdeflate</span><br><br>make<br>make install<br><br><span class="hljs-comment">#可能需要的环境 sudo</span><br>yum install readline-devel<br>yum install libXext-devel libXt-devel <span class="hljs-comment">#libX11-devel 库里面有</span><br>yum install pcre2-devel<br>yum install libcurl-devel<br>yum install java-1.8.0-openjdk-devel<br>yum groupinstall <span class="hljs-string">&quot;Development Tools&quot;</span><br></code></pre></td></tr></table></figure></li>
+</ul>
 <h2 id="2-Conda安装包安装"><a href="#2-Conda安装包安装" class="headerlink" title="2.Conda安装包安装"></a>2.Conda安装包安装</h2><ul>
 <li><p>说明：Conda 是一个流行的包管理器和环境管理器，广泛用于 Python 和其他数据科学工具的安装和管理。</p>
 </li>
@@ -436,7 +441,7 @@
 </tr>
 <tr>
 <td>tensorflow</td>
-<td></td>
+<td>–</td>
 </tr>
 <tr>
 <td>scipy</td>
@@ -450,35 +455,19 @@
 bcftools=1.3.1
 htslib=1.3.1
 </code></pre>
-<h3 id="2-snakemake"><a href="#2-snakemake" class="headerlink" title="2.snakemake"></a>2.snakemake</h3><pre><code class="hljs">安装 mamba
-conda install -n base -c conda-forge mamba
-将 snakemake 安装到虚拟环境
-mamba create -c conda-forge -c bioconda -n snakemake snakemake
-
-conda activate snakemake
-snakemake --help
-
-git clone https://bitbucket.org/snakemake/snakemake-tutorial.git
-cd snakemake-tutorial
-tree
-
-安装pipeline所需要的包，比如bwa，samtools等
-conda install -c conda-forge graphviz #dot画图 2.42.3 装在 snakemake 的环境下面。
-
-snakemake --dag  | dot -Tsvg &gt; dag.svg #生成有向无环图 (DAG)
-snakemake --cores 1 
-snakemake --cores 1
-snakemake -s Snakefile
-</code></pre>
-<h3 id="3"><a href="#3" class="headerlink" title="3"></a>3</h3><h2 id="3-R安装"><a href="#3-R安装" class="headerlink" title="3.R安装"></a>3.R安装</h2><ul>
+<h3 id="2-snakemake"><a href="#2-snakemake" class="headerlink" title="2.snakemake"></a>2.snakemake</h3><ul>
+<li>说明:Snakemake是一种基于Python的工作流管理系统，能够用于创建可重复和可扩展的数据分析的工具。其编写的流程可以无缝部署到服务器、集群等环境，而无需对流程进行修改。依托于conda包管理系统，不需要我们手动安装依赖软件，可以做到只修改配置文件便能运行整个流程。会自动检查文件时间戳，能够从上次中断的位置继续往下跑，而不用重复执行。</li>
+<li>版本:8.11.3</li>
+<li>安装<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash">conda create -n snakemake -c conda-forge -c bioconda snakemake<br>conda activate snakemake<br><br><span class="hljs-comment">#如果你的conda安装很慢或者获取不了最新版本的软件，可以使用下面的命令安装：</span><br>conda install -c conda-forge mamba<br>mamba create -c conda-forge -c bioconda -n snakemake snakemake<br>conda activate snakemake<br>snakemake --<span class="hljs-built_in">help</span><br><br><span class="hljs-built_in">ln</span> -s /data/software/anaconda3/envs/snakemake/bin/snakemake ~/software/bin/snakemake<br><br><span class="hljs-comment">####</span><br>git <span class="hljs-built_in">clone</span> https://bitbucket.org/snakemake/snakemake-tutorial.git<br><span class="hljs-built_in">cd</span> snakemake-tutorial<br>tree<br><br><span class="hljs-comment">#安装pipeline所需要的包，比如bwa，samtools等</span><br>conda install -c conda-forge graphviz <span class="hljs-comment">#dot画图2.42.3装在snakemake的环境下面。</span><br><br>snakemake --dag  | dot -Tsvg &gt; dag.svg <span class="hljs-comment">#生成有向无环图(DAG)</span><br>snakemake --cores 1 <br>snakemake --cores 1<br>snakemake -s Snakefile<br></code></pre></td></tr></table></figure></li>
+<li>使用<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><br><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-R安装"><a href="#3-R安装" class="headerlink" title="3.R安装"></a>3.R安装</h3><ul>
 <li><p>说明:R语言是一种用于统计计算和数据可视化的编程语言和环境。它在统计计算、数据可视化、数据处理和转换等方面广泛应用。</p>
 </li>
 <li><p>版本：4.3.3</p>
 </li>
 <li><p>安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#conda install -c conda-forge r-base=4.1.3 #装不上，需要建立新环境</span><br>conda create --name r4-base<br>conda activate r4-base<br>conda install -c conda-forge r-base<br><br><span class="hljs-built_in">ln</span> -s ~/software/anaconda3/envs/r4-base/bin/R ~/software/bin/R<br><span class="hljs-built_in">ln</span> -s ~/software/anaconda3/envs/r4-base/bin/Rscript ~/software/bin/Rscript<br><br></code></pre></td></tr></table></figure></li>
-<li><p>手动安装</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#由于ggplot2安装不上，转为手动安装4.4.0版本</span><br><span class="hljs-built_in">mkdir</span> R &amp;&amp; <span class="hljs-built_in">cd</span> R<br>wget https://cran.r-project.org/src/base/R-4/R-4.4.0.tar.gz<br><br>tar -xvf R-4.4.0.tar.gz <br><span class="hljs-built_in">cd</span> R-4.4.0/<br><br>./configure --prefix=`<span class="hljs-built_in">pwd</span>`<br><span class="hljs-comment">#configure: WARNING: --with-libdeflate-compression requires libdeflate</span><br><br>make<br>make install<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#conda install -c conda-forge r-base=4.1.3 #装不上，需要建立新环境</span><br>conda create -n r4-base -c conda-forge r-base r-ggplot2<br>conda activate r4-base<br><br><span class="hljs-built_in">ln</span> -s ~/software/anaconda3/envs/r4-base/bin/R ~/software/bin/R<br><span class="hljs-built_in">ln</span> -s ~/software/anaconda3/envs/r4-base/bin/Rscript ~/software/bin/Rscript<br></code></pre></td></tr></table></figure>
 </li>
 <li><p>使用</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#显示R中的包路径，通常情况下，第一个路径是系统级别的路径，第二个路径是用户级别的路径。</span><br>.libPaths()<br><br><span class="hljs-comment">#列出当前环境中已安装的所有包的信息，包括包名、版本、描述、依赖关系等</span><br>installed.packages()<br></code></pre></td></tr></table></figure>
@@ -563,7 +552,7 @@ snakemake -s Snakefile
 </tbody></table>
 </li>
 </ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">###安装常用包</span><br>install.packages(c(<span class="hljs-string">&quot;bitops&quot;</span>, <span class="hljs-string">&quot;caTools&quot;</span>, <span class="hljs-string">&quot;colorspace&quot;</span>, <span class="hljs-string">&quot;gdata&quot;</span>,<span class="hljs-string">&quot;gplots&quot;</span>,<span class="hljs-string">&quot;gtools&quot;</span>,<span class="hljs-string">&quot;RColorBrewer&quot;</span>,<span class="hljs-string">&quot;reshape&quot;</span>,<span class="hljs-string">&quot;gsalib&quot;</span>))<br><span class="hljs-comment">#install.packages(&quot;bioDist&quot;)</span><br>install.packages(<span class="hljs-string">&quot;ggplot2&quot;</span>)<br><br><br><br><span class="hljs-comment">#指定安装位置</span><br>install.packages(<span class="hljs-string">&quot;bitops&quot;</span>, lib=<span class="hljs-string">&quot;/scratch/cgg/usr1/software/R-3.0.2/R-packages/&quot;</span>)<br><br><span class="hljs-comment">#显示当前工作目录</span><br>getwd()<br><br><span class="hljs-comment">#修改当前的工作目录为mydirectory</span><br>setwd(<span class="hljs-string">&quot;mydirctory&quot;</span>)               <br><br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">###安装常用包</span><br><span class="hljs-comment">#install.packages(&quot;ggplot2&quot;)</span><br>install.packages(c(<span class="hljs-string">&quot;bitops&quot;</span>, <span class="hljs-string">&quot;caTools&quot;</span>, <span class="hljs-string">&quot;colorspace&quot;</span>, <span class="hljs-string">&quot;gdata&quot;</span>,<span class="hljs-string">&quot;gplots&quot;</span>,<span class="hljs-string">&quot;gtools&quot;</span>,<span class="hljs-string">&quot;RColorBrewer&quot;</span>,<span class="hljs-string">&quot;reshape&quot;</span>,<span class="hljs-string">&quot;gsalib&quot;</span>))<br><br><span class="hljs-comment">#指定安装位置</span><br>install.packages(<span class="hljs-string">&quot;bitops&quot;</span>, lib=<span class="hljs-string">&quot;/scratch/cgg/usr1/software/R-3.0.2/R-packages/&quot;</span>)<br><br><span class="hljs-comment">#显示当前工作目录</span><br>getwd()<br><br><span class="hljs-comment">#修改当前的工作目录为mydirectory</span><br>setwd(<span class="hljs-string">&quot;mydirctory&quot;</span>)               <br><br></code></pre></td></tr></table></figure>
 
 
 
