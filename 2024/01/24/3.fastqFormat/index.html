@@ -1,0 +1,777 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Qiang">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="在生物信息学中，基础数据文件通常采用平面文件格式，即由ASCII码编码的文本文件。这种文件格式易于编辑和解析，但占用的存储空间很大。例如，一个原始的FASTQ文件在压缩前后的存储空间对比显示，未压缩数据大约是压缩后数据的十倍。尽管压缩可以节省存储空间，但需要注意的是，在某些数据处理过程中，文件需要解压，这会消耗额外的计算资源。例如，通过JellyFish进行k-mer统计时，需要先解压FASTQ文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="3.Fastq&#x2F;Fasta文件格式详解">
+<meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/24/3.fastqFormat/index.html">
+<meta property="og:site_name" content="Qiang Wei&#39;s Lab">
+<meta property="og:description" content="在生物信息学中，基础数据文件通常采用平面文件格式，即由ASCII码编码的文本文件。这种文件格式易于编辑和解析，但占用的存储空间很大。例如，一个原始的FASTQ文件在压缩前后的存储空间对比显示，未压缩数据大约是压缩后数据的十倍。尽管压缩可以节省存储空间，但需要注意的是，在某些数据处理过程中，文件需要解压，这会消耗额外的计算资源。例如，通过JellyFish进行k-mer统计时，需要先解压FASTQ文">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/24/3.fastqFormat/umi.webp">
+<meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/24/3.fastqFormat/ASCII.png">
+<meta property="article:published_time" content="2024-01-24T05:08:14.000Z">
+<meta property="article:modified_time" content="2024-05-24T13:19:41.339Z">
+<meta property="article:author" content="Qiang Wei">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiaoqiangq.github.io/2024/01/24/3.fastqFormat/umi.webp">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>3.Fastq/Fasta文件格式详解 - Qiang Wei&#39;s Lab</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"xiaoqiangq.github.io","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"left","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 7.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 30vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Qiang</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="3.Fastq/Fasta文件格式详解"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-01-24 13:08" pubdate>
+          2024年1月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          17 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="padding-left: 2rem; margin-right: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">3.Fastq/Fasta文件格式详解</h1>
+            
+              <p id="updated-time" class="note note-info" style="">
+                
+                  
+                    本文最后更新于 2024年5月24日 晚上
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <p>在生物信息学中，基础数据文件通常采用平面文件格式，即由ASCII码编码的文本文件。这种文件格式易于编辑和解析，但占用的存储空间很大。例如，一个原始的FASTQ文件在压缩前后的存储空间对比显示，未压缩数据大约是压缩后数据的<strong>十倍</strong>。尽管压缩可以节省存储空间，但需要注意的是，在某些数据处理过程中，文件需要解压，这会消耗额外的计算资源。例如，通过JellyFish进行k-mer统计时，需要先解压FASTQ文件。这类程序通常依赖于zcat或gunzip等工具来解压文件，以确保正常运行。</p>
+<p>文件压缩不仅是存储优化的手段，也是生物信息学操作的必要步骤。例如，对于变异检测结果的VCF文件，基于基因组位置的查询是基本操作。大多数程序使用<strong>htslib</strong>套装中的<strong>tabix</strong>进行索引操作，从而加快查询速度。htslib是测序相关生物信息学领域中应用最广泛的工具之一。</p>
+<p><strong>在此膜拜李恒大神!!</strong></p>
+<h1 id="FASTQ文件格式"><a href="#FASTQ文件格式" class="headerlink" title="FASTQ文件格式"></a>FASTQ文件格式</h1><p>FASTQ是产生自测序仪的原始测序数据，它由测序的图像数据转换过来，也是文本文件，文件大小依照不同的测序量（或测序深度）而有很大差异，小的可能只有几M，大的则常常有几十G上百G，文件后缀通常都是.fastq，.fq或者.fq.gz（gz压缩）。</p>
+<h2 id="FASTQ文件命名规则"><a href="#FASTQ文件命名规则" class="headerlink" title="FASTQ文件命名规则"></a>FASTQ文件命名规则</h2><p>Illumina测序仪下机FASTQ命名为（NextSeq CN500下机数据为bcl格式，经过bcl2fastq转化后名称类似），例如：</p>
+<p>Samplexx_S53_L002_R1_001.fastq.gz</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">Samplexx 样本名，与上机时在sampleSheet中填写的一致； <br>S53   S后跟的数字与样本在sampleSheet中的顺序一致，从1开始； <br>L002  L00*，lane编号； <br>R1    R*，R1表示read1，R2表示read2。R1和R2为paired end reads。同一个样本的配对的FASTQ，只有这个地方不同； <br>001   001，通常为001；<br>Undetermined_S0_L001_R1_001.fastq.gz  存储index不匹配的reads，由于根据index没有拆分出reads的文件。<br></code></pre></td></tr></table></figure>
+<h2 id="FASTQ格式"><a href="#FASTQ格式" class="headerlink" title="FASTQ格式"></a>FASTQ格式</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">@SIM:1:FCX:1:15:6329:1045:GATTACT+GTCTTAAC 1:N:0:ATCCGA<br>TTGCAAAAAATTTCTCTCATTCTGTAGGTTGCCTGTTCACTCTGATGATAGTTTGTTTTGG<br>+<br>FFKKKFKKFKF&lt;KK&lt;F,AFKKKKK7FFK77&lt;FKK,&lt;F7K,,7AF&lt;FF7FKK7AA,7&lt;FA,,<br></code></pre></td></tr></table></figure>
+<p>fastq有着自己独特的格式：每四行成为一个独立的单元，我们称之为read。具体的格式描述如下：</p>
+<h3 id="第一行，Sequence-identifier"><a href="#第一行，Sequence-identifier" class="headerlink" title="第一行，Sequence identifier"></a>第一行，Sequence identifier</h3><p>以‘@’开头，是这一条read的名字，这个字符串是根据测序时的状态信息转换过来的，它是 每一条read的唯一标识符，同一份FASTQ文件中不会重复出现，甚至不同的FASTQ文件里也不会有重复；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">@SIM:1:FCX:1:15:6329:1045:GATTACT+GTCTTAAC 1:N:0:ATCCGA<br><span class="hljs-comment">#官网给的格式解释如下：</span><br>@&lt;instrument&gt;:&lt;run number&gt;:&lt;flowcell ID&gt;:&lt;lane&gt;:&lt;tile&gt;:&lt;x-pos&gt;:&lt;y-pos&gt;:&lt;UMI&gt; &lt;<span class="hljs-built_in">read</span>&gt;:&lt;is filtered&gt;:&lt;control number&gt;:&lt;index&gt;<br><br>@	开始的标记符号			<br>@SIM:1:FCX	测序仪唯一的设备名称<br>1	lane的编号				<br>15	<span class="hljs-built_in">tail</span>的坐标<br>6329	在<span class="hljs-built_in">tail</span>中的X坐标<br>1045	在<span class="hljs-built_in">tail</span>中的Y坐标<br>GATTACT+GTCTTAAC  1，当sampleSheet存在UMI(Unique Molecular indentifier，用于提高测序的准确性)时该项存在；为Read1的UMI序列+Read2的UMI序列信息，下图为文库中UMI的位置<br>1     1表示single <span class="hljs-built_in">read</span>；2表示paired end<br>N     是否过滤，Y表示被过滤，否则为N<br>0     0表示十进制？否则是一个偶数<br>ATCCGA  index序列<br></code></pre></td></tr></table></figure>
+<img src="/2024/01/24/3.fastqFormat/umi.webp" srcset="/img/loading.gif" lazyload class="">
+<h3 id="第二行：Sequence"><a href="#第二行：Sequence" class="headerlink" title="第二行：Sequence"></a>第二行：Sequence</h3><p>测序read的序列，由A，C，G，T和N这五种字母构成，这也是我们真正关心的DNA序列，N代表的是测序时那些无法被识别出来的碱基；</p>
+<h3 id="第三行：Quality-score-identifier-line-consisting-only-of-a"><a href="#第三行：Quality-score-identifier-line-consisting-only-of-a" class="headerlink" title="第三行：Quality score identifier line (consisting only of a +)"></a>第三行：Quality score identifier line (consisting only of a +)</h3><p>以‘+’开头，在旧版的FASTQ文件中会直接重复第一行的信息，但现在一般什么也不加（节省存储空间）；</p>
+<h3 id="第四行：Quality-score，测序质量值"><a href="#第四行：Quality-score，测序质量值" class="headerlink" title="第四行：Quality score，测序质量值"></a>第四行：Quality score，测序质量值</h3><p>测序read的质量值，这个和第二行的碱基信息一样重要，它描述的是每个测序碱基的可靠程度，用ASCII码表示。我们平时长听到的Q20，Q30即为该字符对应的值</p>
+<h3 id="质量值"><a href="#质量值" class="headerlink" title="质量值"></a>质量值</h3><p><strong>重点说一下什么是质量值</strong></p>
+<blockquote>
+<p>Q &#x3D; -10log(p_error)</p>
+</blockquote>
+<ul>
+<li>质量值是测序错误率的对数（10为底数）乘以-10（并取整）。这个公式也是目前测序质量值的计算公式，它非常简单，p_error的值和测序时的多个因素有关，体现为测序图像数据点的清晰程度，并由测序过程中的base calling算法计算出来；</li>
+<li>公式右边的Q我们称之为Phred quality score，就是用它来描述测序碱基的靠谱程度。比如，如果该碱基的测序错误率是0.01，那么质量值就是20（俗称Q20），如果是0.001，那么质量值就是30（俗称Q30）。Q20和Q30的比例常常被我们用来评价某次测序结果的好坏，比例越高就越好。下面我也详细给出一个表，更进一步地解释质量值高低的含义：<table>
+<thead>
+<tr>
+<th>Phred Quality Score</th>
+<th>Probability of incorrect base call</th>
+<th>Base call accuracy</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>10</td>
+<td>1 in 10</td>
+<td>90%</td>
+</tr>
+<tr>
+<td>20</td>
+<td>1 in 100</td>
+<td>99%</td>
+</tr>
+<tr>
+<td>30</td>
+<td>1 in 1000</td>
+<td>99.9%</td>
+</tr>
+<tr>
+<td>40</td>
+<td>1 in 10,000</td>
+<td>99.99%</td>
+</tr>
+<tr>
+<td>50</td>
+<td>1 in 100,000</td>
+<td>99.999%</td>
+</tr>
+<tr>
+<td>60</td>
+<td>1 in 1,000,000</td>
+<td>99.9999%</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="Phred质量评分与ASCII字符的关系"><a href="#Phred质量评分与ASCII字符的关系" class="headerlink" title="Phred质量评分与ASCII字符的关系"></a>Phred质量评分与ASCII字符的关系</h3><p>用ASCII码来代表Phred质量评分，ASCII码虽然能够从小到大表示0-127的整数，但是并非所有的ASCII码都是<strong>可见的字符</strong>，比如所有小于33的ASCII码值所表示的都是不可见字符，比如空格，换行符等，因此<strong>为了能够让碱基的质量值表达出来，必须避开所有这些不可见字符</strong>。最简单的做法就是加上一个固定的整数！<br>但一开始对于要加哪一个整数，并没有什么指导标准，这就导致了在刚开始的时候，不同的测序平台加的整数也不同，总的来说有以下3种质量体系，演变到现在也基本只剩下第一种了，如下表：</p>
+<table>
+<thead>
+<tr>
+<th>测序平台</th>
+<th>ASCII码范围</th>
+<th>下限</th>
+<th>质量值类型</th>
+<th>质量值范围</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Sanger, Illumina(版本1.8及以上)</td>
+<td>33-126</td>
+<td>33</td>
+<td>Phred quality score</td>
+<td>0-93</td>
+<td>现在沿用</td>
+</tr>
+<tr>
+<td>Solexa, Illumina早期版本(&lt;1.3版本)</td>
+<td>59-126</td>
+<td>64</td>
+<td>Solexa quality score</td>
+<td>5-62</td>
+<td>除了已测序数据之外，不再使用</td>
+</tr>
+<tr>
+<td>Illumina(版本1.3-1.7)</td>
+<td>64-126</td>
+<td>64</td>
+<td>Phred quality score</td>
+<td>0-62</td>
+<td>除了已测序数据之外，不再使用</td>
+</tr>
+</tbody></table>
+<p>从表中可以看到下限有33和64两个值，我们把加33的的质量值体系称之为Phred33，加64的称之为Phred64（Solexa的除外，它叫Solexa64）。不过，现在一般都是使用Phred33这个体系，而且33也恰好是ASCII的第一个可见字符（’!’），完美+2。</p>
+<img src="/2024/01/24/3.fastqFormat/ASCII.png" srcset="/img/loading.gif" lazyload class="">
+
+<h1 id="FASTA文件格式"><a href="#FASTA文件格式" class="headerlink" title="FASTA文件格式"></a>FASTA文件格式</h1><p>这个格式比较简单，主要由两行组成，序列的描述信息和序列数据。头信息独占一行，以大于号（&gt;）开头作为识别标记</p>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&gt;ENSMUSG00000020122|ENSMUST00000138518 <br>CCCTCCTATCATGCTGTCAGTGTATCTCTAAATAGCACTCTCAACCCCCGTGAACTTGGT <br>TATTAAAAACATGCCCAAAGTCTGGGAGCCAGGGCTGCAGGGAAATACCACAGCCTCAGT <br>TCATCAAAACAGTTCATTGCCCAAAATGTTCTCAGCTGCAGCTTTCATGAGGTAACTCCA <br>GGGCCCACCTGTTCTCTGGT<br></code></pre></td></tr></table></figure>
+<h2 id="第一行：序列描述信息"><a href="#第一行：序列描述信息" class="headerlink" title="第一行：序列描述信息"></a>第一行：序列描述信息</h2><p>以&lt;开头，格式没有严格要求。用一个空格把头信息分为两个部分：第一部分是序列名字，它和大于号（&gt;）紧接在一起；第二部分是注释信息，这个可以没有，看具体需要。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs plaintext">&gt;ENSMUSG00000020122|ENSMUST00000138518<br></code></pre></td></tr></table></figure>
+<p>相同的序列被不同的人处理之后、甚至是在不同的网站上或者数据库中它们的头信息都不尽相同，比如以下的几种情况都是可能存在的。在业内也慢慢地有一些不成文的规则被大家所使用，那就是，用一个空格把头信息分为两个部分：第一部分是序列名字，它和大于号（&gt;）紧接在一起；第二部分是注释信息，这个可以没有，就看具体需要。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt;ENSMUSG00000020122|ENSMUST00000125984<br>&gt;ENSMUSG00000020122|ENSMUST00000125984<br>&gt;ENSMUSG00000020122|ENSMUST00000125984|epidermal growth <span class="hljs-built_in">factor</span> receptor<br>&gt;ENSMUSG00000020122|ENSMUST00000125984|Egfr<br>&gt;ENSMUSG00000020122|ENSMUST00000125984|11|ENSFM00410000138465<br></code></pre></td></tr></table></figure>
+
+<h2 id="第二行：序列数据"><a href="#第二行：序列数据" class="headerlink" title="第二行：序列数据"></a>第二行：序列数据</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">CCCTCCTATCATGCTGTCAGTGTATCTCTAAATAGCACTCTCAACCCCCGTGAACTTGGT <br>TATTAAAAACATGCCCAAAGTCTGGGAGCCAGGGCTGCAGGGAAATACCACAGCCTCAGT <br>TCATCAAAACAGTTCATTGCCCAAAATGTTCTCAGCTGCAGCTTTCATGAGGTAACTCCA <br>GGGCCCACCTGTTCTCTGGT<br></code></pre></td></tr></table></figure>
+
+<h1 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://www.plob.org/article/11672.html">https://www.plob.org/article/11672.html</a></li>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/158694643">https://zhuanlan.zhihu.com/p/158694643</a></li>
+<li><a target="_blank" rel="noopener" href="http://www.xtaohub.com/BI-solutions/Bioinformatics-files-formats.html">http://www.xtaohub.com/BI-solutions/Bioinformatics-files-formats.html</a></li>
+</ul>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%94%9F%E7%89%A9%E4%BF%A1%E6%81%AF%E5%AD%A6/" class="category-chain-item">生物信息学</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>3.Fastq/Fasta文件格式详解</div>
+      <div>https://xiaoqiangq.github.io/2024/01/24/3.fastqFormat/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Qiang</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年1月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/01/25/4.bamFormat/" title="4.Sam/Bam文件格式详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">4.Sam/Bam文件格式详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/01/23/2.BioinfoSoftwareInstall/" title="2.常见生信软件安装">
+                        <span class="hidden-mobile">2.常见生信软件安装</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://www.cpu.edu.cn/" target="_blank" rel="nofollow noopener"><span>CPU</span></a> <i class="iconfont icon-love"></i> <a href="https://ygl.cpu.edu.cn/gmis5/dsfc/dsfcgrxx/545CA439547A89F80D33CDEEC7CB033C" target="_blank" rel="nofollow noopener"><span>Qiang</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
