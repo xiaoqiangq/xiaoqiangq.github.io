@@ -25,7 +25,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/vcf_format_v4.4.png">
 <meta property="article:published_time" content="2024-01-26T09:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-24T08:16:37.044Z">
+<meta property="article:modified_time" content="2024-05-24T08:30:53.660Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/vcf_format_v4.4.png">
@@ -223,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          2.6k 字
         
       </span>
     
@@ -234,7 +234,7 @@
         
         
         
-          20 分钟
+          22 分钟
         
       </span>
     
@@ -409,7 +409,14 @@
 </ul>
 </li>
 </ul>
-<h2 id="3-tabix-bgzip"><a href="#3-tabix-bgzip" class="headerlink" title="3.tabix bgzip"></a>3.tabix bgzip</h2><ul>
+<h2 id="3-vcf-的记录模式"><a href="#3-vcf-的记录模式" class="headerlink" title="3.vcf 的记录模式"></a>3.vcf 的记录模式</h2><p>VCF 文件可以记录不同级别的变异信息，从单一变异到个体、组织、群体或家系的变异。</p>
+<ul>
+<li>3.1 只记录变异本身的信息<br>通常用于描述特定变异的特征，不涉及特定个体或群体的信息。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#CHROM POS   ID        REF    ALT    QUAL FILTER INFO</span><br>1  69511  rs75062661  G  A  99    PASS   AC=1;AF=0.0002;AN=5008;NS=2504;DP=2184;EAS_AF=0;AMR_AF=0.0008;AFR_AF=0;EUR_AF=0.001;SAS_AF=0.0007;VT=SNP<br></code></pre></td></tr></table></figure></li>
+<li>3.2 记录个体或个体组织的变异信息<br>在VCF文件的末尾通常会有一个或多个样本列，其中每一列都代表一个个体或个体的某个组织。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#CHROM POS     ID        REF    ALT    QUAL FILTER INFO                             FORMAT          sample1</span><br>1      899282  rs123456  A      G,T    50    PASS   AC=2;AF=0.5;AN=4;NS=1;DP=100   GT:DP:GQ:PL     0/1:50:99:0,20,200<br></code></pre></td></tr></table></figure></li>
+<li>3.3 记录群体或家系的变异信息<br>包括多个样本的数据，可以用于群体遗传学分析。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#CHROM POS     ID         REF    ALT    QUAL FILTER INFO                             FORMAT          Person1      Person2      Person3</span><br>1      945874  rs7891011  A      G      99    PASS   AC=3;AF=0.75;AN=4;NS=3;DP=300  GT:DP:GQ:PL     0/1:100:99:0,20,200  1/1:100:99:0,0,100  0/0:100:99:0,0,0<br></code></pre></td></tr></table></figure>
+1000 genomes 比较特殊，不同人群的等位基因频率在 INFO 中以不同的字段表示<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">1   10177   rs367896724 A   AC  100 PASS    AC=2130;AF=0.425319;AN=5008;NS=2504;DP=103152;EAS_AF=0.3363;AMR_AF=0.3602;AFR_AF=0.4909;EUR_AF=0.4056;SAS_AF=0.4949;AA=|||unknown(NO_COVERAGE);VT=INDEL<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="4-tabix-bgzip"><a href="#4-tabix-bgzip" class="headerlink" title="4.tabix bgzip"></a>4.tabix bgzip</h2><ul>
 <li><strong>tabix</strong> 可以对NGS分析中常见格式的文件建立索引，从而加快访问速度，不仅支持VCF文件，还支持BED, GFF，SAM等格式。</li>
 </ul>
 <p>由于SNP位点数量巨大，对应VCF文件也非常的大，为例节省存储空间，最常见的做法就是压缩。<strong>bgzip</strong>可以压缩VCF文件，用法如下</p>
