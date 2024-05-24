@@ -16,23 +16,25 @@
   <meta name="author" content="Qiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="VCF文件格式详解 VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。 1. VCF的主体结构VCF文件分为两部分内容:   以“#”开头的注释部分    没有“#”开头的主体部分    去掉了头部的注释行，只留下了代表每一行意义的注释行。主体部分中每一行代表一个Variant的信息。 12345678">
+    <meta name="description" content="VCF文件格式详解VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;VCFv4.4.pdf） 在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="4.VCF文件格式详解">
-<meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/22/VCF%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/index.html">
+<meta property="og:title" content="5.VCF文件格式详解">
+<meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/index.html">
 <meta property="og:site_name" content="Qiang Wei&#39;s Lab">
-<meta property="og:description" content="VCF文件格式详解 VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。 1. VCF的主体结构VCF文件分为两部分内容:   以“#”开头的注释部分    没有“#”开头的主体部分    去掉了头部的注释行，只留下了代表每一行意义的注释行。主体部分中每一行代表一个Variant的信息。 12345678">
+<meta property="og:description" content="VCF文件格式详解VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;VCFv4.4.pdf） 在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基本">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-01-22T09:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-15T10:52:44.337Z">
+<meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/vcf_format_v4.4.png">
+<meta property="article:published_time" content="2024-01-26T09:08:14.000Z">
+<meta property="article:modified_time" content="2024-05-24T08:16:37.044Z">
 <meta property="article:author" content="Qiang Wei">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/vcf_format_v4.4.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>4.VCF文件格式详解 - Qiang Wei&#39;s Lab</title>
+  <title>5.VCF文件格式详解 - Qiang Wei&#39;s Lab</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -198,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="4.VCF文件格式详解"></span>
+            <span id="subtitle" data-typed-text="5.VCF文件格式详解"></span>
           
         </div>
 
@@ -209,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-22 17:08" pubdate>
-          2024年1月22日 下午
+        <time datetime="2024-01-26 17:08" pubdate>
+          2024年1月26日 下午
         </time>
       </span>
     
@@ -221,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.1k 字
+          2.3k 字
         
       </span>
     
@@ -232,7 +234,7 @@
         
         
         
-          18 分钟
+          20 分钟
         
       </span>
     
@@ -290,12 +292,12 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">4.VCF文件格式详解</h1>
+            <h1 id="seo-header">5.VCF文件格式详解</h1>
             
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年5月15日 晚上
+                    本文最后更新于 2024年5月24日 下午
                   
                 
               </p>
@@ -303,32 +305,71 @@
             
               <div class="markdown-body">
                 
-                <p><strong>VCF文件格式详解</strong></p>
-<p>VCF介绍</p>
-<p>VCF是用于描述SNP，INDEL和SV结果的文本文件。在GATK软件中得到最好的支持，当然samtools得到的结果也是VCF格式。</p>
-<h1 id="1-VCF的主体结构"><a href="#1-VCF的主体结构" class="headerlink" title="1. VCF的主体结构"></a>1. VCF的主体结构</h1><p>VCF文件分为两部分内容:</p>
+                <h1 id="VCF文件格式详解"><a href="#VCF文件格式详解" class="headerlink" title="VCF文件格式详解"></a>VCF文件格式详解</h1><p>VCF介绍</p>
+<p>VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（<a target="_blank" rel="noopener" href="https://samtools.github.io/hts-specs/VCFv4.4.pdf%EF%BC%89">https://samtools.github.io/hts-specs/VCFv4.4.pdf）</a></p>
+<p>在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基本上需要考虑支持解析或输出vcf格式的文件。</p>
+<p>文件一般包含两部分：</p>
 <ul>
-<li><ol>
-<li>以“#”开头的注释部分</li>
-</ol>
-</li>
-<li><ol start="2">
-<li>没有“#”开头的主体部分</li>
-</ol>
+<li>注释信息（header）：位于文件开始，每行以’#’开始</li>
+<li>变异信息（body）：没有’#’即为记录的变异信息<img src="/2024/01/26/5.VCFFormat/vcf_format_v4.4.png" srcset="/img/loading.gif" lazyload class=""></li>
+</ul>
+<h2 id="1-注释部分"><a href="#1-注释部分" class="headerlink" title="1.注释部分"></a>1.注释部分</h2><p>vcf文件头部主要记录文件原信息（meta information），每行以’##’开始.</p>
+<ul>
+<li>主要记录内容包括下列内容:<table>
+<thead>
+<tr>
+<th>记录内容</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文件格式(fileformat)</td>
+<td>记录文件格式；主要记录本文件所采用的vcf格式版本</td>
+</tr>
+<tr>
+<td>信息区域(INFO)描述</td>
+<td>该部分记录的是作为INFO区的基本描述，由于在vcf记录中，对INFO内容采用的是缩写，因此在此部分进行会对其含义以及数据类型进行说明。</td>
+</tr>
+<tr>
+<td>过滤方式(FILTER)</td>
+<td>该部分主要记录vcf文件经过生成过程中经过哪些过滤程序处理。记录包括命令行及对应参数</td>
+</tr>
+<tr>
+<td>个体区域格式信息(FORMAT)</td>
+<td>对于每个样本，vcf正文部分会记录多种信息，例如变异对应深度，该部分记录个体信息中每个字段含义及类型</td>
+</tr>
+<tr>
+<td>突变类型(ALT)</td>
+<td>标识出现在正文信息中突变类型，例如，Insertion、Deletion、Duplication等</td>
+</tr>
+<tr>
+<td>基因组信息(assembly)</td>
+<td>标识对应的基因组版本,<strong>hg19,hg38</strong></td>
+</tr>
+<tr>
+<td>Contig信息</td>
+<td>由于同一物种肯定存在多个基因组版本（如人类目前常用的有hg19和hg38两个版本），因此可能存在染色体名称相同，但内容不同的情况。因此该部分记录主要用于记录每个染色体的相信信息</td>
+</tr>
+<tr>
+<td>样本基因组信息</td>
+<td>vcf理论上支持不同样本比对于不同基因组的，该部分记录样本和基因组的对应关系（通常较少使用）</td>
+</tr>
+<tr>
+<td>遗传谱系信息(Pedigree)</td>
+<td>记录样本间的亲缘关系</td>
+</tr>
+</tbody></table>
 </li>
 </ul>
-<p>去掉了头部的注释行，只留下了代表每一行意义的注释行。<br>主体部分中每一行代表一个Variant的信息。</p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs perl"><span class="hljs-comment">##fileformat=VCFv4.2</span><br><span class="hljs-comment">##fileDate=20090805</span><br><span class="hljs-comment">##source=myImputationProgramV3.1</span><br><span class="hljs-comment">##reference=file:///seq/references/1000GenomesPilot-NCBI36.fasta</span><br><span class="hljs-comment">##contig=&lt;ID=20,length=62435964,assembly=B36,md5=f126cdf8a6e0c7f379d618ff66beb2da,species=&quot;Homo sapiens&quot;,taxonomy=x&gt;</span><br><span class="hljs-comment">##phasing=partial</span><br><span class="hljs-comment">##INFO=&lt;ID=NS,Number=1,Type=Integer,Description=&quot;Number of Samples With Data&quot;&gt;</span><br><span class="hljs-comment">##INFO=&lt;ID=DP,Number=1,Type=Integer,Description=&quot;Total Depth&quot;&gt;</span><br><span class="hljs-comment">##INFO=&lt;ID=AF,Number=A,Type=Float,Description=&quot;Allele Frequency&quot;&gt;</span><br><span class="hljs-comment">##INFO=&lt;ID=AA,Number=1,Type=String,Description=&quot;Ancestral Allele&quot;&gt;</span><br><span class="hljs-comment">##INFO=&lt;ID=DB,Number=0,Type=Flag,Description=&quot;dbSNP membership, build 129&quot;&gt;</span><br><span class="hljs-comment">##INFO=&lt;ID=H2,Number=0,Type=Flag,Description=&quot;HapMap2 membership&quot;&gt;</span><br><span class="hljs-comment">##FILTER=&lt;ID=q10,Description=&quot;Quality below 10&quot;&gt;</span><br><span class="hljs-comment">##FILTER=&lt;ID=s50,Description=&quot;Less than 50% of samples have data&quot;&gt;</span><br><span class="hljs-comment">##FORMAT=&lt;ID=GT,Number=1,Type=String,Description=&quot;Genotype&quot;&gt;</span><br><span class="hljs-comment">##FORMAT=&lt;ID=GQ,Number=1,Type=Integer,Description=&quot;Genotype Quality&quot;&gt;</span><br><span class="hljs-comment">##FORMAT=&lt;ID=DP,Number=1,Type=Integer,Description=&quot;Read Depth&quot;&gt;</span><br><span class="hljs-comment">##FORMAT=&lt;ID=HQ,Number=2,Type=Integer,Description=&quot;Haplotype Quality&quot;&gt;</span><br><span class="hljs-comment">#CHROM POS ID REF ALT QUAL FILTER INFO  FORMAT  NA00001 NA00002</span><br><span class="hljs-number">1</span> <span class="hljs-number">899282</span> rs28548431 C T <span class="hljs-number">71.77</span> PASS AC=<span class="hljs-number">1</span>;AF=<span class="hljs-number">0</span>.<span class="hljs-number">50</span>;AN=<span class="hljs-number">2</span>;DB;DP=<span class="hljs-number">4</span>;Dels=<span class="hljs-number">0</span>.<span class="hljs-number">00</span>;HRun=<span class="hljs-number">0</span>;HaplotypeScore=<span class="hljs-number">0</span>.<span class="hljs-number">00</span>;MQ=<span class="hljs-number">99.00</span>;MQ<span class="hljs-number">0</span>=<span class="hljs-number">0</span>;QD=<span class="hljs-number">17.94</span>;SB=-<span class="hljs-number">46.55</span>;VQSLOD=-<span class="hljs-number">1.9148</span> GT:AD:DP:GQ:PL <span class="hljs-number">0</span>/<span class="hljs-number">1</span>:<span class="hljs-number">1</span>,<span class="hljs-number">3</span>:<span class="hljs-number">4</span>:<span class="hljs-number">25.92</span>:<span class="hljs-number">103</span>,<span class="hljs-number">0</span>,<span class="hljs-number">26</span><br><span class="hljs-number">20</span> <span class="hljs-number">14370</span> rs6054257 G A <span class="hljs-number">29</span> PASS NS=<span class="hljs-number">3</span>;DP=<span class="hljs-number">14</span>;AF=<span class="hljs-number">0</span>.<span class="hljs-number">5</span>;DB;H2 GT:GQ:DP:HQ <span class="hljs-number">0</span>|<span class="hljs-number">0</span>:<span class="hljs-number">48</span>:<span class="hljs-number">1</span>:<span class="hljs-number">51</span>,<span class="hljs-number">51</span> <span class="hljs-number">1</span>|<span class="hljs-number">0</span>:<span class="hljs-number">48</span>:<span class="hljs-number">8</span>:<span class="hljs-number">51</span>,<span class="hljs-number">51</span><br><span class="hljs-number">20</span> <span class="hljs-number">17330</span>  .        T A  <span class="hljs-number">3</span> q1<span class="hljs-number">0</span>  NS=<span class="hljs-number">3</span>;DP=<span class="hljs-number">11</span>;AF=<span class="hljs-number">0</span>.<span class="hljs-number">017</span> GT:GQ:DP:HQ <span class="hljs-number">0</span>|<span class="hljs-number">0</span>:<span class="hljs-number">49</span>:<span class="hljs-number">3</span>:<span class="hljs-number">58</span>,<span class="hljs-number">50</span> <span class="hljs-number">0</span>|<span class="hljs-number">1</span>:<span class="hljs-number">3</span>:<span class="hljs-number">5</span>:<span class="hljs-number">65</span>,<span class="hljs-number">3</span><br><span class="hljs-number">20</span> <span class="hljs-number">1110696</span> rs6040355 A G,T <span class="hljs-number">67</span> PASS NS=<span class="hljs-number">2</span>;DP=<span class="hljs-number">10</span>;AF=<span class="hljs-number">0</span>.<span class="hljs-number">333</span>,<span class="hljs-number">0</span>.<span class="hljs-number">667</span>;AA=T;DB GT:GQ:DP:HQ <span class="hljs-number">1</span>|<span class="hljs-number">2</span>:<span class="hljs-number">21</span>:<span class="hljs-number">6</span>:<span class="hljs-number">23</span>,<span class="hljs-number">27</span> <span class="hljs-number">2</span>|<span class="hljs-number">1</span>:<span class="hljs-number">2</span>:<span class="hljs-number">0</span>:<span class="hljs-number">18</span>,<span class="hljs-number">2</span><br><span class="hljs-number">20</span> <span class="hljs-number">1230237</span> . T  .  <span class="hljs-number">47</span> PASS NS=<span class="hljs-number">3</span>;DP=<span class="hljs-number">13</span>;AA=T GT:GQ:DP:HQ <span class="hljs-number">0</span>|<span class="hljs-number">0</span>:<span class="hljs-number">54</span>:<span class="hljs-number">7</span>:<span class="hljs-number">56</span>,<span class="hljs-number">60</span> <span class="hljs-number">0</span>|<span class="hljs-number">0</span>:<span class="hljs-number">48</span>:<span class="hljs-number">4</span>:<span class="hljs-number">51</span>,<span class="hljs-number">51</span><br></code></pre></td></tr></table></figure>
-
+<h2 id="2-变异信息"><a href="#2-变异信息" class="headerlink" title="2.变异信息"></a>2.变异信息</h2><p>vcf文件meta信息记录结束之后，下一行就是列名称，列名称以#作为起始，主要包括以下几列：</p>
 <ul>
-<li>header: 1.基因组的版本(<strong>hg19,hg38</strong>) 2. info,filter,format注释描述</li>
-<li>CHROM：表示变异位点是在哪个contig 里call出来的，如果是人类全基因组的话那就是chr1…chr22，chrX,Y,M。</li>
+<li>CHROM：表示变异位点是在哪个contig里call出来的，如果是人类全基因组的话那就是chr1…chr22，chrX,Y,M。</li>
 <li>POS：变异位点相对于参考基因组所在的位置，如果是indel，就是第一个碱基所在的位置。</li>
-<li>ID：如果call出来的SNP存在于dbSNP数据库里，就会显示相应的dbSNP里的rs编号。</li>
+<li>ID：如果call出来的SNP存在于dbSNP数据库里，就会显示相应的dbSNP里的rs编号，空缺时记为“.”</li>
 <li>REF和REF：在这个变异位点处，参考基因组中所对应的碱基和研究对象基因组中所对应的碱基。</li>
 <li>QUAL：可以理解为所call出来的变异位点的质量值。Q&#x3D;-10lgP，Q表示质量值；P表示这个位点发生错误的概率。因此，如果想把错误率从控制在90%以上，P的阈值就是1&#x2F;10，那lg（1&#x2F;10）&#x3D;-1，Q&#x3D;（-10）*（-1）&#x3D;10。同理，当Q&#x3D;20时，错误率就控制在了0.01。</li>
 <li>FILTER：理想情况下，QUAL这个值应该是用所有的错误模型算出来的，这个值就可以代表正确的变异位点了，但是事实是做不到的。因此，还需要对原始变异位点做进一步的过滤。无论你用什么方法对变异位点进行过滤，过滤完了之后，在FILTER一栏都会留下过滤记录，如果是通过了过滤标准，那么这些通过标准的好的变异位点的FILTER一栏就会注释一个PASS，如果没有通过过滤，就会在FILTER这一栏提示除了PASS的其他信息。如果这一栏是一个“.”的话，就说明没有进行过任何过滤。GATK的<strong>VQSR</strong>可以注释。</li>
-<li><strong>INFO</strong> 这一行是variant的详细信息，内容很多，以下再具体详述。一般可以含有annovar注释，GATK注释等信息。</li>
+<li><strong>INFO</strong> 这一行是variant的详细信息，记录的变异的评价性指标以及注释信息，例如AC表示的等因突变的数量。该部分在不同的变异检测软件给出的结果也是不同的，大多数基础统计可以通过bcftools、GATK、annovar软件来进行追加。</li>
 <li><strong>FORMAT</strong>: 在<strong>header</strong>里面都有其注解。<ul>
 <li><p><strong>GT</strong>：表示这个样本的基因型，对于一个二倍体生物，GT值表示的是这个样本在这个位点所携带的两个等位基因。0表示跟REF一样；1表示表示跟ALT一样；2表示第二个ALT。当只有一个ALT等位基因的时候，0&#x2F;0表示纯和且跟REF一致；0&#x2F;1表示杂合，两个allele一个是ALT一个是REF；1&#x2F;1表示纯和且都为ALT；</p>
 <ul>
@@ -368,7 +409,7 @@
 </ul>
 </li>
 </ul>
-<h1 id="2-重要软件-tabix-bgzip"><a href="#2-重要软件-tabix-bgzip" class="headerlink" title="2. 重要软件 tabix bgzip"></a>2. 重要软件 tabix bgzip</h1><ul>
+<h2 id="3-tabix-bgzip"><a href="#3-tabix-bgzip" class="headerlink" title="3.tabix bgzip"></a>3.tabix bgzip</h2><ul>
 <li><strong>tabix</strong> 可以对NGS分析中常见格式的文件建立索引，从而加快访问速度，不仅支持VCF文件，还支持BED, GFF，SAM等格式。</li>
 </ul>
 <p>由于SNP位点数量巨大，对应VCF文件也非常的大，为例节省存储空间，最常见的做法就是压缩。<strong>bgzip</strong>可以压缩VCF文件，用法如下</p>
@@ -378,38 +419,19 @@
 <p>压缩之后，原本的<strong>view.vcf</strong>文件就变成了<strong>view.vcf.gz</strong>文件。压缩后缀为.gz, 如果想要解压缩，有以下两种用法</p>
   <figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs cos">bgzip -<span class="hljs-keyword">d</span> <span class="hljs-keyword">view</span>.vcf.gz<br>gunzip <span class="hljs-keyword">view</span>.vcf.gz<br>gunzip -c <span class="hljs-keyword">view</span>.vcf.gz | less<br>tabix <span class="hljs-keyword">view</span>.vcf.gz <span class="hljs-number">1</span> |less<br></code></pre></td></tr></table></figure>
 <p><strong>bgzip</strong>的压缩算法和<strong>gzip</strong>压缩算法有着相似之处，所以对于bgzip压缩的文件，解压缩时除了可以使用bgzip软件本身，还可以使用gunzip进行解压缩。</p>
-<p>需要注意的是，两种算法虽然有相似之处，但是还是有本质区别的，在对VCF文件压缩时，不可以使用gzip来代替bgzip。</p>
+<ul>
+<li>需要注意的是，两种算法虽然有相似之处，但是还是有本质区别的，在对VCF文件压缩时，不可以使用gzip来代替bgzip。</li>
+</ul>
 <p>对于大型的VCF文件而言，如何快速访问其中的记录也是个难点。<strong>tabix</strong>可以对VCF文件构建索引，索引构建好之后，访问速度会快很多。<strong>tabix</strong>对VCF文件建立索引的用法如下</p>
 <blockquote>
-<p>tabix -p vcf view.vcf.gz</p>
+<p>tabix -p vcf view.vcf.gz<br>tabix -s 1 -b 2 -e 2 vcf view.vcf.gz</p>
 </blockquote>
-<blockquote>
-<p>tabix -s 1 -b 2 -e 2 vcf view.vcf.gz</p>
-</blockquote>
-<p>注意输入的VCF文件必须是使用bgzip压缩之后的VCF文件，生成的索引文件为view.vcf.gz.tbi, 后缀为.tbi。</p>
+<ul>
+<li>注意输入的VCF文件必须是使用bgzip压缩之后的VCF文件，生成的索引文件为view.vcf.gz.tbi, 后缀为.tbi。</li>
+</ul>
 <p>构建好索引之后，可以快速的获取指定区域的记录，示例如下</p>
-<ol>
-<li><p>获取位于11号染色体的SNP位点</p>
-<blockquote>
-<p>tabix view.vcf.gz 11</p>
-</blockquote>
-</li>
-<li><p>获取位于11号染色体上突变位置大于或者等于2343545的SNP位点</p>
-<blockquote>
-<p>tabix view.vcf.gz 11:2343545</p>
-</blockquote>
-</li>
-<li><p>获取位于11号染色体上突变位置介于2343540到2343596的SNP位点</p>
-<blockquote>
-<p>tabix view.vcf.gz 11:2343540-2343596</p>
-</blockquote>
-</li>
-<li><p>获取位多个SNP位点</p>
-<blockquote>
-<p>tabix view.vcf.gz 11:2343540-2343596 12:2343540-2343596</p>
-</blockquote>
-</li>
-</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#获取位于11号染色体的SNP位点</span><br>tabix view.vcf.gz 11<br><br><span class="hljs-comment">#获取位于11号染色体上突变位置大于或者等于2343545的SNP位点</span><br>tabix view.vcf.gz 11:2343545<br><br><span class="hljs-comment">#获取位于11号染色体上突变位置介于2343540到2343596的SNP位点</span><br>tabix view.vcf.gz 11:2343540-2343596<br><br><span class="hljs-comment">#获取位多个SNP位点</span><br>tabix view.vcf.gz 11:2343540-2343596 12:2343540-2343596<br></code></pre></td></tr></table></figure>
+
 <p>很多操作VCF的软件都会识别tabix建立的索引，从而加快处理速度。很多大型项目VCF文件，也都会用bgzip压缩，然后建立tabix的索引。</p>
 
                 
@@ -449,8 +471,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>4.VCF文件格式详解</div>
-      <div>https://xiaoqiangq.github.io/2024/01/22/VCF文件格式/</div>
+      <div>5.VCF文件格式详解</div>
+      <div>https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/</div>
     </div>
     <div class="license-meta">
       
@@ -462,7 +484,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月22日</div>
+          <div>2024年1月26日</div>
         </div>
       
       
@@ -494,18 +516,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/01/23/GATK4%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95%E8%AF%A6%E8%A7%A3-%E5%8F%98%E5%BC%82%E6%A3%80%E6%B5%8B/" title="GATK使用方法详解-变异检测">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">GATK使用方法详解-变异检测</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/22/bam%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F/" title="3.Sam/Bam文件格式详解">
-                        <span class="hidden-mobile">3.Sam/Bam文件格式详解</span>
+                      <a href="/2024/01/25/4.bamFormat/" title="4.Sam/Bam文件格式详解">
+                        <span class="hidden-mobile">4.Sam/Bam文件格式详解</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
