@@ -25,9 +25,12 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xiaoqiangq.github.io/2024/02/01/slurmInstall/SlurmComponents.gif">
 <meta property="article:published_time" content="2024-02-01T09:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-30T13:21:53.385Z">
+<meta property="article:modified_time" content="2024-05-30T13:33:04.958Z">
 <meta property="article:author" content="Qiang Wei">
 <meta property="article:tag" content="slurm">
+<meta property="article:tag" content="mariadb">
+<meta property="article:tag" content="munge">
+<meta property="article:tag" content="pmix">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://xiaoqiangq.github.io/2024/02/01/slurmInstall/SlurmComponents.gif">
   
@@ -357,7 +360,7 @@
 
 <p>对于单节点部署来说，必须配置 slurmctld 和 slurmd，slurmdbd 可选。然而，为了实现限制每个用户的作业数量、资源使用、作业最长运行时间等约束，还是<strong>需要配置 slurmdbd</strong>。如果是多节点使用 SLURM，还需要挂载网络文件系统（NFS），这些不在本次单节点部署中涉及，有需要的可以自行搜索学习。</p>
 <h2 id="安装依赖软件包"><a href="#安装依赖软件包" class="headerlink" title="安装依赖软件包"></a>安装依赖软件包</h2><p>在安装 Slurm 之前，需要安装一些必要的软件包和工具。在终端中执行以下命令来安装这些软件包：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 EPEL 存储库, 添加了一个第三方源</span><br>sudo yum install epel-release<br><span class="hljs-comment">#安装一些后续运行所依赖的环境 </span><br>sudo yum install -y rpm-build bzip2-devel openssl openssl-devel zlib-devel perl-DBI perl-ExtUtils-MakeMaker pam-devel readline-devel mariadb-devel python3 python3-devel gtk2 gtk2-devel gcc make <br><br><span class="hljs-comment">#sudo yum install -y numactl numactl-devel lua lua-devel rrdtool-devel ncurses-devel man2html libibmad libibumad gcc rng-tools</span><br><br><span class="hljs-comment">#这些软件后面会陆续安装</span><br>sudo yum install -y munge munge-libs munge-devel<br>sudo yum install -y hwloc-devel libevent-devel<br>sudo yum install -y mariadb mariadb-server mariadb-devel<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 安装 EPEL 存储库, 添加了一个第三方源</span><br>sudo yum install epel-release<br><span class="hljs-comment">#安装一些后续运行所依赖的环境 </span><br>sudo yum install -y rpm-build bzip2-devel openssl openssl-devel zlib-devel perl-DBI perl-ExtUtils-MakeMaker pam-devel readline-devel mariadb-devel python3 python3-devel gtk2 gtk2-devel gcc make <br><br><span class="hljs-comment">#sudo yum install -y numactl numactl-devel lua lua-devel rrdtool-devel ncurses-devel man2html libibmad libibumad gcc rng-tools</span><br><span class="hljs-comment"># json jwt http-parser libyaml ofed hdf5 lz4 nvmlInit RSMI/ROCm OneAPI freeipmi librdkafka dbus-1 gtk+ datawarp HPE netloc</span><br><span class="hljs-comment">#这些软件后面会陆续安装</span><br>sudo yum install -y munge munge-libs munge-devel<br>sudo yum install -y hwloc-devel libevent-devel<br>sudo yum install -y mariadb mariadb-server mariadb-devel<br></code></pre></td></tr></table></figure>
 
 <h2 id="Munge"><a href="#Munge" class="headerlink" title="Munge"></a>Munge</h2><p>Munge 是一个认证服务，用于生成和验证证书，广泛应用于大规模的 HPC 集群中。它允许进程在具有公共用户和组的主机组中，对其他本地或远程进程的 UID 和 GID 进行身份验证。这些主机由共享密钥定义的安全领域构成。Munge 是 Slurm 用于身份验证的工具，确保用户和守护进程的身份得到验证。</p>
 <h3 id="Munge-安装"><a href="#Munge-安装" class="headerlink" title="Munge 安装"></a>Munge 安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo yum install munge munge-libs munge-devel -y<br></code></pre></td></tr></table></figure>
@@ -513,6 +516,12 @@
       <i class="iconfont icon-tags"></i>
       
         <a href="/tags/slurm/" class="print-no-link">#slurm</a>
+      
+        <a href="/tags/mariadb/" class="print-no-link">#mariadb</a>
+      
+        <a href="/tags/munge/" class="print-no-link">#munge</a>
+      
+        <a href="/tags/pmix/" class="print-no-link">#pmix</a>
       
     </div>
   
