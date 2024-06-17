@@ -16,16 +16,16 @@
   <meta name="author" content="Qiang">
   <meta name="keywords" content="">
   
-    <meta name="description" content="VCF文件格式详解VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;VCFv4.4.pdf） 在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基本">
+    <meta name="description" content="VCF文件格式详解VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;VCFv4.4.pdf ） 在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基">
 <meta property="og:type" content="article">
 <meta property="og:title" content="5.VCF文件格式详解">
 <meta property="og:url" content="https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/index.html">
 <meta property="og:site_name" content="Qiang Wei&#39;s Lab">
-<meta property="og:description" content="VCF文件格式详解VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;VCFv4.4.pdf） 在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基本">
+<meta property="og:description" content="VCF文件格式详解VCF介绍 VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（https:&#x2F;&#x2F;samtools.github.io&#x2F;hts-specs&#x2F;VCFv4.4.pdf ） 在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://xiaoqiangq.github.io/2024/01/26/5.VCFFormat/vcf_format_v4.4.png">
 <meta property="article:published_time" content="2024-01-26T09:08:14.000Z">
-<meta property="article:modified_time" content="2024-05-30T13:32:56.984Z">
+<meta property="article:modified_time" content="2024-06-09T07:59:17.881Z">
 <meta property="article:author" content="Qiang Wei">
 <meta property="article:tag" content="bgzip">
 <meta property="article:tag" content="tabix">
@@ -327,7 +327,7 @@
               <p id="updated-time" class="note note-info" style="">
                 
                   
-                    本文最后更新于 2024年5月30日 晚上
+                    本文最后更新于 2024年6月9日 下午
                   
                 
               </p>
@@ -336,7 +336,7 @@
               <div class="markdown-body">
                 
                 <h1 id="VCF文件格式详解"><a href="#VCF文件格式详解" class="headerlink" title="VCF文件格式详解"></a>VCF文件格式详解</h1><p>VCF介绍</p>
-<p>VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（<a target="_blank" rel="noopener" href="https://samtools.github.io/hts-specs/VCFv4.4.pdf%EF%BC%89">https://samtools.github.io/hts-specs/VCFv4.4.pdf）</a></p>
+<p>VCF是用于描述SNP，INDEL和SV结果的文本文件。格式详见说明手册（<a target="_blank" rel="noopener" href="https://samtools.github.io/hts-specs/VCFv4.4.pdf">https://samtools.github.io/hts-specs/VCFv4.4.pdf</a> ）</p>
 <p>在GATK、samtools(tabix, bgzip)软件中得到很好的支持。vcf文件做记录个体或群体突变的文件格式，在生物信息学应用中举足轻重。主流的生物信息分析软件，在处理变异信息时，也基本上需要考虑支持解析或输出vcf格式的文件。</p>
 <p>文件一般包含两部分：</p>
 <ul>
